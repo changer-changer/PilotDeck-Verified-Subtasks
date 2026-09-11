@@ -1,0 +1,303 @@
+{
+  "experiment": "live-small-sample",
+  "backend": "zhipu",
+  "model": "glm-5.3-flash",
+  "sampleSize": 3,
+  "injectedFaults": false,
+  "fairness": "Local repair replays exactly the same initial responses, including their logical tokens. Every strategy has a maximum of 9 total model requests; whole-batch uses one extra complete round. Timing not compared because local initial responses are replayed.",
+  "physicalRequests": 3,
+  "results": [
+    {
+      "strategy": "no-repair",
+      "tasks": 3,
+      "accepted": 3,
+      "logicalRequests": 3,
+      "totalTokens": 1836
+    },
+    {
+      "strategy": "local-repair",
+      "tasks": 3,
+      "accepted": 3,
+      "logicalRequests": 3,
+      "totalTokens": 1836
+    },
+    {
+      "strategy": "whole-batch (no retry needed)",
+      "tasks": 3,
+      "accepted": 3,
+      "logicalRequests": 3,
+      "totalTokens": 1836
+    }
+  ],
+  "first": [
+    {
+      "task": "paid-orders",
+      "requests": 1,
+      "report": {
+        "subagentId": "no-repair-paid-orders",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":3,\"total\":90}",
+        "usage": {
+          "inputTokens": 595,
+          "outputTokens": 45,
+          "totalTokens": 640
+        },
+        "turns": 1,
+        "durationMs": 1398,
+        "acceptance": {
+          "status": "accepted",
+          "stopReason": "accepted",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": true,
+              "issues": []
+            }
+          ],
+          "repairs": 0,
+          "value": {
+            "count": 3,
+            "total": 90
+          }
+        }
+      }
+    },
+    {
+      "task": "inventory",
+      "requests": 1,
+      "report": {
+        "subagentId": "no-repair-inventory",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":7,\"total\":53}",
+        "usage": {
+          "inputTokens": 545,
+          "outputTokens": 11,
+          "totalTokens": 556
+        },
+        "turns": 1,
+        "durationMs": 917,
+        "acceptance": {
+          "status": "accepted",
+          "stopReason": "accepted",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": true,
+              "issues": []
+            }
+          ],
+          "repairs": 0,
+          "value": {
+            "count": 7,
+            "total": 53
+          }
+        }
+      }
+    },
+    {
+      "task": "refunds",
+      "requests": 1,
+      "report": {
+        "subagentId": "no-repair-refunds",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":3,\"total\":39}",
+        "usage": {
+          "inputTokens": 600,
+          "outputTokens": 40,
+          "totalTokens": 640
+        },
+        "turns": 1,
+        "durationMs": 1550,
+        "acceptance": {
+          "status": "accepted",
+          "stopReason": "accepted",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": true,
+              "issues": []
+            }
+          ],
+          "repairs": 0,
+          "value": {
+            "count": 3,
+            "total": 39
+          }
+        }
+      }
+    }
+  ],
+  "local": [
+    {
+      "task": "paid-orders",
+      "requests": 1,
+      "report": {
+        "subagentId": "local-repair-paid-orders",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":3,\"total\":90}",
+        "usage": {
+          "inputTokens": 595,
+          "outputTokens": 45,
+          "totalTokens": 640
+        },
+        "turns": 1,
+        "durationMs": 0,
+        "acceptance": {
+          "status": "accepted",
+          "stopReason": "accepted",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": true,
+              "issues": []
+            }
+          ],
+          "repairs": 0,
+          "value": {
+            "count": 3,
+            "total": 90
+          }
+        }
+      }
+    },
+    {
+      "task": "inventory",
+      "requests": 1,
+      "report": {
+        "subagentId": "local-repair-inventory",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":7,\"total\":53}",
+        "usage": {
+          "inputTokens": 545,
+          "outputTokens": 11,
+          "totalTokens": 556
+        },
+        "turns": 1,
+        "durationMs": 1,
+        "acceptance": {
+          "status": "accepted",
+          "stopReason": "accepted",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": true,
+              "issues": []
+            }
+          ],
+          "repairs": 0,
+          "value": {
+            "count": 7,
+            "total": 53
+          }
+        }
+      }
+    },
+    {
+      "task": "refunds",
+      "requests": 1,
+      "report": {
+        "subagentId": "local-repair-refunds",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":3,\"total\":39}",
+        "usage": {
+          "inputTokens": 600,
+          "outputTokens": 40,
+          "totalTokens": 640
+        },
+        "turns": 1,
+        "durationMs": 0,
+        "acceptance": {
+          "status": "accepted",
+          "stopReason": "accepted",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": true,
+              "issues": []
+            }
+          ],
+          "repairs": 0,
+          "value": {
+            "count": 3,
+            "total": 39
+          }
+        }
+      }
+    }
+  ],
+  "full": [],
+  "traces": [
+    {
+      "task": "paid-orders",
+      "strategy": "no-repair",
+      "replay": false,
+      "text": "{\"count\":3,\"total\":90}",
+      "usage": {
+        "inputTokens": 595,
+        "outputTokens": 45,
+        "totalTokens": 640
+      },
+      "durationMs": 1388
+    },
+    {
+      "task": "inventory",
+      "strategy": "no-repair",
+      "replay": false,
+      "text": "{\"count\":7,\"total\":53}",
+      "usage": {
+        "inputTokens": 545,
+        "outputTokens": 11,
+        "totalTokens": 556
+      },
+      "durationMs": 917
+    },
+    {
+      "task": "refunds",
+      "strategy": "no-repair",
+      "replay": false,
+      "text": "{\"count\":3,\"total\":39}",
+      "usage": {
+        "inputTokens": 600,
+        "outputTokens": 40,
+        "totalTokens": 640
+      },
+      "durationMs": 1548
+    },
+    {
+      "task": "paid-orders",
+      "strategy": "local-repair",
+      "replay": true,
+      "text": "{\"count\":3,\"total\":90}",
+      "usage": {
+        "inputTokens": 595,
+        "outputTokens": 45,
+        "totalTokens": 640
+      },
+      "durationMs": 1388
+    },
+    {
+      "task": "inventory",
+      "strategy": "local-repair",
+      "replay": true,
+      "text": "{\"count\":7,\"total\":53}",
+      "usage": {
+        "inputTokens": 545,
+        "outputTokens": 11,
+        "totalTokens": 556
+      },
+      "durationMs": 917
+    },
+    {
+      "task": "refunds",
+      "strategy": "local-repair",
+      "replay": true,
+      "text": "{\"count\":3,\"total\":39}",
+      "usage": {
+        "inputTokens": 600,
+        "outputTokens": 40,
+        "totalTokens": 640
+      },
+      "durationMs": 1548
+    }
+  ]
+}

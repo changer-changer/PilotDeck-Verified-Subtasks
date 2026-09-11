@@ -1,0 +1,23 @@
+name: Verified subtask acceptance
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: npm run build
+      - run: pnpm --dir ui run build
+      - run: node --import tsx --test --test-force-exit --test-timeout 60000 tests/agent/sub/acceptance/*.spec.ts tests/agent/sub/VerifiedSubagent.spec.ts tests/agent/sub/AcceptanceInvariants.spec.ts tests/agent/sub/ModelReview.spec.ts tests/agent/sub/ModelReviewInvariants.spec.ts tests/cli/model-review-native.spec.ts tests/pilot/config/acceptanceReview.spec.ts tests/tool/VerifiedAgent.spec.ts tests/gateway/VerifiedSubtaskEvents.spec.ts tests/cli/verified-artifacts-native.spec.ts
+      - run: pnpm --dir ui exec vitest run server/pilotdeck-bridge.test.js server/services/acceptanceReview.test.js src/components/settings/view/agentReview/ReviewerSettings.test.tsx
+      - run: node --import tsx scripts/verified-subtasks-benchmark.ts artifacts/verified-ci

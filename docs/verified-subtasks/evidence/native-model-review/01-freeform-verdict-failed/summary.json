@@ -1,0 +1,18 @@
+{
+  "run": "native-NatqKX",
+  "scenarioPassed": false,
+  "durationMs": 285126,
+  "acceptedSubtasks": 2,
+  "repairEvents": 0,
+  "reviewModelCalls": 12,
+  "reviewUsageTotalTokens": 52383,
+  "producerAndReviewTurns": 21,
+  "producerAndReviewUsageTotalTokens": 122881,
+  "mainModelUsage": {
+    "inputTokens": 21067,
+    "outputTokens": 8415,
+    "cacheReadTokens": 23168,
+    "totalTokens": 52650
+  },
+  "sourceSha256": "a46bb1c56eaf574c88908c59beb41da0c6b4622b42ece7ddf34c2e9eaf686adf"
+}

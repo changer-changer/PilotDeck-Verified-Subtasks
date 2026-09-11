@@ -1,0 +1,528 @@
+TAP version 13
+# (node:619818) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: public session API carries contracts through real agent tool, fork, repair and parent projection
+ok 1 - public session API carries contracts through real agent tool, fork, repair and parent projection
+  ---
+  duration_ms: 325.258714
+  type: 'test'
+  ...
+# Subtest: contract mode removes conflicting mandatory five-field system report
+ok 2 - contract mode removes conflicting mandatory five-field system report
+  ---
+  duration_ms: 1.157404
+  type: 'test'
+  ...
+# Subtest: sidechain accepted_input contains only the new repair feedback, not repeated history
+ok 3 - sidechain accepted_input contains only the new repair feedback, not repeated history
+  ---
+  duration_ms: 1.627131
+  type: 'test'
+  ...
+# Subtest: invalid host turn cap and null contract do not silently execute
+ok 4 - invalid host turn cap and null contract do not silently execute
+  ---
+  duration_ms: 0.581965
+  type: 'test'
+  ...
+# Subtest: a repair ending on a tool call cannot accept a stale earlier final answer
+ok 5 - a repair ending on a tool call cannot accept a stale earlier final answer
+  ---
+  duration_ms: 1.942157
+  type: 'test'
+  ...
+# Subtest: rejected delivery is an error tool result while retaining structured report and usage
+ok 6 - rejected delivery is an error tool result while retaining structured report and usage
+  ---
+  duration_ms: 0.436882
+  type: 'test'
+  ...
+# (node:619819) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: rejected review repairs in the SAME child, then acceptance folds review into the shared budget
+ok 7 - rejected review repairs in the SAME child, then acceptance folds review into the shared budget
+  ---
+  duration_ms: 13.107385
+  type: 'test'
+  ...
+# Subtest: deterministic schema failure skips the expensive model review
+ok 8 - deterministic schema failure skips the expensive model review
+  ---
+  duration_ms: 1.752929
+  type: 'test'
+  ...
+# Subtest: accepted requires BOTH layers and keeps every review report in attempts
+ok 9 - accepted requires BOTH layers and keeps every review report in attempts
+  ---
+  duration_ms: 1.709515
+  type: 'test'
+  ...
+# Subtest: reviewer error report is terminal reviewer_error and never accepted
+ok 10 - reviewer error report is terminal reviewer_error and never accepted
+  ---
+  duration_ms: 1.433041
+  type: 'test'
+  ...
+# Subtest: malformed reviewer (throws) is terminal reviewer_error
+ok 11 - malformed reviewer (throws) is terminal reviewer_error
+  ---
+  duration_ms: 1.616397
+  type: 'test'
+  ...
+# Subtest: reviewer turns/usage count against the shared turn budget
+ok 12 - reviewer turns/usage count against the shared turn budget
+  ---
+  duration_ms: 1.269398
+  type: 'test'
+  ...
+# Subtest: no remaining review budget → reviewer never invoked, stopReason turn_limit
+ok 13 - no remaining review budget → reviewer never invoked, stopReason turn_limit
+  ---
+  duration_ms: 2.350652
+  type: 'test'
+  ...
+# Subtest: default reviewer inherits the parent model despite a different subagentModel
+ok 14 - default reviewer inherits the parent model despite a different subagentModel
+  ---
+  duration_ms: 1.91414
+  type: 'test'
+  ...
+# Subtest: no reviewer configured preserves legacy behavior
+ok 15 - no reviewer configured preserves legacy behavior
+  ---
+  duration_ms: 1.832207
+  type: 'test'
+  ...
+# (node:619821) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: model rejection repairs the same child and includes both layers in usage
+ok 16 - model rejection repairs the same child and includes both layers in usage
+  ---
+  duration_ms: 8.899177
+  type: 'test'
+  ...
+# Subtest: schema failure skips expensive model review
+ok 17 - schema failure skips expensive model review
+  ---
+  duration_ms: 1.233366
+  type: 'test'
+  ...
+# Subtest: review budget exhaustion prevents repair or unchecked acceptance
+ok 18 - review budget exhaustion prevents repair or unchecked acceptance
+  ---
+  duration_ms: 1.405314
+  type: 'test'
+  ...
+# Subtest: unavailable, malformed and contradictory reviewer results fail closed
+ok 19 - unavailable, malformed and contradictory reviewer results fail closed
+  ---
+  duration_ms: 5.625772
+  type: 'test'
+  ...
+# Subtest: factory uses an independent read-only model with no parent system prompt or recursion
+ok 20 - factory uses an independent read-only model with no parent system prompt or recursion
+  ---
+  duration_ms: 7.627468
+  type: 'test'
+  ...
+# Subtest: factory refuses artifact claims without an actual successful read
+ok 21 - factory refuses artifact claims without an actual successful read
+  ---
+  duration_ms: 0.990486
+  type: 'test'
+  ...
+# Subtest: factory records independently read artifact evidence using the selected reviewer
+ok 22 - factory records independently read artifact evidence using the selected reviewer
+  ---
+  duration_ms: 11.048807
+  type: 'test'
+  ...
+# Subtest: inconclusive and internally conflicting verdicts are terminal errors
+ok 23 - inconclusive and internally conflicting verdicts are terminal errors
+  ---
+  duration_ms: 3.380511
+  type: 'test'
+  ...
+# Subtest: factory counts failed requests even when the provider supplies no usage
+ok 24 - factory counts failed requests even when the provider supplies no usage
+  ---
+  duration_ms: 1.310105
+  type: 'test'
+  ...
+# Subtest: zero review budget or prior abort never starts a model request
+ok 25 - zero review budget or prior abort never starts a model request
+  ---
+  duration_ms: 0.628876
+  type: 'test'
+  ...
+# Subtest: review timeout returns a terminal error even when transport ignores cancellation
+ok 26 - review timeout returns a terminal error even when transport ignores cancellation
+  ---
+  duration_ms: 1000.967095
+  type: 'test'
+  ...
+# Subtest: typed verdict submission ends the reviewer without an extra prose turn
+ok 27 - typed verdict submission ends the reviewer without an extra prose turn
+  ---
+  duration_ms: 3.209654
+  type: 'test'
+  ...
+# Subtest: a producer structured submission reaches acceptance before it can continue working
+ok 28 - a producer structured submission reaches acceptance before it can continue working
+  ---
+  duration_ms: 4.46059
+  type: 'test'
+  ...
+# (node:619832) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: acceptance passes on the first attempt without repairs
+ok 29 - acceptance passes on the first attempt without repairs
+  ---
+  duration_ms: 11.824701
+  type: 'test'
+  ...
+# Subtest: invalid first attempt repairs with feedback while prior messages stay visible
+ok 30 - invalid first attempt repairs with feedback while prior messages stay visible
+  ---
+  duration_ms: 2.691898
+  type: 'test'
+  ...
+# Subtest: repeated invalid answers stop at the repair limit with the latest markdown
+ok 31 - repeated invalid answers stop at the repair limit with the latest markdown
+  ---
+  duration_ms: 2.927616
+  type: 'test'
+  ...
+# Subtest: total maxTurns budget is shared across attempts and reports turn_limit
+ok 32 - total maxTurns budget is shared across attempts and reports turn_limit
+  ---
+  duration_ms: 2.920608
+  type: 'test'
+  ...
+# Subtest: abort is never repaired
+ok 33 - abort is never repaired
+  ---
+  duration_ms: 1.81356
+  type: 'test'
+  ...
+# Subtest: host validator exception is terminal and not repaired
+ok 34 - host validator exception is terminal and not repaired
+  ---
+  duration_ms: 1.820608
+  type: 'test'
+  ...
+# Subtest: omitted acceptance contract preserves the legacy report
+ok 35 - omitted acceptance contract preserves the legacy report
+  ---
+  duration_ms: 1.379825
+  type: 'test'
+  ...
+# Subtest: unknown validator fails preflight before any model call
+ok 36 - unknown validator fails preflight before any model call
+  ---
+  duration_ms: 0.585177
+  type: 'test'
+  ...
+# Subtest: out-of-range acceptance budgets fail preflight before any model call
+ok 37 - out-of-range acceptance budgets fail preflight before any model call
+  ---
+  duration_ms: 0.691859
+  type: 'test'
+  ...
+# Subtest: repairing one child never reruns a successful sibling
+ok 38 - repairing one child never reruns a successful sibling
+  ---
+  duration_ms: 12.293718
+  type: 'test'
+  ...
+# Subtest: rejected acceptance marks lifecycle failure without destroying the report
+ok 39 - rejected acceptance marks lifecycle failure without destroying the report
+  ---
+  duration_ms: 2.16493
+  type: 'test'
+  ...
+# Subtest: host can register a not-yet-produced file, then validate creation and repair
+ok 40 - host can register a not-yet-produced file, then validate creation and repair
+  ---
+  duration_ms: 17.368522
+  type: 'test'
+  ...
+# Subtest: snapshot and exact project scope survive manifest edits
+ok 41 - snapshot and exact project scope survive manifest edits
+  ---
+  duration_ms: 20.945345
+  type: 'test'
+  ...
+# Subtest: read bounds reject invalid JSON, trailing bytes, oversize, directories and symlink escape
+ok 42 - read bounds reject invalid JSON, trailing bytes, oversize, directories and symlink escape
+  ---
+  duration_ms: 9.500108
+  type: 'test'
+  ...
+# Subtest: opt-in config fails closed for missing, relative, directory, oversize and unknown fields
+ok 43 - opt-in config fails closed for missing, relative, directory, oversize and unknown fields
+  ---
+  duration_ms: 5.015491
+  type: 'test'
+  ...
+# Subtest: aborted checks propagate and are never accepted
+ok 44 - aborted checks propagate and are never accepted
+  ---
+  duration_ms: 3.024173
+  type: 'test'
+  ...
+# Subtest: explicit claim matching checks actual delivery without a fixed business answer
+ok 45 - explicit claim matching checks actual delivery without a fixed business answer
+  ---
+  duration_ms: 8.216968
+  type: 'test'
+  ...
+# Subtest: preflight rejects unsupported/impossible schemas and invalid budgets
+ok 46 - preflight rejects unsupported/impossible schemas and invalid budgets
+  ---
+  duration_ms: 4.50983
+  type: 'test'
+  ...
+# Subtest: supported schema checks types, required fields, extra fields, bounds and uniqueness
+ok 47 - supported schema checks types, required fields, extra fields, bounds and uniqueness
+  ---
+  duration_ms: 4.333489
+  type: 'test'
+  ...
+# Subtest: strict parsing rejects prose/truncated/oversized output, accepts one JSON fence
+ok 48 - strict parsing rejects prose/truncated/oversized output, accepts one JSON fence
+  ---
+  duration_ms: 3.31747
+  type: 'test'
+  ...
+# Subtest: deep const/enum comparison ignores object key order and honors Unicode length
+ok 49 - deep const/enum comparison ignores object key order and honors Unicode length
+  ---
+  duration_ms: 1.397265
+  type: 'test'
+  ...
+# Subtest: trusted semantic checker can reject a structurally valid false claim
+ok 50 - trusted semantic checker can reject a structurally valid false claim
+  ---
+  duration_ms: 4.945222
+  type: 'test'
+  ...
+# Subtest: validator exceptions and invalid return values are operational failures
+ok 51 - validator exceptions and invalid return values are operational failures
+  ---
+  duration_ms: 1.172801
+  type: 'test'
+  ...
+# Subtest: abort ends a pending validator without starting later validators
+ok 52 - abort ends a pending validator without starting later validators
+  ---
+  duration_ms: 0.990379
+  type: 'test'
+  ...
+# Subtest: contract snapshot resists caller mutation and repair feedback is bounded
+ok 53 - contract snapshot resists caller mutation and repair feedback is bounded
+  ---
+  duration_ms: 12.522955
+  type: 'test'
+  ...
+# (node:619845) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: accepts only after an independent successful read; explicit model override; no recursion
+ok 54 - accepts only after an independent successful read; explicit model override; no recursion
+  ---
+  duration_ms: 28.853514
+  type: 'test'
+  ...
+# Subtest: cannot accept a claimed artifact that was never actually read
+ok 55 - cannot accept a claimed artifact that was never actually read
+  ---
+  duration_ms: 2.853124
+  type: 'test'
+  ...
+# Subtest: a FAILED read does not count as evidence
+ok 56 - a FAILED read does not count as evidence
+  ---
+  duration_ms: 8.508042
+  type: 'test'
+  ...
+# Subtest: default reviewer model inherits the parent conversation model
+ok 57 - default reviewer model inherits the parent conversation model
+  ---
+  duration_ms: 3.275903
+  type: 'test'
+  ...
+# Subtest: malformed verdict fails closed as error
+ok 58 - malformed verdict fails closed as error
+  ---
+  duration_ms: 2.550104
+  type: 'test'
+  ...
+# Subtest: inconclusive verdict is a terminal error, never accepted
+ok 59 - inconclusive verdict is a terminal error, never accepted
+  ---
+  duration_ms: 1.603518
+  type: 'test'
+  ...
+# Subtest: reviewer timeout fails closed while keeping usage captured from the stream
+ok 60 - reviewer timeout fails closed while keeping usage captured from the stream
+  ---
+  duration_ms: 1001.554255
+  type: 'test'
+  ...
+# Subtest: oversized task or claim fails closed before any model call
+ok 61 - oversized task or claim fails closed before any model call
+  ---
+  duration_ms: 1.065784
+  type: 'test'
+  ...
+# (node:619851) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# fatal: 不是 git 仓库（或者任何父目录）：.git
+# fatal: 不是 git 仓库（或者任何父目录）：.git
+# [session-title] generation skipped (invalid_json): Unexpected token 'R', "Review fixture" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"4e60c8dd-32db-4f28-818e-17b70af6100f","decisionType":"skip","snapshot":{"tokens":9729,"estimateSource":"estimator","localEstimateTokens":9729,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.158349609375,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-zDTeFr/workspace::sub::5905672f-0c3d-4e7a-9607-91b81bb16b48","turnId":"5905672f-0c3d-4e7a-9607-91b81bb16b48-a1","decisionType":"skip","snapshot":{"tokens":6583,"estimateSource":"estimator","localEstimateTokens":6583,"totalContextTokens":1000000,"maxContextTokens":995904,"effectiveContextTokens":995904,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.006610074866653814,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=undefined, model=test/old-main, orchGate=false, alreadyOrch=false, resolvedFrom=scenario
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-zDTeFr/workspace::sub::5905672f-0c3d-4e7a-9607-91b81bb16b48","turnId":"5905672f-0c3d-4e7a-9607-91b81bb16b48-a1","decisionType":"skip","snapshot":{"tokens":6583,"estimateSource":"estimator","localEstimateTokens":6583,"totalContextTokens":65536,"maxContextTokens":65536,"effectiveContextTokens":65536,"maxOutputTokens":0,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1004486083984375,"source":"local","exact":false,"reservedOutputTokens":0}}
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"4e60c8dd-32db-4f28-818e-17b70af6100f","decisionType":"skip","snapshot":{"tokens":10012,"estimateSource":"estimator","localEstimateTokens":10012,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.16295572916666667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# Subtest: native reviewer inherits actual turn model instead of child or old default
+ok 62 - native reviewer inherits actual turn model instead of child or old default
+  ---
+  duration_ms: 799.373142
+  type: 'test'
+  ...
+# fatal: 不是 git 仓库（或者任何父目录）：.git
+# fatal: 不是 git 仓库（或者任何父目录）：.git
+# [session-title] generation skipped (invalid_json): Unexpected token 'R', "Review fixture" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"f59eeeba-1dba-4b3a-bef1-96c5d3fad5db","decisionType":"skip","snapshot":{"tokens":9730,"estimateSource":"estimator","localEstimateTokens":9730,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15836588541666666,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-bWSSl4/workspace::sub::52921362-15d4-44c5-b444-e87729857a06","turnId":"52921362-15d4-44c5-b444-e87729857a06-a1","decisionType":"skip","snapshot":{"tokens":6584,"estimateSource":"estimator","localEstimateTokens":6584,"totalContextTokens":1000000,"maxContextTokens":995904,"effectiveContextTokens":995904,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.0066110789795000326,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=undefined, model=test/old-main, orchGate=false, alreadyOrch=false, resolvedFrom=scenario
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-bWSSl4/workspace::sub::52921362-15d4-44c5-b444-e87729857a06","turnId":"52921362-15d4-44c5-b444-e87729857a06-a1","decisionType":"skip","snapshot":{"tokens":6584,"estimateSource":"estimator","localEstimateTokens":6584,"totalContextTokens":65536,"maxContextTokens":65536,"effectiveContextTokens":65536,"maxOutputTokens":0,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1004638671875,"source":"local","exact":false,"reservedOutputTokens":0}}
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"f59eeeba-1dba-4b3a-bef1-96c5d3fad5db","decisionType":"skip","snapshot":{"tokens":10013,"estimateSource":"estimator","localEstimateTokens":10013,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.16297200520833333,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# Subtest: native reviewer uses explicit selection
+ok 63 - native reviewer uses explicit selection
+  ---
+  duration_ms: 178.407452
+  type: 'test'
+  ...
+# (node:619857) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# fatal: 不是 git 仓库（或者任何父目录）：.git
+# fatal: 不是 git 仓库（或者任何父目录）：.git
+# [session-title] generation skipped (invalid_json): Unexpected token 'V', "Verified native" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"native-integration","turnId":"132b269b-3959-4cbb-b316-b9ca3a6817a5","decisionType":"skip","snapshot":{"tokens":9815,"estimateSource":"estimator","localEstimateTokens":9815,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15974934895833334,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] parseTier failed. Judge text: "Verified native"
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=true, alreadyOrch=false, triggerTiers=complex
+# [autoOrch] tier "medium" not in triggerTiers, skipping
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-27M8Ic/workspace::sub::6de84776-51b0-4015-9924-fd757a02d543","turnId":"6de84776-51b0-4015-9924-fd757a02d543-a1","decisionType":"skip","snapshot":{"tokens":6561,"estimateSource":"estimator","localEstimateTokens":6561,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.106787109375,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-27M8Ic/workspace::sub::1195f53f-a48c-4a74-9ba8-25205103aa8a","turnId":"1195f53f-a48c-4a74-9ba8-25205103aa8a-a1","decisionType":"skip","snapshot":{"tokens":6562,"estimateSource":"estimator","localEstimateTokens":6562,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.10680338541666666,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [token-saver] parseTier failed. Judge text: "Verified native"
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [token-saver] parseTier failed. Judge text: "Verified native"
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-27M8Ic/workspace::sub::1195f53f-a48c-4a74-9ba8-25205103aa8a","turnId":"1195f53f-a48c-4a74-9ba8-25205103aa8a-a1","decisionType":"skip","snapshot":{"tokens":6595,"estimateSource":"estimator","localEstimateTokens":6595,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.10734049479166667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-27M8Ic/workspace::sub::1195f53f-a48c-4a74-9ba8-25205103aa8a","turnId":"1195f53f-a48c-4a74-9ba8-25205103aa8a-a2","decisionType":"skip","snapshot":{"tokens":6708,"estimateSource":"estimator","localEstimateTokens":6708,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1091796875,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-27M8Ic/workspace::sub::1195f53f-a48c-4a74-9ba8-25205103aa8a","turnId":"1195f53f-a48c-4a74-9ba8-25205103aa8a-a2","decisionType":"skip","snapshot":{"tokens":6748,"estimateSource":"estimator","localEstimateTokens":6748,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.10983072916666667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [context:auto-compact] policy_skip {"sessionId":"native-integration","turnId":"132b269b-3959-4cbb-b316-b9ca3a6817a5","decisionType":"skip","snapshot":{"tokens":10207,"estimateSource":"estimator","localEstimateTokens":10207,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.16612955729166667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=true, alreadyOrch=false, triggerTiers=complex
+# [autoOrch] tier "medium" not in triggerTiers, skipping
+# Subtest: ordinary local gateway loads host checks and repairs a real file without redoing its sibling
+ok 64 - ordinary local gateway loads host checks and repairs a real file without redoing its sibling
+  ---
+  duration_ms: 4866.678766
+  type: 'test'
+  ...
+# Subtest: maps subagent acceptance phases to a gateway subagent_acceptance status
+ok 65 - maps subagent acceptance phases to a gateway subagent_acceptance status
+  ---
+  duration_ms: 1.690105
+  type: 'test'
+  ...
+# Subtest: maps a rejected acceptance preserving phase, attempt and bounded issues
+ok 66 - maps a rejected acceptance preserving phase, attempt and bounded issues
+  ---
+  duration_ms: 0.393461
+  type: 'test'
+  ...
+# Subtest: legacy subagent lifecycle events keep their existing mapping
+ok 67 - legacy subagent lifecycle events keep their existing mapping
+  ---
+  duration_ms: 0.149547
+  type: 'test'
+  ...
+# Subtest: review defaults preserve main model inheritance and allow explicit reviewer
+ok 68 - review defaults preserve main model inheritance and allow explicit reviewer
+  ---
+  duration_ms: 41.658712
+  type: 'test'
+  ...
+# Subtest: review config rejects ambiguous models, typos, unbounded budgets and wrong types
+ok 69 - review config rejects ambiguous models, typos, unbounded budgets and wrong types
+  ---
+  duration_ms: 39.271115
+  type: 'test'
+  ...
+# Subtest: acceptance contract reaches the fork and survives into tool output metadata
+ok 70 - acceptance contract reaches the fork and survives into tool output metadata
+  ---
+  duration_ms: 3.269857
+  type: 'test'
+  ...
+# Subtest: accepted acceptance passes through without rejection framing
+ok 71 - accepted acceptance passes through without rejection framing
+  ---
+  duration_ms: 2.435599
+  type: 'test'
+  ...
+# Subtest: invalid acceptance shape is rejected before the fork launches
+ok 72 - invalid acceptance shape is rejected before the fork launches
+  ---
+  duration_ms: 1.685836
+  type: 'test'
+  ...
+# Subtest: standalone fallback refuses acceptance instead of silently ignoring it
+ok 73 - standalone fallback refuses acceptance instead of silently ignoring it
+  ---
+  duration_ms: 0.585153
+  type: 'test'
+  ...
+# Subtest: fallback without acceptance keeps legacy single-shot behavior
+ok 74 - fallback without acceptance keeps legacy single-shot behavior
+  ---
+  duration_ms: 0.62215
+  type: 'test'
+  ...
+# Subtest: normal and ask-mode agent tool schemas advertise the acceptance property
+ok 75 - normal and ask-mode agent tool schemas advertise the acceptance property
+  ---
+  duration_ms: 0.684595
+  type: 'test'
+  ...
+1..75
+# tests 75
+# suites 0
+# pass 75
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6510.199706

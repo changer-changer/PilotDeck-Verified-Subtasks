@@ -1,0 +1,27 @@
+{
+  "run": "native-oTZoZr",
+  "scenarioPassed": true,
+  "durationMs": 160474,
+  "acceptedSubtasks": 4,
+  "repairEvents": 1,
+  "reviewModelCalls": 13,
+  "reviewUsageTotalTokens": 58042,
+  "producerAndReviewTurns": 25,
+  "producerAndReviewUsageTotalTokens": 151619,
+  "mainModelUsage": {
+    "inputTokens": 16924,
+    "outputTokens": 2970,
+    "cacheReadTokens": 11648,
+    "totalTokens": 31542
+  },
+  "sourceSha256": "f360c0ee8bd6f688852bf52488aaa705a44493705ae5ebd5baefe8713b138fd8",
+  "independentAssertions": {
+    "onlyFourChildren": true,
+    "modelCausedRepair": true,
+    "sameChildAcceptedAfterRepair": true,
+    "firstLayerPassedBeforeModelRejection": true,
+    "threeSiblingsHashAndMtimeUnchanged": true,
+    "mainTurnCompletedWithoutGatewayError": true
+  },
+  "repairedSubagentId": "980c6a8e-f540-47f3-bd21-8d07b7c1420a"
+}

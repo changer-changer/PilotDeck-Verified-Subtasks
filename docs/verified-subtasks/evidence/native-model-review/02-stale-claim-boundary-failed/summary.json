@@ -1,0 +1,13 @@
+{
+  "run": "native-ClX7Lt",
+  "scenarioPassed": false,
+  "durationMs": 360597,
+  "acceptedSubtasks": 4,
+  "repairEvents": 0,
+  "reviewModelCalls": 9,
+  "reviewUsageTotalTokens": 40040,
+  "producerAndReviewTurns": 22,
+  "producerAndReviewUsageTotalTokens": 156196,
+  "mainModelUsage": null,
+  "sourceSha256": "fb3d3c853ef6f20efb75a292ca684d37288e149f523951ae6e6eda58454ee1b4"
+}

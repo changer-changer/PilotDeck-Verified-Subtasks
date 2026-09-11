@@ -1,0 +1,57 @@
+{
+  "experiment": "fault-injection",
+  "model": "scripted fault-injection-v1, not a live model",
+  "injectedDefect": "sales total 196 instead of 186 on initial delivery",
+  "aggregateRequestCap": 30,
+  "tokenMetrics": "not simulated",
+  "results": [
+    {
+      "strategy": "no-repair",
+      "tasks": 3,
+      "passed": 2,
+      "modelRequests": 6,
+      "calls": {
+        "sales": 2,
+        "stock": 2,
+        "refunds": 2
+      },
+      "writes": {
+        "sales": 1,
+        "stock": 1,
+        "refunds": 1
+      }
+    },
+    {
+      "strategy": "whole-batch",
+      "tasks": 3,
+      "passed": 3,
+      "modelRequests": 15,
+      "calls": {
+        "sales": 5,
+        "stock": 5,
+        "refunds": 5
+      },
+      "writes": {
+        "sales": 2,
+        "stock": 2,
+        "refunds": 2
+      }
+    },
+    {
+      "strategy": "local-repair",
+      "tasks": 3,
+      "passed": 3,
+      "modelRequests": 9,
+      "calls": {
+        "sales": 5,
+        "refunds": 2,
+        "stock": 2
+      },
+      "writes": {
+        "sales": 2,
+        "refunds": 1,
+        "stock": 1
+      }
+    }
+  ]
+}

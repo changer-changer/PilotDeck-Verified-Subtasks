@@ -1,0 +1,1080 @@
+{
+  "strategy": "whole-batch",
+  "tasks": 3,
+  "passed": 3,
+  "modelRequests": 15,
+  "calls": {
+    "sales": 5,
+    "stock": 5,
+    "refunds": 5
+  },
+  "writes": {
+    "sales": 2,
+    "stock": 2,
+    "refunds": 2
+  },
+  "reports": [
+    {
+      "subagentId": "sales-1",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.json\",\"result\":{\"count\":3,\"total\":186}}",
+      "usage": {},
+      "turns": 3,
+      "durationMs": 6,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "sales.json",
+          "result": {
+            "count": 3,
+            "total": 186
+          }
+        }
+      }
+    },
+    {
+      "subagentId": "stock-1",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"stock.json\",\"result\":{\"count\":2,\"total\":48}}",
+      "usage": {},
+      "turns": 3,
+      "durationMs": 5,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "stock.json",
+          "result": {
+            "count": 2,
+            "total": 48
+          }
+        }
+      }
+    },
+    {
+      "subagentId": "refunds-1",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.json\",\"result\":{\"count\":2,\"total\":12}}",
+      "usage": {},
+      "turns": 3,
+      "durationMs": 5,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "refunds.json",
+          "result": {
+            "count": 2,
+            "total": 12
+          }
+        }
+      }
+    }
+  ],
+  "events": [
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "sales-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "sales.json",
+            "content": "{\"count\":3,\"total\":196}"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "sales-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "sales.json",
+            "content": "{\"count\":3,\"total\":196}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "whole-batch-sales-0",
+      "turnId": "sales-0-a1",
+      "toolCallId": "sales-0-1",
+      "toolName": "write_file"
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "stock-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "stock.json",
+            "content": "{\"count\":2,\"total\":48}"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "stock-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "stock.json",
+            "content": "{\"count\":2,\"total\":48}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "whole-batch-stock-0",
+      "turnId": "stock-0-a1",
+      "toolCallId": "stock-0-1",
+      "toolName": "write_file"
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "refunds-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "refunds.json",
+            "content": "{\"count\":2,\"total\":12}"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "refunds-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "refunds.json",
+            "content": "{\"count\":2,\"total\":12}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "whole-batch-refunds-0",
+      "turnId": "refunds-0-a1",
+      "toolCallId": "refunds-0-1",
+      "toolName": "write_file"
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "whole-batch-stock-0",
+      "turnId": "stock-0-a1",
+      "toolCallId": "stock-0-1",
+      "toolName": "write_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "stock-0-1",
+        "toolName": "write_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "Created stock.json."
+          }
+        ],
+        "data": {
+          "type": "create",
+          "filePath": "<EVIDENCE_ROOT>/deterministic-final/whole-batch/stock.json",
+          "content": "{\"count\":2,\"total\":48}",
+          "structuredPatch": [
+            {
+              "oldStart": 1,
+              "oldLines": 0,
+              "newStart": 1,
+              "newLines": 1,
+              "lines": [
+                {
+                  "type": "add",
+                  "text": "{\"count\":2,\"total\":48}"
+                }
+              ]
+            }
+          ],
+          "originalFile": null,
+          "gitDiff": {
+            "path": "stock.json",
+            "diff": "--- /dev/null\n+++ b/stock.json\n@@ -1,0 +1 @@\n+{\"count\":2,\"total\":48}"
+          }
+        },
+        "metadata": {
+          "bytesWritten": 22,
+          "mtimeMs": 1789120572582
+        },
+        "startedAt": "2026-09-11T09:56:12.582Z",
+        "completedAt": "2026-09-11T09:56:12.583Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "text_delta",
+        "text": "{\"artifact\":\"stock.json\",\"result\":{\"count\":2,\"total\":48}}"
+      }
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "phase": "validating",
+      "attempt": 1
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "whole-batch-sales-0",
+      "turnId": "sales-0-a1",
+      "toolCallId": "sales-0-1",
+      "toolName": "write_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "sales-0-1",
+        "toolName": "write_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "Created sales.json."
+          }
+        ],
+        "data": {
+          "type": "create",
+          "filePath": "<EVIDENCE_ROOT>/deterministic-final/whole-batch/sales.json",
+          "content": "{\"count\":3,\"total\":196}",
+          "structuredPatch": [
+            {
+              "oldStart": 1,
+              "oldLines": 0,
+              "newStart": 1,
+              "newLines": 1,
+              "lines": [
+                {
+                  "type": "add",
+                  "text": "{\"count\":3,\"total\":196}"
+                }
+              ]
+            }
+          ],
+          "originalFile": null,
+          "gitDiff": {
+            "path": "sales.json",
+            "diff": "--- /dev/null\n+++ b/sales.json\n@@ -1,0 +1 @@\n+{\"count\":3,\"total\":196}"
+          }
+        },
+        "metadata": {
+          "bytesWritten": 23,
+          "mtimeMs": 1789120572582
+        },
+        "startedAt": "2026-09-11T09:56:12.581Z",
+        "completedAt": "2026-09-11T09:56:12.584Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "text_delta",
+        "text": "{\"artifact\":\"sales.json\",\"result\":{\"count\":3,\"total\":196}}"
+      }
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "phase": "validating",
+      "attempt": 1
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "whole-batch-refunds-0",
+      "turnId": "refunds-0-a1",
+      "toolCallId": "refunds-0-1",
+      "toolName": "write_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "refunds-0-1",
+        "toolName": "write_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "Created refunds.json."
+          }
+        ],
+        "data": {
+          "type": "create",
+          "filePath": "<EVIDENCE_ROOT>/deterministic-final/whole-batch/refunds.json",
+          "content": "{\"count\":2,\"total\":12}",
+          "structuredPatch": [
+            {
+              "oldStart": 1,
+              "oldLines": 0,
+              "newStart": 1,
+              "newLines": 1,
+              "lines": [
+                {
+                  "type": "add",
+                  "text": "{\"count\":2,\"total\":12}"
+                }
+              ]
+            }
+          ],
+          "originalFile": null,
+          "gitDiff": {
+            "path": "refunds.json",
+            "diff": "--- /dev/null\n+++ b/refunds.json\n@@ -1,0 +1 @@\n+{\"count\":2,\"total\":12}"
+          }
+        },
+        "metadata": {
+          "bytesWritten": 22,
+          "mtimeMs": 1789120572582
+        },
+        "startedAt": "2026-09-11T09:56:12.582Z",
+        "completedAt": "2026-09-11T09:56:12.585Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "text_delta",
+        "text": "{\"artifact\":\"refunds.json\",\"result\":{\"count\":2,\"total\":12}}"
+      }
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "phase": "validating",
+      "attempt": 1
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "phase": "accepted",
+      "attempt": 1
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "phase": "rejected",
+      "attempt": 1,
+      "issues": [
+        {
+          "path": "$.result",
+          "code": "artifact_contents",
+          "message": "Saved data does not match source calculation; expected {\"count\":3,\"total\":186}"
+        }
+      ]
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "phase": "accepted",
+      "attempt": 1
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-1",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "sales-1-1",
+          "name": "read_file",
+          "input": {
+            "file_path": "sales.json"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-1",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "sales-1-1",
+          "name": "read_file",
+          "input": {
+            "file_path": "sales.json"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "whole-batch-sales-1",
+      "turnId": "sales-1-a1",
+      "toolCallId": "sales-1-1",
+      "toolName": "read_file"
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-1",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "stock-1-1",
+          "name": "read_file",
+          "input": {
+            "file_path": "stock.json"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-1",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "stock-1-1",
+          "name": "read_file",
+          "input": {
+            "file_path": "stock.json"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "whole-batch-stock-1",
+      "turnId": "stock-1-a1",
+      "toolCallId": "stock-1-1",
+      "toolName": "read_file"
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-1",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "refunds-1-1",
+          "name": "read_file",
+          "input": {
+            "file_path": "refunds.json"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-1",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "refunds-1-1",
+          "name": "read_file",
+          "input": {
+            "file_path": "refunds.json"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "whole-batch-refunds-1",
+      "turnId": "refunds-1-a1",
+      "toolCallId": "refunds-1-1",
+      "toolName": "read_file"
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "whole-batch-sales-1",
+      "turnId": "sales-1-a1",
+      "toolCallId": "sales-1-1",
+      "toolName": "read_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-1",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "sales-1-1",
+        "toolName": "read_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "1|{\"count\":3,\"total\":196}"
+          }
+        ],
+        "data": {
+          "filePath": "sales.json",
+          "kind": "text",
+          "startLine": 1,
+          "endLine": 1,
+          "totalLines": 1,
+          "truncated": false,
+          "autoPaged": false
+        },
+        "metadata": {
+          "truncated": false
+        },
+        "startedAt": "2026-09-11T09:56:12.586Z",
+        "completedAt": "2026-09-11T09:56:12.589Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-1",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "sales-1-2",
+          "name": "write_file",
+          "input": {
+            "file_path": "sales.json",
+            "content": "{\"count\":3,\"total\":186}"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-1",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "sales-1-2",
+          "name": "write_file",
+          "input": {
+            "file_path": "sales.json",
+            "content": "{\"count\":3,\"total\":186}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "whole-batch-sales-1",
+      "turnId": "sales-1-a1",
+      "toolCallId": "sales-1-2",
+      "toolName": "write_file"
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "whole-batch-stock-1",
+      "turnId": "stock-1-a1",
+      "toolCallId": "stock-1-1",
+      "toolName": "read_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-1",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "stock-1-1",
+        "toolName": "read_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "1|{\"count\":2,\"total\":48}"
+          }
+        ],
+        "data": {
+          "filePath": "stock.json",
+          "kind": "text",
+          "startLine": 1,
+          "endLine": 1,
+          "totalLines": 1,
+          "truncated": false,
+          "autoPaged": false
+        },
+        "metadata": {
+          "truncated": false
+        },
+        "startedAt": "2026-09-11T09:56:12.587Z",
+        "completedAt": "2026-09-11T09:56:12.589Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-1",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "stock-1-2",
+          "name": "write_file",
+          "input": {
+            "file_path": "stock.json",
+            "content": "{\"count\":2,\"total\":48}"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-1",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "stock-1-2",
+          "name": "write_file",
+          "input": {
+            "file_path": "stock.json",
+            "content": "{\"count\":2,\"total\":48}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "whole-batch-stock-1",
+      "turnId": "stock-1-a1",
+      "toolCallId": "stock-1-2",
+      "toolName": "write_file"
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "whole-batch-refunds-1",
+      "turnId": "refunds-1-a1",
+      "toolCallId": "refunds-1-1",
+      "toolName": "read_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-1",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "refunds-1-1",
+        "toolName": "read_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "1|{\"count\":2,\"total\":12}"
+          }
+        ],
+        "data": {
+          "filePath": "refunds.json",
+          "kind": "text",
+          "startLine": 1,
+          "endLine": 1,
+          "totalLines": 1,
+          "truncated": false,
+          "autoPaged": false
+        },
+        "metadata": {
+          "truncated": false
+        },
+        "startedAt": "2026-09-11T09:56:12.588Z",
+        "completedAt": "2026-09-11T09:56:12.590Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-1",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "refunds-1-2",
+          "name": "write_file",
+          "input": {
+            "file_path": "refunds.json",
+            "content": "{\"count\":2,\"total\":12}"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-1",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "refunds-1-2",
+          "name": "write_file",
+          "input": {
+            "file_path": "refunds.json",
+            "content": "{\"count\":2,\"total\":12}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "whole-batch-refunds-1",
+      "turnId": "refunds-1-a1",
+      "toolCallId": "refunds-1-2",
+      "toolName": "write_file"
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "whole-batch-sales-1",
+      "turnId": "sales-1-a1",
+      "toolCallId": "sales-1-2",
+      "toolName": "write_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-1",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "sales-1-2",
+        "toolName": "write_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "Overwrote sales.json."
+          }
+        ],
+        "data": {
+          "type": "update",
+          "filePath": "<EVIDENCE_ROOT>/deterministic-final/whole-batch/sales.json",
+          "content": "{\"count\":3,\"total\":186}",
+          "structuredPatch": [
+            {
+              "oldStart": 1,
+              "oldLines": 1,
+              "newStart": 1,
+              "newLines": 1,
+              "lines": [
+                {
+                  "type": "delete",
+                  "text": "{\"count\":3,\"total\":196}"
+                },
+                {
+                  "type": "add",
+                  "text": "{\"count\":3,\"total\":186}"
+                }
+              ]
+            }
+          ],
+          "originalFile": "{\"count\":3,\"total\":196}",
+          "gitDiff": {
+            "path": "sales.json",
+            "diff": "--- a/sales.json\n+++ b/sales.json\n@@ -1 +1 @@\n-{\"count\":3,\"total\":196}\n+{\"count\":3,\"total\":186}"
+          }
+        },
+        "metadata": {
+          "bytesWritten": 23,
+          "mtimeMs": 1789120572590
+        },
+        "startedAt": "2026-09-11T09:56:12.589Z",
+        "completedAt": "2026-09-11T09:56:12.591Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-1",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "text_delta",
+        "text": "{\"artifact\":\"sales.json\",\"result\":{\"count\":3,\"total\":186}}"
+      }
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-1",
+      "subagentType": "general-purpose",
+      "phase": "validating",
+      "attempt": 1
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "whole-batch-refunds-1",
+      "turnId": "refunds-1-a1",
+      "toolCallId": "refunds-1-2",
+      "toolName": "write_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-1",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "refunds-1-2",
+        "toolName": "write_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "Overwrote refunds.json."
+          }
+        ],
+        "data": {
+          "type": "update",
+          "filePath": "<EVIDENCE_ROOT>/deterministic-final/whole-batch/refunds.json",
+          "content": "{\"count\":2,\"total\":12}",
+          "structuredPatch": [],
+          "originalFile": "{\"count\":2,\"total\":12}"
+        },
+        "metadata": {
+          "bytesWritten": 22,
+          "mtimeMs": 1789120572590
+        },
+        "startedAt": "2026-09-11T09:56:12.590Z",
+        "completedAt": "2026-09-11T09:56:12.591Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-1",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "text_delta",
+        "text": "{\"artifact\":\"refunds.json\",\"result\":{\"count\":2,\"total\":12}}"
+      }
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-1",
+      "subagentType": "general-purpose",
+      "phase": "validating",
+      "attempt": 1
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "whole-batch-stock-1",
+      "turnId": "stock-1-a1",
+      "toolCallId": "stock-1-2",
+      "toolName": "write_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-1",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "stock-1-2",
+        "toolName": "write_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "Overwrote stock.json."
+          }
+        ],
+        "data": {
+          "type": "update",
+          "filePath": "<EVIDENCE_ROOT>/deterministic-final/whole-batch/stock.json",
+          "content": "{\"count\":2,\"total\":48}",
+          "structuredPatch": [],
+          "originalFile": "{\"count\":2,\"total\":48}"
+        },
+        "metadata": {
+          "bytesWritten": 22,
+          "mtimeMs": 1789120572590
+        },
+        "startedAt": "2026-09-11T09:56:12.590Z",
+        "completedAt": "2026-09-11T09:56:12.592Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-1",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "text_delta",
+        "text": "{\"artifact\":\"stock.json\",\"result\":{\"count\":2,\"total\":48}}"
+      }
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-1",
+      "subagentType": "general-purpose",
+      "phase": "validating",
+      "attempt": 1
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "sales-1",
+      "subagentType": "general-purpose",
+      "phase": "accepted",
+      "attempt": 1
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "refunds-1",
+      "subagentType": "general-purpose",
+      "phase": "accepted",
+      "attempt": 1
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "whole-batch",
+      "subagentId": "stock-1",
+      "subagentType": "general-purpose",
+      "phase": "accepted",
+      "attempt": 1
+    }
+  ]
+}

@@ -1,0 +1,488 @@
+{
+  "strategy": "no-repair",
+  "tasks": 3,
+  "passed": 2,
+  "modelRequests": 6,
+  "calls": {
+    "sales": 2,
+    "stock": 2,
+    "refunds": 2
+  },
+  "writes": {
+    "sales": 1,
+    "stock": 1,
+    "refunds": 1
+  },
+  "reports": [
+    {
+      "subagentId": "sales-0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.json\",\"result\":{\"count\":3,\"total\":196}}",
+      "usage": {},
+      "turns": 2,
+      "durationMs": 32,
+      "acceptance": {
+        "status": "rejected",
+        "stopReason": "repair_limit",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "issues": [
+              {
+                "path": "$.result",
+                "code": "artifact_contents",
+                "message": "Saved data does not match source calculation; expected {\"count\":3,\"total\":186}"
+              }
+            ]
+          }
+        ],
+        "repairs": 0
+      }
+    },
+    {
+      "subagentId": "stock-0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"stock.json\",\"result\":{\"count\":2,\"total\":48}}",
+      "usage": {},
+      "turns": 2,
+      "durationMs": 14,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "stock.json",
+          "result": {
+            "count": 2,
+            "total": 48
+          }
+        }
+      }
+    },
+    {
+      "subagentId": "refunds-0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.json\",\"result\":{\"count\":2,\"total\":12}}",
+      "usage": {},
+      "turns": 2,
+      "durationMs": 13,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "refunds.json",
+          "result": {
+            "count": 2,
+            "total": 12
+          }
+        }
+      }
+    }
+  ],
+  "events": [
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "sales-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "sales.json",
+            "content": "{\"count\":3,\"total\":196}"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "sales-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "sales.json",
+            "content": "{\"count\":3,\"total\":196}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "no-repair-sales-0",
+      "turnId": "sales-0-a1",
+      "toolCallId": "sales-0-1",
+      "toolName": "write_file"
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "stock-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "stock.json",
+            "content": "{\"count\":2,\"total\":48}"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "stock-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "stock.json",
+            "content": "{\"count\":2,\"total\":48}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "no-repair-stock-0",
+      "turnId": "stock-0-a1",
+      "toolCallId": "stock-0-1",
+      "toolName": "write_file"
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "tool_call_end",
+        "toolCall": {
+          "id": "refunds-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "refunds.json",
+            "content": "{\"count\":2,\"total\":12}"
+          }
+        }
+      }
+    },
+    {
+      "type": "subagent_tool_calls_detected",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "calls": [
+        {
+          "id": "refunds-0-1",
+          "name": "write_file",
+          "input": {
+            "file_path": "refunds.json",
+            "content": "{\"count\":2,\"total\":12}"
+          }
+        }
+      ]
+    },
+    {
+      "type": "pre_tool_execute",
+      "sessionId": "no-repair-refunds-0",
+      "turnId": "refunds-0-a1",
+      "toolCallId": "refunds-0-1",
+      "toolName": "write_file"
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "no-repair-sales-0",
+      "turnId": "sales-0-a1",
+      "toolCallId": "sales-0-1",
+      "toolName": "write_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "sales-0-1",
+        "toolName": "write_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "Created sales.json."
+          }
+        ],
+        "data": {
+          "type": "create",
+          "filePath": "<EVIDENCE_ROOT>/deterministic-final/no-repair/sales.json",
+          "content": "{\"count\":3,\"total\":196}",
+          "structuredPatch": [
+            {
+              "oldStart": 1,
+              "oldLines": 0,
+              "newStart": 1,
+              "newLines": 1,
+              "lines": [
+                {
+                  "type": "add",
+                  "text": "{\"count\":3,\"total\":196}"
+                }
+              ]
+            }
+          ],
+          "originalFile": null,
+          "gitDiff": {
+            "path": "sales.json",
+            "diff": "--- /dev/null\n+++ b/sales.json\n@@ -1,0 +1 @@\n+{\"count\":3,\"total\":196}"
+          }
+        },
+        "metadata": {
+          "bytesWritten": 23,
+          "mtimeMs": 1789120572570
+        },
+        "startedAt": "2026-09-11T09:56:12.564Z",
+        "completedAt": "2026-09-11T09:56:12.573Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "text_delta",
+        "text": "{\"artifact\":\"sales.json\",\"result\":{\"count\":3,\"total\":196}}"
+      }
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "phase": "validating",
+      "attempt": 1
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "no-repair-stock-0",
+      "turnId": "stock-0-a1",
+      "toolCallId": "stock-0-1",
+      "toolName": "write_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "stock-0-1",
+        "toolName": "write_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "Created stock.json."
+          }
+        ],
+        "data": {
+          "type": "create",
+          "filePath": "<EVIDENCE_ROOT>/deterministic-final/no-repair/stock.json",
+          "content": "{\"count\":2,\"total\":48}",
+          "structuredPatch": [
+            {
+              "oldStart": 1,
+              "oldLines": 0,
+              "newStart": 1,
+              "newLines": 1,
+              "lines": [
+                {
+                  "type": "add",
+                  "text": "{\"count\":2,\"total\":48}"
+                }
+              ]
+            }
+          ],
+          "originalFile": null,
+          "gitDiff": {
+            "path": "stock.json",
+            "diff": "--- /dev/null\n+++ b/stock.json\n@@ -1,0 +1 @@\n+{\"count\":2,\"total\":48}"
+          }
+        },
+        "metadata": {
+          "bytesWritten": 22,
+          "mtimeMs": 1789120572570
+        },
+        "startedAt": "2026-09-11T09:56:12.566Z",
+        "completedAt": "2026-09-11T09:56:12.576Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "text_delta",
+        "text": "{\"artifact\":\"stock.json\",\"result\":{\"count\":2,\"total\":48}}"
+      }
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "phase": "validating",
+      "attempt": 1
+    },
+    {
+      "type": "post_tool_execute",
+      "sessionId": "no-repair-refunds-0",
+      "turnId": "refunds-0-a1",
+      "toolCallId": "refunds-0-1",
+      "toolName": "write_file",
+      "success": true
+    },
+    {
+      "type": "subagent_tool_result",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "result": {
+        "type": "success",
+        "toolCallId": "refunds-0-1",
+        "toolName": "write_file",
+        "content": [
+          {
+            "type": "text",
+            "text": "Created refunds.json."
+          }
+        ],
+        "data": {
+          "type": "create",
+          "filePath": "<EVIDENCE_ROOT>/deterministic-final/no-repair/refunds.json",
+          "content": "{\"count\":2,\"total\":12}",
+          "structuredPatch": [
+            {
+              "oldStart": 1,
+              "oldLines": 0,
+              "newStart": 1,
+              "newLines": 1,
+              "lines": [
+                {
+                  "type": "add",
+                  "text": "{\"count\":2,\"total\":12}"
+                }
+              ]
+            }
+          ],
+          "originalFile": null,
+          "gitDiff": {
+            "path": "refunds.json",
+            "diff": "--- /dev/null\n+++ b/refunds.json\n@@ -1,0 +1 @@\n+{\"count\":2,\"total\":12}"
+          }
+        },
+        "metadata": {
+          "bytesWritten": 22,
+          "mtimeMs": 1789120572570
+        },
+        "startedAt": "2026-09-11T09:56:12.567Z",
+        "completedAt": "2026-09-11T09:56:12.577Z"
+      }
+    },
+    {
+      "type": "subagent_model_event",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "event": {
+        "type": "text_delta",
+        "text": "{\"artifact\":\"refunds.json\",\"result\":{\"count\":2,\"total\":12}}"
+      }
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "phase": "validating",
+      "attempt": 1
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "stock-0",
+      "subagentType": "general-purpose",
+      "phase": "accepted",
+      "attempt": 1
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "sales-0",
+      "subagentType": "general-purpose",
+      "phase": "rejected",
+      "attempt": 1,
+      "issues": [
+        {
+          "path": "$.result",
+          "code": "artifact_contents",
+          "message": "Saved data does not match source calculation; expected {\"count\":3,\"total\":186}"
+        }
+      ]
+    },
+    {
+      "type": "subagent_acceptance",
+      "sessionId": "benchmark",
+      "turnId": "no-repair",
+      "subagentId": "refunds-0",
+      "subagentType": "general-purpose",
+      "phase": "accepted",
+      "attempt": 1
+    }
+  ]
+}

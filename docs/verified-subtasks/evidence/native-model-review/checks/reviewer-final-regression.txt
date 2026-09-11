@@ -1,0 +1,1966 @@
+TAP version 13
+# Subtest: ordinary edit failures after a successful write do not enter large-file repair
+ok 1 - ordinary edit failures after a successful write do not enter large-file repair
+  ---
+  duration_ms: 1.715128
+  type: 'test'
+  ...
+# Subtest: an explicit post-draft large-file failure starts bounded recovery
+ok 2 - an explicit post-draft large-file failure starts bounded recovery
+  ---
+  duration_ms: 0.646306
+  type: 'test'
+  ...
+# Subtest: successful focused write clears an active large-file repair episode
+ok 3 - successful focused write clears an active large-file repair episode
+  ---
+  duration_ms: 0.531103
+  type: 'test'
+  ...
+# Subtest: permission failures are never reclassified as large-file recovery
+ok 4 - permission failures are never reclassified as large-file recovery
+  ---
+  duration_ms: 0.307624
+  type: 'test'
+  ...
+# (node:610584) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: agent loop respects agent maxContextTokens before and after routing
+ok 5 - agent loop respects agent maxContextTokens before and after routing
+  ---
+  duration_ms: 8.564062
+  type: 'test'
+  ...
+# Subtest: main agent loop ignores matching subagent baseline caps
+ok 6 - main agent loop ignores matching subagent baseline caps
+  ---
+  duration_ms: 2.342161
+  type: 'test'
+  ...
+# Subtest: subagent loop applies baseline caps after router keeps the baseline model
+ok 7 - subagent loop applies baseline caps after router keeps the baseline model
+  ---
+  duration_ms: 1.869069
+  type: 'test'
+  ...
+# Subtest: subagent loop uses routed model caps when router picks a smaller model than the baseline
+ok 8 - subagent loop uses routed model caps when router picks a smaller model than the baseline
+  ---
+  duration_ms: 1.860997
+  type: 'test'
+  ...
+# Subtest: subagent loop does not precompress to a smaller baseline when router picks a larger model
+ok 9 - subagent loop does not precompress to a smaller baseline when router picks a larger model
+  ---
+  duration_ms: 1.734592
+  type: 'test'
+  ...
+# Subtest: agent loop does not reserve catalog max output for compaction unless requested
+ok 10 - agent loop does not reserve catalog max output for compaction unless requested
+  ---
+  duration_ms: 1.413345
+  type: 'test'
+  ...
+# Subtest: agent loop records a compact boundary when auto compaction fires
+ok 11 - agent loop records a compact boundary when auto compaction fires
+  ---
+  duration_ms: 1.648482
+  type: 'test'
+  ...
+# Subtest: agent loop persists a full compaction after recovering from a context error
+ok 12 - agent loop persists a full compaction after recovering from a context error
+  ---
+  duration_ms: 3.948807
+  type: 'test'
+  ...
+# Subtest: agent loop does not calibrate a primary route from fallback usage
+ok 13 - agent loop does not calibrate a primary route from fallback usage
+  ---
+  duration_ms: 3.279203
+  type: 'test'
+  ...
+# Subtest: agent loop skips calibration when a same-route request was transformed
+ok 14 - agent loop skips calibration when a same-route request was transformed
+  ---
+  duration_ms: 2.059592
+  type: 'test'
+  ...
+# (node:610585) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: agent loop strips images and retries a rejected multimodal request
+ok 15 - agent loop strips images and retries a rejected multimodal request
+  ---
+  duration_ms: 11.1231
+  type: 'test'
+  ...
+# Subtest: agent loop attempts image-strip recovery only once per failing request
+ok 16 - agent loop attempts image-strip recovery only once per failing request
+  ---
+  duration_ms: 2.418699
+  type: 'test'
+  ...
+# (node:610586) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: provider and model overrides retain configured temperature, speed, and thinking defaults
+ok 17 - provider and model overrides retain configured temperature, speed, and thinking defaults
+  ---
+  duration_ms: 6.945821
+  type: 'test'
+  ...
+# Subtest: plan-mode reminder is appended after projection and recent3 cache indices are computed
+ok 18 - plan-mode reminder is appended after projection and recent3 cache indices are computed
+  ---
+  duration_ms: 13.004063
+  type: 'test'
+  ...
+# Subtest: plan-mode reminder does not consume the context message limit
+ok 19 - plan-mode reminder does not consume the context message limit
+  ---
+  duration_ms: 1.158824
+  type: 'test'
+  ...
+# Subtest: plan-mode memory retrieval uses the real user request
+ok 20 - plan-mode memory retrieval uses the real user request
+  ---
+  duration_ms: 5.378933
+  type: 'test'
+  ...
+# [text-tool-call-fallback] Extracted 1 tool call(s) from assistant text (format: hermes_json)
+# (node:610592) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: agent loop drops interrupted tool calls and continues with a chunked-write prompt
+ok 21 - agent loop drops interrupted tool calls and continues with a chunked-write prompt
+  ---
+  duration_ms: 8.304701
+  type: 'test'
+  ...
+# Subtest: agent loop recovers an unknown finish reason before treating the turn as successful
+ok 22 - agent loop recovers an unknown finish reason before treating the turn as successful
+  ---
+  duration_ms: 1.692378
+  type: 'test'
+  ...
+# Subtest: unknown finish with partial Hermes tool text uses the specialized recovery
+ok 23 - unknown finish with partial Hermes tool text uses the specialized recovery
+  ---
+  duration_ms: 2.265877
+  type: 'test'
+  ...
+# Subtest: stream interruption with partial Hermes tool text does not persist the fragment
+ok 24 - stream interruption with partial Hermes tool text does not persist the fragment
+  ---
+  duration_ms: 2.739667
+  type: 'test'
+  ...
+# Subtest: cancelling stream interruption recovery does not expose the partial tool call
+ok 25 - cancelling stream interruption recovery does not expose the partial tool call
+  ---
+  duration_ms: 4.471183
+  type: 'test'
+  ...
+# Subtest: cancelling partial text tool-call recovery does not expose the partial tool call
+ok 26 - cancelling partial text tool-call recovery does not expose the partial tool call
+  ---
+  duration_ms: 1.273005
+  type: 'test'
+  ...
+# Subtest: stream interruption with complete text fallback tool call does not persist it as text
+ok 27 - stream interruption with complete text fallback tool call does not persist it as text
+  ---
+  duration_ms: 6.593071
+  type: 'test'
+  ...
+# Subtest: stream interruption exhaustion persists the final safe text fragment
+ok 28 - stream interruption exhaustion persists the final safe text fragment
+  ---
+  duration_ms: 5.581496
+  type: 'test'
+  ...
+# Subtest: unknown finish exhaustion persists the final safe text fragment
+ok 29 - unknown finish exhaustion persists the final safe text fragment
+  ---
+  duration_ms: 6.248486
+  type: 'test'
+  ...
+# Subtest: partial text tool-call exhaustion clears unsafe finalMessage
+ok 30 - partial text tool-call exhaustion clears unsafe finalMessage
+  ---
+  duration_ms: 34.361064
+  type: 'test'
+  ...
+# Subtest: stream interruption exhaustion clears unsafe finalMessage tool text
+ok 31 - stream interruption exhaustion clears unsafe finalMessage tool text
+  ---
+  duration_ms: 1.565008
+  type: 'test'
+  ...
+# (node:610594) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: guidance at the terminal boundary becomes a user message and starts another model loop
+ok 32 - guidance at the terminal boundary becomes a user message and starts another model loop
+  ---
+  duration_ms: 10.38236
+  type: 'test'
+  ...
+# Subtest: terminal guidance does not bypass the configured max turn budget
+ok 33 - terminal guidance does not bypass the configured max turn budget
+  ---
+  duration_ms: 1.186052
+  type: 'test'
+  ...
+# Subtest: failed steer persistence does not apply its message or file permissions
+ok 34 - failed steer persistence does not apply its message or file permissions
+  ---
+  duration_ms: 1.113768
+  type: 'test'
+  ...
+# Subtest: steer mailbox accepts only the active turn and deduplicates retries
+ok 35 - steer mailbox accepts only the active turn and deduplicates retries
+  ---
+  duration_ms: 1.942709
+  type: 'test'
+  ...
+# Subtest: drainOrClose removes the terminal race without dropping accepted guidance
+ok 36 - drainOrClose removes the terminal race without dropping accepted guidance
+  ---
+  duration_ms: 0.523335
+  type: 'test'
+  ...
+# Subtest: finish returns unconsumed guidance so callers can leave it queued
+ok 37 - finish returns unconsumed guidance so callers can leave it queued
+  ---
+  duration_ms: 0.289288
+  type: 'test'
+  ...
+# Subtest: close returns pending guidance while rejecting late submissions as turn_closing
+ok 38 - close returns pending guidance while rejecting late submissions as turn_closing
+  ---
+  duration_ms: 0.280742
+  type: 'test'
+  ...
+# Subtest: pending guidance can be cancelled before a model boundary
+ok 39 - pending guidance can be cancelled before a model boundary
+  ---
+  duration_ms: 0.272723
+  type: 'test'
+  ...
+# Subtest: cancel tombstones win a race with enqueue, but drained guidance is too late
+ok 40 - cancel tombstones win a race with enqueue, but drained guidance is too late
+  ---
+  duration_ms: 0.221517
+  type: 'test'
+  ...
+# Subtest: terminal turns return accepted but unapplied guidance before completion
+ok 41 - terminal turns return accepted but unapplied guidance before completion
+  ---
+  duration_ms: 7.856063
+  type: 'test'
+  ...
+# Subtest: a partially persisted guidance batch applies only durable messages and returns the rest
+ok 42 - a partially persisted guidance batch applies only durable messages and returns the rest
+  ---
+  duration_ms: 2.662207
+  type: 'test'
+  ...
+# (node:610616) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: public session API carries contracts through real agent tool, fork, repair and parent projection
+ok 43 - public session API carries contracts through real agent tool, fork, repair and parent projection
+  ---
+  duration_ms: 1791.300825
+  type: 'test'
+  ...
+# Subtest: contract mode removes conflicting mandatory five-field system report
+ok 44 - contract mode removes conflicting mandatory five-field system report
+  ---
+  duration_ms: 1.721833
+  type: 'test'
+  ...
+# Subtest: sidechain accepted_input contains only the new repair feedback, not repeated history
+ok 45 - sidechain accepted_input contains only the new repair feedback, not repeated history
+  ---
+  duration_ms: 2.801853
+  type: 'test'
+  ...
+# Subtest: invalid host turn cap and null contract do not silently execute
+ok 46 - invalid host turn cap and null contract do not silently execute
+  ---
+  duration_ms: 4.320385
+  type: 'test'
+  ...
+# Subtest: a repair ending on a tool call cannot accept a stale earlier final answer
+ok 47 - a repair ending on a tool call cannot accept a stale earlier final answer
+  ---
+  duration_ms: 4.441997
+  type: 'test'
+  ...
+# Subtest: rejected delivery is an error tool result while retaining structured report and usage
+ok 48 - rejected delivery is an error tool result while retaining structured report and usage
+  ---
+  duration_ms: 0.909781
+  type: 'test'
+  ...
+# (node:610623) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: rejected review repairs in the SAME child, then acceptance folds review into the shared budget
+ok 49 - rejected review repairs in the SAME child, then acceptance folds review into the shared budget
+  ---
+  duration_ms: 45.599699
+  type: 'test'
+  ...
+# Subtest: deterministic schema failure skips the expensive model review
+ok 50 - deterministic schema failure skips the expensive model review
+  ---
+  duration_ms: 2.187916
+  type: 'test'
+  ...
+# Subtest: accepted requires BOTH layers and keeps every review report in attempts
+ok 51 - accepted requires BOTH layers and keeps every review report in attempts
+  ---
+  duration_ms: 7.542404
+  type: 'test'
+  ...
+# Subtest: reviewer error report is terminal reviewer_error and never accepted
+ok 52 - reviewer error report is terminal reviewer_error and never accepted
+  ---
+  duration_ms: 4.527019
+  type: 'test'
+  ...
+# Subtest: malformed reviewer (throws) is terminal reviewer_error
+ok 53 - malformed reviewer (throws) is terminal reviewer_error
+  ---
+  duration_ms: 1.819536
+  type: 'test'
+  ...
+# Subtest: reviewer turns/usage count against the shared turn budget
+ok 54 - reviewer turns/usage count against the shared turn budget
+  ---
+  duration_ms: 1.929025
+  type: 'test'
+  ...
+# Subtest: no remaining review budget → reviewer never invoked, stopReason turn_limit
+ok 55 - no remaining review budget → reviewer never invoked, stopReason turn_limit
+  ---
+  duration_ms: 6.0933
+  type: 'test'
+  ...
+# Subtest: default reviewer inherits the parent model despite a different subagentModel
+ok 56 - default reviewer inherits the parent model despite a different subagentModel
+  ---
+  duration_ms: 9.018695
+  type: 'test'
+  ...
+# Subtest: no reviewer configured preserves legacy behavior
+ok 57 - no reviewer configured preserves legacy behavior
+  ---
+  duration_ms: 3.561013
+  type: 'test'
+  ...
+# (node:610628) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: model rejection repairs the same child and includes both layers in usage
+ok 58 - model rejection repairs the same child and includes both layers in usage
+  ---
+  duration_ms: 13.617453
+  type: 'test'
+  ...
+# Subtest: schema failure skips expensive model review
+ok 59 - schema failure skips expensive model review
+  ---
+  duration_ms: 1.997764
+  type: 'test'
+  ...
+# Subtest: review budget exhaustion prevents repair or unchecked acceptance
+ok 60 - review budget exhaustion prevents repair or unchecked acceptance
+  ---
+  duration_ms: 2.276542
+  type: 'test'
+  ...
+# Subtest: unavailable, malformed and contradictory reviewer results fail closed
+ok 61 - unavailable, malformed and contradictory reviewer results fail closed
+  ---
+  duration_ms: 7.190271
+  type: 'test'
+  ...
+# Subtest: factory uses an independent read-only model with no parent system prompt or recursion
+ok 62 - factory uses an independent read-only model with no parent system prompt or recursion
+  ---
+  duration_ms: 13.279754
+  type: 'test'
+  ...
+# Subtest: factory refuses artifact claims without an actual successful read
+ok 63 - factory refuses artifact claims without an actual successful read
+  ---
+  duration_ms: 2.463357
+  type: 'test'
+  ...
+# Subtest: factory records independently read artifact evidence using the selected reviewer
+ok 64 - factory records independently read artifact evidence using the selected reviewer
+  ---
+  duration_ms: 38.879643
+  type: 'test'
+  ...
+# Subtest: inconclusive and internally conflicting verdicts are terminal errors
+ok 65 - inconclusive and internally conflicting verdicts are terminal errors
+  ---
+  duration_ms: 5.796025
+  type: 'test'
+  ...
+# Subtest: factory counts failed requests even when the provider supplies no usage
+ok 66 - factory counts failed requests even when the provider supplies no usage
+  ---
+  duration_ms: 1.912191
+  type: 'test'
+  ...
+# Subtest: zero review budget or prior abort never starts a model request
+ok 67 - zero review budget or prior abort never starts a model request
+  ---
+  duration_ms: 0.800401
+  type: 'test'
+  ...
+# Subtest: review timeout returns a terminal error even when transport ignores cancellation
+ok 68 - review timeout returns a terminal error even when transport ignores cancellation
+  ---
+  duration_ms: 1001.054544
+  type: 'test'
+  ...
+# Subtest: typed verdict submission ends the reviewer without an extra prose turn
+ok 69 - typed verdict submission ends the reviewer without an extra prose turn
+  ---
+  duration_ms: 3.728674
+  type: 'test'
+  ...
+# Subtest: a producer structured submission reaches acceptance before it can continue working
+ok 70 - a producer structured submission reaches acceptance before it can continue working
+  ---
+  duration_ms: 5.263091
+  type: 'test'
+  ...
+# (node:610629) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: agent.subagents.default inherit keeps subagent model unset
+ok 71 - agent.subagents.default inherit keeps subagent model unset
+  ---
+  duration_ms: 27.121261
+  type: 'test'
+  ...
+# Subtest: agent.subagents.params is reported as unsupported instead of being silently discarded
+ok 72 - agent.subagents.params is reported as unsupported instead of being silently discarded
+  ---
+  duration_ms: 3.91682
+  type: 'test'
+  ...
+# Subtest: empty agent.subagents.params does not create a warning
+ok 73 - empty agent.subagents.params does not create a warning
+  ---
+  duration_ms: 2.849911
+  type: 'test'
+  ...
+# Subtest: agent.subagents.default resolves a configured model
+ok 74 - agent.subagents.default resolves a configured model
+  ---
+  duration_ms: 5.764818
+  type: 'test'
+  ...
+# Subtest: agent.subagents.default inherits with a warning when provider is missing
+ok 75 - agent.subagents.default inherits with a warning when provider is missing
+  ---
+  duration_ms: 3.907447
+  type: 'test'
+  ...
+# Subtest: agent.subagents.default inherits with a warning when model is missing
+ok 76 - agent.subagents.default inherits with a warning when model is missing
+  ---
+  duration_ms: 3.451414
+  type: 'test'
+  ...
+# Subtest: agent.subagents.default inherits with a warning when malformed
+ok 77 - agent.subagents.default inherits with a warning when malformed
+  ---
+  duration_ms: 4.984842
+  type: 'test'
+  ...
+# Subtest: agent.model still fails fast when provider is missing
+ok 78 - agent.model still fails fast when provider is missing
+  ---
+  duration_ms: 2.553666
+  type: 'test'
+  ...
+# Subtest: explore subagent does not probe tool safety before execution
+ok 79 - explore subagent does not probe tool safety before execution
+  ---
+  duration_ms: 8.712611
+  type: 'test'
+  ...
+# Subtest: parent abort emits an aborted subagent completion event
+ok 80 - parent abort emits an aborted subagent completion event
+  ---
+  duration_ms: 5.236063
+  type: 'test'
+  ...
+# Subtest: subagent timeout remains a failure instead of a cancellation
+ok 81 - subagent timeout remains a failure instead of a cancellation
+  ---
+  duration_ms: 11.910418
+  type: 'test'
+  ...
+# Subtest: explore registry ignores an unallowed dynamic execute_code tool without probing it
+ok 82 - explore registry ignores an unallowed dynamic execute_code tool without probing it
+  ---
+  duration_ms: 1.122326
+  type: 'test'
+  ...
+# Subtest: subagent config uses configured default model without copying caps to top-level overrides
+ok 83 - subagent config uses configured default model without copying caps to top-level overrides
+  ---
+  duration_ms: 0.600535
+  type: 'test'
+  ...
+# Subtest: subagent config inherits parent model when no default is configured
+ok 84 - subagent config inherits parent model when no default is configured
+  ---
+  duration_ms: 0.292636
+  type: 'test'
+  ...
+# Subtest: configured subagent default remains a router baseline, not a router override
+ok 85 - configured subagent default remains a router baseline, not a router override
+  ---
+  duration_ms: 10.163484
+  type: 'test'
+  ...
+# Subtest: read-only subagent evaluates bash safety from the real command
+ok 86 - read-only subagent evaluates bash safety from the real command
+  ---
+  duration_ms: 20.64965
+  type: 'test'
+  ...
+# Subtest: read-only execute_code checks the real code instead of crashing on registry setup
+ok 87 - read-only execute_code checks the real code instead of crashing on registry setup
+  ---
+  duration_ms: 1.229339
+  type: 'test'
+  ...
+# (node:610662) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: acceptance passes on the first attempt without repairs
+ok 88 - acceptance passes on the first attempt without repairs
+  ---
+  duration_ms: 11.852517
+  type: 'test'
+  ...
+# Subtest: invalid first attempt repairs with feedback while prior messages stay visible
+ok 89 - invalid first attempt repairs with feedback while prior messages stay visible
+  ---
+  duration_ms: 2.807741
+  type: 'test'
+  ...
+# Subtest: repeated invalid answers stop at the repair limit with the latest markdown
+ok 90 - repeated invalid answers stop at the repair limit with the latest markdown
+  ---
+  duration_ms: 2.938638
+  type: 'test'
+  ...
+# Subtest: total maxTurns budget is shared across attempts and reports turn_limit
+ok 91 - total maxTurns budget is shared across attempts and reports turn_limit
+  ---
+  duration_ms: 2.855775
+  type: 'test'
+  ...
+# Subtest: abort is never repaired
+ok 92 - abort is never repaired
+  ---
+  duration_ms: 1.745459
+  type: 'test'
+  ...
+# Subtest: host validator exception is terminal and not repaired
+ok 93 - host validator exception is terminal and not repaired
+  ---
+  duration_ms: 1.763154
+  type: 'test'
+  ...
+# Subtest: omitted acceptance contract preserves the legacy report
+ok 94 - omitted acceptance contract preserves the legacy report
+  ---
+  duration_ms: 1.21819
+  type: 'test'
+  ...
+# Subtest: unknown validator fails preflight before any model call
+ok 95 - unknown validator fails preflight before any model call
+  ---
+  duration_ms: 0.5709
+  type: 'test'
+  ...
+# Subtest: out-of-range acceptance budgets fail preflight before any model call
+ok 96 - out-of-range acceptance budgets fail preflight before any model call
+  ---
+  duration_ms: 1.239205
+  type: 'test'
+  ...
+# Subtest: repairing one child never reruns a successful sibling
+ok 97 - repairing one child never reruns a successful sibling
+  ---
+  duration_ms: 28.451414
+  type: 'test'
+  ...
+# Subtest: rejected acceptance marks lifecycle failure without destroying the report
+ok 98 - rejected acceptance marks lifecycle failure without destroying the report
+  ---
+  duration_ms: 28.887112
+  type: 'test'
+  ...
+# Subtest: host can register a not-yet-produced file, then validate creation and repair
+ok 99 - host can register a not-yet-produced file, then validate creation and repair
+  ---
+  duration_ms: 15.357009
+  type: 'test'
+  ...
+# Subtest: snapshot and exact project scope survive manifest edits
+ok 100 - snapshot and exact project scope survive manifest edits
+  ---
+  duration_ms: 12.665627
+  type: 'test'
+  ...
+# Subtest: read bounds reject invalid JSON, trailing bytes, oversize, directories and symlink escape
+ok 101 - read bounds reject invalid JSON, trailing bytes, oversize, directories and symlink escape
+  ---
+  duration_ms: 34.933668
+  type: 'test'
+  ...
+# Subtest: opt-in config fails closed for missing, relative, directory, oversize and unknown fields
+ok 102 - opt-in config fails closed for missing, relative, directory, oversize and unknown fields
+  ---
+  duration_ms: 10.356127
+  type: 'test'
+  ...
+# Subtest: aborted checks propagate and are never accepted
+ok 103 - aborted checks propagate and are never accepted
+  ---
+  duration_ms: 10.205714
+  type: 'test'
+  ...
+# Subtest: explicit claim matching checks actual delivery without a fixed business answer
+ok 104 - explicit claim matching checks actual delivery without a fixed business answer
+  ---
+  duration_ms: 8.450858
+  type: 'test'
+  ...
+# Subtest: preflight rejects unsupported/impossible schemas and invalid budgets
+ok 105 - preflight rejects unsupported/impossible schemas and invalid budgets
+  ---
+  duration_ms: 7.608946
+  type: 'test'
+  ...
+# Subtest: supported schema checks types, required fields, extra fields, bounds and uniqueness
+ok 106 - supported schema checks types, required fields, extra fields, bounds and uniqueness
+  ---
+  duration_ms: 1.326327
+  type: 'test'
+  ...
+# Subtest: strict parsing rejects prose/truncated/oversized output, accepts one JSON fence
+ok 107 - strict parsing rejects prose/truncated/oversized output, accepts one JSON fence
+  ---
+  duration_ms: 4.290288
+  type: 'test'
+  ...
+# Subtest: deep const/enum comparison ignores object key order and honors Unicode length
+ok 108 - deep const/enum comparison ignores object key order and honors Unicode length
+  ---
+  duration_ms: 1.188319
+  type: 'test'
+  ...
+# Subtest: trusted semantic checker can reject a structurally valid false claim
+ok 109 - trusted semantic checker can reject a structurally valid false claim
+  ---
+  duration_ms: 3.682504
+  type: 'test'
+  ...
+# Subtest: validator exceptions and invalid return values are operational failures
+ok 110 - validator exceptions and invalid return values are operational failures
+  ---
+  duration_ms: 1.115077
+  type: 'test'
+  ...
+# Subtest: abort ends a pending validator without starting later validators
+ok 111 - abort ends a pending validator without starting later validators
+  ---
+  duration_ms: 0.934035
+  type: 'test'
+  ...
+# Subtest: contract snapshot resists caller mutation and repair feedback is bounded
+ok 112 - contract snapshot resists caller mutation and repair feedback is bounded
+  ---
+  duration_ms: 6.820521
+  type: 'test'
+  ...
+# (node:610671) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: accepts only after an independent successful read; explicit model override; no recursion
+ok 113 - accepts only after an independent successful read; explicit model override; no recursion
+  ---
+  duration_ms: 40.727841
+  type: 'test'
+  ...
+# Subtest: cannot accept a claimed artifact that was never actually read
+ok 114 - cannot accept a claimed artifact that was never actually read
+  ---
+  duration_ms: 3.021475
+  type: 'test'
+  ...
+# Subtest: a FAILED read does not count as evidence
+ok 115 - a FAILED read does not count as evidence
+  ---
+  duration_ms: 11.166189
+  type: 'test'
+  ...
+# Subtest: default reviewer model inherits the parent conversation model
+ok 116 - default reviewer model inherits the parent conversation model
+  ---
+  duration_ms: 6.934361
+  type: 'test'
+  ...
+# Subtest: malformed verdict fails closed as error
+ok 117 - malformed verdict fails closed as error
+  ---
+  duration_ms: 4.997919
+  type: 'test'
+  ...
+# Subtest: inconclusive verdict is a terminal error, never accepted
+ok 118 - inconclusive verdict is a terminal error, never accepted
+  ---
+  duration_ms: 2.790458
+  type: 'test'
+  ...
+# Subtest: reviewer timeout fails closed while keeping usage captured from the stream
+ok 119 - reviewer timeout fails closed while keeping usage captured from the stream
+  ---
+  duration_ms: 1004.84349
+  type: 'test'
+  ...
+# Subtest: oversized task or claim fails closed before any model call
+ok 120 - oversized task or claim fails closed before any model call
+  ---
+  duration_ms: 1.045332
+  type: 'test'
+  ...
+# Subtest: filterIncompleteToolCalls tolerates malformed messages without content
+ok 121 - filterIncompleteToolCalls tolerates malformed messages without content
+  ---
+  duration_ms: 1.777765
+  type: 'test'
+  ...
+# (node:610687) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: turn environment provides an isolated PilotDeck-owned work directory
+ok 122 - turn environment provides an isolated PilotDeck-owned work directory
+  ---
+  duration_ms: 1.774203
+  type: 'test'
+  ...
+# Subtest: turn environment inherits the process environment when no override is configured
+ok 123 - turn environment inherits the process environment when no override is configured
+  ---
+  duration_ms: 0.73959
+  type: 'test'
+  ...
+# (node:610694) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [session-title] generation skipped (invalid_json): Unexpected token 'R', "Review fixture" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"b280f0f8-473c-4807-b17d-5160931a0516","decisionType":"skip","snapshot":{"tokens":9630,"estimateSource":"estimator","localEstimateTokens":9630,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15673828125,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-VgrOBO/workspace::sub::4c0cdffe-170d-4be6-8bfc-a94d03657adf","turnId":"4c0cdffe-170d-4be6-8bfc-a94d03657adf-a1","decisionType":"skip","snapshot":{"tokens":6583,"estimateSource":"estimator","localEstimateTokens":6583,"totalContextTokens":1000000,"maxContextTokens":995904,"effectiveContextTokens":995904,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.006610074866653814,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=undefined, model=test/old-main, orchGate=false, alreadyOrch=false, resolvedFrom=scenario
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-VgrOBO/workspace::sub::4c0cdffe-170d-4be6-8bfc-a94d03657adf","turnId":"4c0cdffe-170d-4be6-8bfc-a94d03657adf-a1","decisionType":"skip","snapshot":{"tokens":6583,"estimateSource":"estimator","localEstimateTokens":6583,"totalContextTokens":65536,"maxContextTokens":65536,"effectiveContextTokens":65536,"maxOutputTokens":0,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1004486083984375,"source":"local","exact":false,"reservedOutputTokens":0}}
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"b280f0f8-473c-4807-b17d-5160931a0516","decisionType":"skip","snapshot":{"tokens":9913,"estimateSource":"estimator","localEstimateTokens":9913,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.16134440104166667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# Subtest: native reviewer inherits actual turn model instead of child or old default
+ok 124 - native reviewer inherits actual turn model instead of child or old default
+  ---
+  duration_ms: 1976.653812
+  type: 'test'
+  ...
+# [session-title] generation skipped (invalid_json): Unexpected token 'R', "Review fixture" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"9d43be6a-8dca-425a-a67d-f6c978046c54","decisionType":"skip","snapshot":{"tokens":9632,"estimateSource":"estimator","localEstimateTokens":9632,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15677083333333333,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-3Nrd5k/workspace::sub::fc2ef815-7835-4074-9aaf-ac81b10afe1d","turnId":"fc2ef815-7835-4074-9aaf-ac81b10afe1d-a1","decisionType":"skip","snapshot":{"tokens":6585,"estimateSource":"estimator","localEstimateTokens":6585,"totalContextTokens":1000000,"maxContextTokens":995904,"effectiveContextTokens":995904,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.00661208309234625,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=undefined, model=test/old-main, orchGate=false, alreadyOrch=false, resolvedFrom=scenario
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-3Nrd5k/workspace::sub::fc2ef815-7835-4074-9aaf-ac81b10afe1d","turnId":"fc2ef815-7835-4074-9aaf-ac81b10afe1d-a1","decisionType":"skip","snapshot":{"tokens":6585,"estimateSource":"estimator","localEstimateTokens":6585,"totalContextTokens":65536,"maxContextTokens":65536,"effectiveContextTokens":65536,"maxOutputTokens":0,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1004791259765625,"source":"local","exact":false,"reservedOutputTokens":0}}
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"9d43be6a-8dca-425a-a67d-f6c978046c54","decisionType":"skip","snapshot":{"tokens":9916,"estimateSource":"estimator","localEstimateTokens":9916,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.16139322916666668,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# Subtest: native reviewer uses explicit selection
+ok 125 - native reviewer uses explicit selection
+  ---
+  duration_ms: 223.533983
+  type: 'test'
+  ...
+# (node:610703) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [session-title] generation skipped (invalid_json): Unexpected token 'V', "Verified native" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"native-integration","turnId":"5ca7e1d0-b6e3-40ab-98ad-e7f248612238","decisionType":"skip","snapshot":{"tokens":9715,"estimateSource":"estimator","localEstimateTokens":9715,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15812174479166666,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] parseTier failed. Judge text: "Verified native"
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=true, alreadyOrch=false, triggerTiers=complex
+# [autoOrch] tier "medium" not in triggerTiers, skipping
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-wtHLig/workspace::sub::e0128f8a-b738-4798-ad6d-4a14b6f4fd57","turnId":"e0128f8a-b738-4798-ad6d-4a14b6f4fd57-a1","decisionType":"skip","snapshot":{"tokens":6560,"estimateSource":"estimator","localEstimateTokens":6560,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.10677083333333333,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-wtHLig/workspace::sub::a77f0edf-d539-44c1-a7b6-71bd4ce3da22","turnId":"a77f0edf-d539-44c1-a7b6-71bd4ce3da22-a1","decisionType":"skip","snapshot":{"tokens":6561,"estimateSource":"estimator","localEstimateTokens":6561,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.106787109375,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [token-saver] parseTier failed. Judge text: "Verified native"
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [token-saver] parseTier failed. Judge text: "Verified native"
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-wtHLig/workspace::sub::a77f0edf-d539-44c1-a7b6-71bd4ce3da22","turnId":"a77f0edf-d539-44c1-a7b6-71bd4ce3da22-a1","decisionType":"skip","snapshot":{"tokens":6593,"estimateSource":"estimator","localEstimateTokens":6593,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.10730794270833334,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-wtHLig/workspace::sub::a77f0edf-d539-44c1-a7b6-71bd4ce3da22","turnId":"a77f0edf-d539-44c1-a7b6-71bd4ce3da22-a2","decisionType":"skip","snapshot":{"tokens":6706,"estimateSource":"estimator","localEstimateTokens":6706,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.10914713541666667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-wtHLig/workspace::sub::a77f0edf-d539-44c1-a7b6-71bd4ce3da22","turnId":"a77f0edf-d539-44c1-a7b6-71bd4ce3da22-a2","decisionType":"skip","snapshot":{"tokens":6745,"estimateSource":"estimator","localEstimateTokens":6745,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.10978190104166667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [context:auto-compact] policy_skip {"sessionId":"native-integration","turnId":"5ca7e1d0-b6e3-40ab-98ad-e7f248612238","decisionType":"skip","snapshot":{"tokens":10107,"estimateSource":"estimator","localEstimateTokens":10107,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.164501953125,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=true, alreadyOrch=false, triggerTiers=complex
+# [autoOrch] tier "medium" not in triggerTiers, skipping
+# Subtest: ordinary local gateway loads host checks and repairs a real file without redoing its sibling
+ok 126 - ordinary local gateway loads host checks and repairs a real file without redoing its sibling
+  ---
+  duration_ms: 5883.455237
+  type: 'test'
+  ...
+# Subtest: maps subagent acceptance phases to a gateway subagent_acceptance status
+ok 127 - maps subagent acceptance phases to a gateway subagent_acceptance status
+  ---
+  duration_ms: 2.241824
+  type: 'test'
+  ...
+# Subtest: maps a rejected acceptance preserving phase, attempt and bounded issues
+ok 128 - maps a rejected acceptance preserving phase, attempt and bounded issues
+  ---
+  duration_ms: 0.519419
+  type: 'test'
+  ...
+# Subtest: legacy subagent lifecycle events keep their existing mapping
+ok 129 - legacy subagent lifecycle events keep their existing mapping
+  ---
+  duration_ms: 0.279786
+  type: 'test'
+  ...
+# Subtest: status-only active turn snapshots omit buffered events
+ok 130 - status-only active turn snapshots omit buffered events
+  ---
+  duration_ms: 2.275368
+  type: 'test'
+  ...
+# Subtest: status-only active turn snapshots preserve includeEvents through remote and WebSocket gateways
+ok 131 - status-only active turn snapshots preserve includeEvents through remote and WebSocket gateways
+  ---
+  duration_ms: 4.572994
+  type: 'test'
+  ...
+# Subtest: gateway failure status keeps the attempted run id for live/history deduplication
+ok 132 - gateway failure status keeps the attempted run id for live/history deduplication
+  ---
+  duration_ms: 2.312622
+  type: 'test'
+  ...
+# Subtest: registered plain-text attachments with non-whitelisted names are described as read_file inspectable
+ok 133 - registered plain-text attachments with non-whitelisted names are described as read_file inspectable
+  ---
+  duration_ms: 13.415607
+  type: 'test'
+  ...
+# Subtest: registered Office attachments receive conversion guidance without raw diagnostics
+ok 134 - registered Office attachments receive conversion guidance without raw diagnostics
+  ---
+  duration_ms: 3.946554
+  type: 'test'
+  ...
+# Subtest: unregistered Office attachments retain diagnostics instead of disappearing
+ok 135 - unregistered Office attachments retain diagnostics instead of disappearing
+  ---
+  duration_ms: 4.342299
+  type: 'test'
+  ...
+# Subtest: registered PDF attachments retain their original name in the history path note
+ok 136 - registered PDF attachments retain their original name in the history path note
+  ---
+  duration_ms: 4.990657
+  type: 'test'
+  ...
+# Subtest: registered audio attachments advertise FunASR paths instead of read_file conversion
+ok 137 - registered audio attachments advertise FunASR paths instead of read_file conversion
+  ---
+  duration_ms: 4.712784
+  type: 'test'
+  ...
+# (node:610851) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: startPilotDeckServer listens before a background channel finishes starting
+ok 138 - startPilotDeckServer listens before a background channel finishes starting
+  ---
+  duration_ms: 61.851736
+  type: 'test'
+  ...
+# (node:610863) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: browser-use args do not inherit generic proxy env by default
+ok 139 - browser-use args do not inherit generic proxy env by default
+  ---
+  duration_ms: 3.046669
+  type: 'test'
+  ...
+# Subtest: browser-use args use explicit browser proxy server
+ok 140 - browser-use args use explicit browser proxy server
+  ---
+  duration_ms: 0.478228
+  type: 'test'
+  ...
+# Subtest: browser-use args only inherit generic proxy env when opted in
+ok 141 - browser-use args only inherit generic proxy env when opted in
+  ---
+  duration_ms: 0.355435
+  type: 'test'
+  ...
+# Subtest: browser-use args use config proxy when browser env proxy is absent
+ok 142 - browser-use args use config proxy when browser env proxy is absent
+  ---
+  duration_ms: 0.333772
+  type: 'test'
+  ...
+# Subtest: browser-use args allow explicit direct mode to disable config proxy
+ok 143 - browser-use args allow explicit direct mode to disable config proxy
+  ---
+  duration_ms: 0.239727
+  type: 'test'
+  ...
+# (node:610870) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"b1614e78-b7ad-401b-88da-5df1a42f8413","decisionType":"skip","snapshot":{"tokens":7862,"estimateSource":"estimator","localEstimateTokens":7862,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13710239955357142,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"a6f4142e-a42e-4e67-af72-68ededd90678","decisionType":"skip","snapshot":{"tokens":7872,"estimateSource":"estimator","localEstimateTokens":7872,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13727678571428573,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# Subtest: first-turn choice and parameters are durable at acceptance and survive gateway restart
+ok 144 - first-turn choice and parameters are durable at acceptance and survive gateway restart
+  ---
+  duration_ms: 1143.939979
+  type: 'test'
+  ...
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"c40997d9-ea90-44f7-8c91-0bbb634a90dd","decisionType":"skip","snapshot":{"tokens":7859,"estimateSource":"estimator","localEstimateTokens":7859,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13705008370535715,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"007fffbe-97e7-44d9-9c3e-01fecf8aa5a6","decisionType":"skip","snapshot":{"tokens":7870,"estimateSource":"estimator","localEstimateTokens":7870,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13724190848214285,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":""}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":""}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":""}] | finishReason=stop
+# [token-saver] Judge returned empty after retries
+# [router] decision: tier=medium, model=zeta/configured, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=true, alreadyOrch=false, triggerTiers=complex
+# [autoOrch] tier "medium" not in triggerTiers, skipping
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"d9ed69f1-ba82-4e5a-9f82-77b95c1b35c6","decisionType":"skip","snapshot":{"tokens":7880,"estimateSource":"estimator","localEstimateTokens":7880,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13741629464285715,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":""}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":""}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":""}] | finishReason=stop
+# [router] decision: tier=medium, model=zeta/configured, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=true, alreadyOrch=false, triggerTiers=complex
+# [autoOrch] tier "medium" not in triggerTiers, skipping
+# [token-saver] Judge returned empty after retries
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"a2085e34-9e05-4e59-a6df-bfaf9ba4bd98","decisionType":"skip","snapshot":{"tokens":7889,"estimateSource":"estimator","localEstimateTokens":7889,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1375732421875,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"73e08a97-4df8-41a2-811e-1c2aae690026","decisionType":"skip","snapshot":{"tokens":7900,"estimateSource":"estimator","localEstimateTokens":7900,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13776506696428573,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"2f543b96-2d6e-4822-b597-1d8ecf75b6eb","decisionType":"skip","snapshot":{"tokens":7909,"estimateSource":"estimator","localEstimateTokens":7909,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13792201450892858,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# Subtest: explicit Auto replaces saved concrete choice; one-turn overrides do not change saved preferences
+ok 145 - explicit Auto replaces saved concrete choice; one-turn overrides do not change saved preferences
+  ---
+  duration_ms: 4224.142784
+  type: 'test'
+  ...
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"d70aec6f-93a0-4730-9002-807175d02883","decisionType":"skip","snapshot":{"tokens":7860,"estimateSource":"estimator","localEstimateTokens":7860,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13706752232142858,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [PilotDeck] transientRetry: auth_error (attempt 1/2, delay=846ms)
+# [PilotDeck] transientRetry: auth_error (attempt 2/2, delay=1660ms)
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"e78be0bd-0dcc-4732-a72e-f6d8d18a5c55","decisionType":"skip","snapshot":{"tokens":7865,"estimateSource":"estimator","localEstimateTokens":7865,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13715471540178573,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":""}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":""}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":""}] | finishReason=stop
+# [router] decision: tier=medium, model=zeta/configured, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [token-saver] Judge returned empty after retries
+# [autoOrch] input: tier=medium, isMain=true, alreadyOrch=false, triggerTiers=complex
+# [autoOrch] tier "medium" not in triggerTiers, skipping
+# Subtest: concrete choices fail without silently falling back, while Auto retains fallback
+ok 146 - concrete choices fail without silently falling back, while Auto retains fallback
+  ---
+  duration_ms: 4594.412543
+  type: 'test'
+  ...
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"e8e23362-79fd-4592-a814-91ccd67469fc","decisionType":"skip","snapshot":{"tokens":7861,"estimateSource":"estimator","localEstimateTokens":7861,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1370849609375,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# Subtest: invalid and conflicting choices cannot execute or replace the saved preference
+ok 147 - invalid and conflicting choices cannot execute or replace the saved preference
+  ---
+  duration_ms: 48.780453
+  type: 'test'
+  ...
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# Subtest: global model catalog needs no project registration and ignores legacy project scope
+ok 148 - global model catalog needs no project registration and ignores legacy project scope
+  ---
+  duration_ms: 21.542824
+  type: 'test'
+  ...
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"0b60f02e-eff3-4d2d-9e5b-6648211b3966","decisionType":"skip","snapshot":{"tokens":7861,"estimateSource":"estimator","localEstimateTokens":7861,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1370849609375,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"8d4970a6-efec-482f-9763-1b8461e0bc9c","decisionType":"skip","snapshot":{"tokens":7872,"estimateSource":"estimator","localEstimateTokens":7872,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13727678571428573,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# Subtest: a new explicit snapshot overrides an old session preference after restart
+ok 149 - a new explicit snapshot overrides an old session preference after restart
+  ---
+  duration_ms: 79.91818
+  type: 'test'
+  ...
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"5f9eeb94-db65-4e79-948d-39fccf4f36a0","decisionType":"skip","snapshot":{"tokens":7861,"estimateSource":"estimator","localEstimateTokens":7861,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1370849609375,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [session-title] generation skipped (empty_content)
+# [context:auto-compact] policy_skip {"sessionId":"web:model-choice","turnId":"1b0e1f2e-5bbe-4a76-b6af-54cbd0dc81a2","decisionType":"skip","snapshot":{"tokens":7872,"estimateSource":"estimator","localEstimateTokens":7872,"totalContextTokens":65536,"maxContextTokens":57344,"effectiveContextTokens":57344,"maxOutputTokens":8192,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.13727678571428573,"source":"local","exact":false,"reservedOutputTokens":8192}}
+# [pilotdeck] Could not migrate legacy skill '__migration__': Bundled skills root is missing or contains no skills; legacy copies were left untouched.
+# Subtest: response model survives transcript replay and differs from the next submitted choice
+ok 150 - response model survives transcript replay and differs from the next submitted choice
+  ---
+  duration_ms: 71.464618
+  type: 'test'
+  ...
+# Subtest: dialog project registry accepts General and registered projects
+ok 151 - dialog project registry accepts General and registered projects
+  ---
+  duration_ms: 5.358867
+  type: 'test'
+  ...
+# Subtest: dialog project registry keeps unknown paths outside the allowed boundary
+ok 152 - dialog project registry keeps unknown paths outside the allowed boundary
+  ---
+  duration_ms: 0.830007
+  type: 'test'
+  ...
+# Subtest: dialog project registry lists normalized projects only once
+ok 153 - dialog project registry lists normalized projects only once
+  ---
+  duration_ms: 0.35571
+  type: 'test'
+  ...
+# Subtest: GatewayWsClient reports disconnects to existing and late observers
+ok 154 - GatewayWsClient reports disconnects to existing and late observers
+  ---
+  duration_ms: 127.787423
+  type: 'test'
+  ...
+# Subtest: mapAgentEvent propagates runId to streaming lifecycle boundaries
+ok 155 - mapAgentEvent propagates runId to streaming lifecycle boundaries
+  ---
+  duration_ms: 4.139617
+  type: 'test'
+  ...
+# Subtest: mapAgentEvent preserves an aborted subagent completion
+ok 156 - mapAgentEvent preserves an aborted subagent completion
+  ---
+  duration_ms: 0.638121
+  type: 'test'
+  ...
+# Subtest: browser and canonical gateway clients use the same protocol version
+ok 157 - browser and canonical gateway clients use the same protocol version
+  ---
+  duration_ms: 0.89484
+  type: 'test'
+  ...
+# Subtest: browser gateway client exposes the steer RPCs added in protocol 1.1
+ok 158 - browser gateway client exposes the steer RPCs added in protocol 1.1
+  ---
+  duration_ms: 0.214646
+  type: 'test'
+  ...
+# Subtest: gateway turns guidance and uploaded attachments into a canonical user message for the active run
+ok 159 - gateway turns guidance and uploaded attachments into a canonical user message for the active run
+  ---
+  duration_ms: 3.809355
+  type: 'test'
+  ...
+# Subtest: mapAgentEvent bounds live tool result previews at the gateway
+ok 160 - mapAgentEvent bounds live tool result previews at the gateway
+  ---
+  duration_ms: 2.778541
+  type: 'test'
+  ...
+# Subtest: mapAgentEvent bounds large strings inside successful tool data
+ok 161 - mapAgentEvent bounds large strings inside successful tool data
+  ---
+  duration_ms: 1.011962
+  type: 'test'
+  ...
+# Subtest: mapAgentEvent bounds subagent tool result content and preview
+ok 162 - mapAgentEvent bounds subagent tool result content and preview
+  ---
+  duration_ms: 0.431033
+  type: 'test'
+  ...
+# (node:610987) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: WeixinChannel.start returns while QR login is waiting
+ok 163 - WeixinChannel.start returns while QR login is waiting
+  ---
+  duration_ms: 7.194882
+  type: 'test'
+  ...
+# Subtest: channel runtime status reporter persists the latest channel state
+ok 164 - channel runtime status reporter persists the latest channel state
+  ---
+  duration_ms: 4.028294
+  type: 'test'
+  ...
+# Subtest: UI weixin QR route only reads runtime status
+ok 165 - UI weixin QR route only reads runtime status
+  ---
+  duration_ms: 1.194548
+  type: 'test'
+  ...
+# Subtest: UI weixin QR begin route delegates to gateway prepare RPC
+ok 166 - UI weixin QR begin route delegates to gateway prepare RPC
+  ---
+  duration_ms: 0.485428
+  type: 'test'
+  ...
+# Subtest: Gateway settings keeps existing status rendered during silent refresh
+ok 167 - Gateway settings keeps existing status rendered during silent refresh
+  ---
+  duration_ms: 0.264527
+  type: 'test'
+  ...
+# Subtest: Gateway settings starts weixin QR by begin route and ignores stale runtime errors
+ok 168 - Gateway settings starts weixin QR by begin route and ignores stale runtime errors
+  ---
+  duration_ms: 0.317479
+  type: 'test'
+  ...
+# Subtest: Gateway protocol exposes prepare_weixin_login RPC
+ok 169 - Gateway protocol exposes prepare_weixin_login RPC
+  ---
+  duration_ms: 0.772148
+  type: 'test'
+  ...
+# Subtest: Anthropic request emits system plus recent3 with a five-minute TTL
+ok 170 - Anthropic request emits system plus recent3 with a five-minute TTL
+  ---
+  duration_ms: 2.53504
+  type: 'test'
+  ...
+# Subtest: explicit tools marker remains compatible and consumes one message slot
+ok 171 - explicit tools marker remains compatible and consumes one message slot
+  ---
+  duration_ms: 0.521248
+  type: 'test'
+  ...
+# Subtest: cache plan can disable system and tools markers explicitly
+ok 172 - cache plan can disable system and tools markers explicitly
+  ---
+  duration_ms: 0.253979
+  type: 'test'
+  ...
+# Subtest: Anthropic skips a cache marker for a thinking-only recent message
+ok 173 - Anthropic skips a cache marker for a thinking-only recent message
+  ---
+  duration_ms: 0.233322
+  type: 'test'
+  ...
+# Subtest: Anthropic anchors before a trailing thinking block
+ok 174 - Anthropic anchors before a trailing thinking block
+  ---
+  duration_ms: 0.318086
+  type: 'test'
+  ...
+# Subtest: model request builders tolerate malformed messages with missing content
+ok 175 - model request builders tolerate malformed messages with missing content
+  ---
+  duration_ms: 8.328256
+  type: 'test'
+  ...
+# Subtest: cloneMessages normalizes malformed messages with missing content
+ok 176 - cloneMessages normalizes malformed messages with missing content
+  ---
+  duration_ms: 1.007814
+  type: 'test'
+  ...
+# Subtest: openai-compatible requests replay all stored reasoning content
+ok 177 - openai-compatible requests replay all stored reasoning content
+  ---
+  duration_ms: 2.39032
+  type: 'test'
+  ...
+# Subtest: openai-compatible requests fall back to thinking text when native content is missing
+ok 178 - openai-compatible requests fall back to thinking text when native content is missing
+  ---
+  duration_ms: 0.433372
+  type: 'test'
+  ...
+# Subtest: openai-compatible requests can replay an intentionally empty reasoning marker
+ok 179 - openai-compatible requests can replay an intentionally empty reasoning marker
+  ---
+  duration_ms: 0.346079
+  type: 'test'
+  ...
+# Subtest: openai schema normalization adds explicit types to cron literal variants
+ok 180 - openai schema normalization adds explicit types to cron literal variants
+  ---
+  duration_ms: 6.074773
+  type: 'test'
+  ...
+# Subtest: openai schema normalization preserves array item fallback
+ok 181 - openai schema normalization preserves array item fallback
+  ---
+  duration_ms: 0.261097
+  type: 'test'
+  ...
+# Subtest: openai response_format schemas get literal types normalized
+ok 182 - openai response_format schemas get literal types normalized
+  ---
+  duration_ms: 1.36285
+  type: 'test'
+  ...
+# Subtest: openai responses output schemas get literal types normalized
+ok 183 - openai responses output schemas get literal types normalized
+  ---
+  duration_ms: 4.560025
+  type: 'test'
+  ...
+# Subtest: all provider request builders pass speed only when configured
+ok 184 - all provider request builders pass speed only when configured
+  ---
+  duration_ms: 10.763242
+  type: 'test'
+  ...
+# Subtest: native speed mappings preserve low and high normalized tiers
+ok 185 - native speed mappings preserve low and high normalized tiers
+  ---
+  duration_ms: 0.638966
+  type: 'test'
+  ...
+# Subtest: anthropic fast mode adds the required beta header and preserves existing beta values
+ok 186 - anthropic fast mode adds the required beta header and preserves existing beta values
+  ---
+  duration_ms: 0.400397
+  type: 'test'
+  ...
+# Subtest: shared request validation rejects speed for models without the capability
+ok 187 - shared request validation rejects speed for models without the capability
+  ---
+  duration_ms: 0.299165
+  type: 'test'
+  ...
+# Subtest: canonical request validation rejects invalid speed values before provider mapping
+ok 188 - canonical request validation rejects invalid speed values before provider mapping
+  ---
+  duration_ms: 0.257704
+  type: 'test'
+  ...
+# Subtest: BigModel requests keep internal subtask metadata out of the unsupported wire field
+ok 189 - BigModel requests keep internal subtask metadata out of the unsupported wire field
+  ---
+  duration_ms: 3.444616
+  type: 'test'
+  ...
+# Subtest: review defaults preserve main model inheritance and allow explicit reviewer
+ok 190 - review defaults preserve main model inheritance and allow explicit reviewer
+  ---
+  duration_ms: 72.081077
+  type: 'test'
+  ...
+# Subtest: review config rejects ambiguous models, typos, unbounded budgets and wrong types
+ok 191 - review config rejects ambiguous models, typos, unbounded budgets and wrong types
+  ---
+  duration_ms: 84.677645
+  type: 'test'
+  ...
+# Subtest: loadPilotConfig reads PILOTDECK_CONFIG_PATH
+ok 192 - loadPilotConfig reads PILOTDECK_CONFIG_PATH
+  ---
+  duration_ms: 28.091586
+  type: 'test'
+  ...
+# Subtest: loadPilotConfig rejects a missing config without creating one
+ok 193 - loadPilotConfig rejects a missing config without creating one
+  ---
+  duration_ms: 7.604376
+  type: 'test'
+  ...
+# Subtest: PilotConfigStore watches the configured custom path
+ok 194 - PilotConfigStore watches the configured custom path
+  ---
+  duration_ms: 59.331654
+  type: 'test'
+  ...
+# Subtest: Feishu permission mode accepts only default and bypassPermissions
+ok 195 - Feishu permission mode accepts only default and bypassPermissions
+  ---
+  duration_ms: 1.602255
+  type: 'test'
+  ...
+# Subtest: disabled web search ignores inactive provider fields
+ok 196 - disabled web search ignores inactive provider fields
+  ---
+  duration_ms: 1.856067
+  type: 'test'
+  ...
+# Subtest: web search enabled remains optional for backwards compatibility
+ok 197 - web search enabled remains optional for backwards compatibility
+  ---
+  duration_ms: 0.375936
+  type: 'test'
+  ...
+# Subtest: web search accepts all configured providers
+ok 198 - web search accepts all configured providers
+  ---
+  duration_ms: 0.558989
+  type: 'test'
+  ...
+# Subtest: web search enabled must be a boolean
+ok 199 - web search enabled must be a boolean
+  ---
+  duration_ms: 0.320207
+  type: 'test'
+  ...
+# Subtest: file artifacts include every meaningful workspace change without an extension allowlist
+ok 200 - file artifacts include every meaningful workspace change without an extension allowlist
+  ---
+  duration_ms: 103.510184
+  type: 'test'
+  ...
+# Subtest: file artifact collection ignores workspace changes when no mutating tool ran
+ok 201 - file artifact collection ignores workspace changes when no mutating tool ran
+  ---
+  duration_ms: 21.231578
+  type: 'test'
+  ...
+# Subtest: read-only tool results do not enable workspace-diff artifacts
+ok 202 - read-only tool results do not enable workspace-diff artifacts
+  ---
+  duration_ms: 6.360676
+  type: 'test'
+  ...
+# Subtest: unexecuted mutating tool errors do not enable workspace-diff artifacts
+ok 203 - unexecuted mutating tool errors do not enable workspace-diff artifacts
+  ---
+  duration_ms: 9.651427
+  type: 'test'
+  ...
+# Subtest: unavailable mutating tools do not enable workspace-diff artifacts
+ok 204 - unavailable mutating tools do not enable workspace-diff artifacts
+  ---
+  duration_ms: 9.693254
+  type: 'test'
+  ...
+# Subtest: mutating tool execution failures still enable workspace-diff artifacts
+ok 205 - mutating tool execution failures still enable workspace-diff artifacts
+  ---
+  duration_ms: 12.080586
+  type: 'test'
+  ...
+# Subtest: file artifact fingerprints are reused for unchanged files across scans and turns
+ok 206 - file artifact fingerprints are reused for unchanged files across scans and turns
+  ---
+  duration_ms: 16.453867
+  type: 'test'
+  ...
+# Subtest: concurrent collectors in one workspace keep only files explicitly reported by their own turns
+ok 207 - concurrent collectors in one workspace keep only files explicitly reported by their own turns
+  ---
+  duration_ms: 35.702687
+  type: 'test'
+  ...
+# Subtest: concurrent collectors in separate workspaces retain independent workspace diffs
+ok 208 - concurrent collectors in separate workspaces retain independent workspace diffs
+  ---
+  duration_ms: 25.222019
+  type: 'test'
+  ...
+# Subtest: disposing an unfinished collector removes it from workspace concurrency tracking
+ok 209 - disposing an unfinished collector removes it from workspace concurrency tracking
+  ---
+  duration_ms: 4.125138
+  type: 'test'
+  ...
+# Subtest: lists historical sessions whose large inline image hides metadata from the lite preview
+ok 210 - lists historical sessions whose large inline image hides metadata from the lite preview
+  ---
+  duration_ms: 269.139212
+  type: 'test'
+  ...
+# Subtest: prefers a newer oversized metadata title over an older title in the lite head
+ok 211 - prefers a newer oversized metadata title over an older title in the lite head
+  ---
+  duration_ms: 18.4685
+  type: 'test'
+  ...
+# Subtest: preserves createdAt when metadata recovery has no lite summary
+ok 212 - preserves createdAt when metadata recovery has no lite summary
+  ---
+  duration_ms: 33.304279
+  type: 'test'
+  ...
+# Subtest: does not trust a trailing metadata patch as a full title snapshot
+ok 213 - does not trust a trailing metadata patch as a full title snapshot
+  ---
+  duration_ms: 9.579098
+  type: 'test'
+  ...
+# Subtest: uses firstPrompt from a titled tail snapshot for title search
+ok 214 - uses firstPrompt from a titled tail snapshot for title search
+  ---
+  duration_ms: 14.202358
+  type: 'test'
+  ...
+# Subtest: uses a prompt-only tail snapshot without requiring a generated title
+ok 215 - uses a prompt-only tail snapshot without requiring a generated title
+  ---
+  duration_ms: 10.795955
+  type: 'test'
+  ...
+# Subtest: session title generator asks the model to preserve the user's language
+ok 216 - session title generator asks the model to preserve the user's language
+  ---
+  duration_ms: 2.165491
+  type: 'test'
+  ...
+# Subtest: session title generator includes the system language for undetectable input
+ok 217 - session title generator includes the system language for undetectable input
+  ---
+  duration_ms: 0.71578
+  type: 'test'
+  ...
+# Subtest: session title input truncation preserves the latest request
+ok 218 - session title input truncation preserves the latest request
+  ---
+  duration_ms: 0.389439
+  type: 'test'
+  ...
+# Subtest: system language checks every locale candidate and rejects und
+ok 219 - system language checks every locale candidate and rejects und
+  ---
+  duration_ms: 16.593773
+  type: 'test'
+  ...
+# Subtest: transcript replay resumes from persisted post-compact replacement messages
+ok 220 - transcript replay resumes from persisted post-compact replacement messages
+  ---
+  duration_ms: 1.656304
+  type: 'test'
+  ...
+# Subtest: TurnRunner emits and persists file artifacts before completing the turn
+ok 221 - TurnRunner emits and persists file artifacts before completing the turn
+  ---
+  duration_ms: 31.785933
+  type: 'test'
+  ...
+# Subtest: TurnRunner does not collect generated files when artifacts are disabled
+ok 222 - TurnRunner does not collect generated files when artifacts are disabled
+  ---
+  duration_ms: 6.197971
+  type: 'test'
+  ...
+# Subtest: TurnRunner unregisters its artifact collector when the event stream closes early
+ok 223 - TurnRunner unregisters its artifact collector when the event stream closes early
+  ---
+  duration_ms: 4.074884
+  type: 'test'
+  ...
+# Subtest: TurnRunner appends session metadata after successful and failed accepted turns
+ok 224 - TurnRunner appends session metadata after successful and failed accepted turns
+  ---
+  duration_ms: 4.120116
+  type: 'test'
+  ...
+# Subtest: TurnRunner persists a bounded prompt when title generation produces no title
+ok 225 - TurnRunner persists a bounded prompt when title generation produces no title
+  ---
+  duration_ms: 1.054522
+  type: 'test'
+  ...
+# Subtest: TurnRunner updates lastPrompt on subsequent accepted turns
+ok 226 - TurnRunner updates lastPrompt on subsequent accepted turns
+  ---
+  duration_ms: 1.023291
+  type: 'test'
+  ...
+# Subtest: TurnRunner carries complete metadata through a runtime reload snapshot
+ok 227 - TurnRunner carries complete metadata through a runtime reload snapshot
+  ---
+  duration_ms: 1.448525
+  type: 'test'
+  ...
+# Subtest: TurnRunner persists a bounded prompt when a hook blocks a first turn
+ok 228 - TurnRunner persists a bounded prompt when a hook blocks a first turn
+  ---
+  duration_ms: 2.416615
+  type: 'test'
+  ...
+# Subtest: acceptance contract reaches the fork and survives into tool output metadata
+ok 229 - acceptance contract reaches the fork and survives into tool output metadata
+  ---
+  duration_ms: 17.258028
+  type: 'test'
+  ...
+# Subtest: accepted acceptance passes through without rejection framing
+ok 230 - accepted acceptance passes through without rejection framing
+  ---
+  duration_ms: 0.647496
+  type: 'test'
+  ...
+# Subtest: invalid acceptance shape is rejected before the fork launches
+ok 231 - invalid acceptance shape is rejected before the fork launches
+  ---
+  duration_ms: 8.143757
+  type: 'test'
+  ...
+# Subtest: standalone fallback refuses acceptance instead of silently ignoring it
+ok 232 - standalone fallback refuses acceptance instead of silently ignoring it
+  ---
+  duration_ms: 0.719094
+  type: 'test'
+  ...
+# Subtest: fallback without acceptance keeps legacy single-shot behavior
+ok 233 - fallback without acceptance keeps legacy single-shot behavior
+  ---
+  duration_ms: 6.09223
+  type: 'test'
+  ...
+# Subtest: normal and ask-mode agent tool schemas advertise the acceptance property
+ok 234 - normal and ask-mode agent tool schemas advertise the acceptance property
+  ---
+  duration_ms: 0.963384
+  type: 'test'
+  ...
+# Subtest: foreground bash runner invokes the resolved shell explicitly
+ok 235 - foreground bash runner invokes the resolved shell explicitly
+  ---
+  duration_ms: 3.954742
+  type: 'test'
+  ...
+# Subtest: bash success result is formatted with assertions, stdout, and stderr
+ok 236 - bash success result is formatted with assertions, stdout, and stderr
+  ---
+  duration_ms: 7.747941
+  type: 'test'
+  ...
+# Subtest: bash failure tool result includes raw stdout and stderr tail for UI and model
+ok 237 - bash failure tool result includes raw stdout and stderr tail for UI and model
+  ---
+  duration_ms: 22.315275
+  type: 'test'
+  ...
+# Subtest: bash failure diagnostic extracts Python traceback location and exception
+ok 238 - bash failure diagnostic extracts Python traceback location and exception
+  ---
+  duration_ms: 0.869979
+  type: 'test'
+  ...
+# Subtest: bash success keeps full output for ToolResultBudget persistence
+ok 239 - bash success keeps full output for ToolResultBudget persistence
+  ---
+  duration_ms: 6.122565
+  type: 'test'
+  ...
+# Subtest: agent tool accepts explorer as an alias for explore
+ok 240 - agent tool accepts explorer as an alias for explore
+  ---
+  duration_ms: 2.554026
+  type: 'test'
+  ...
+# Subtest: agent tool defaults general-purpose to explore in ask mode
+ok 241 - agent tool defaults general-purpose to explore in ask mode
+  ---
+  duration_ms: 0.371004
+  type: 'test'
+  ...
+# Subtest: agent tool preserves unknown custom fallback subagent names
+ok 242 - agent tool preserves unknown custom fallback subagent names
+  ---
+  duration_ms: 0.552155
+  type: 'test'
+  ...
+# Subtest: execute_code read-only probe handles missing input
+ok 243 - execute_code read-only probe handles missing input
+  ---
+  duration_ms: 1.280717
+  type: 'test'
+  ...
+# Subtest: disabling web search removes it from the registry but keeps web fetch
+ok 244 - disabling web search removes it from the registry but keeps web fetch
+  ---
+  duration_ms: 3.368011
+  type: 'test'
+  ...
+# Subtest: execute_code rejects nested web search calls when web search is disabled
+ok 245 - execute_code rejects nested web search calls when web search is disabled
+  ---
+  duration_ms: 0.653115
+  type: 'test'
+  ...
+# Subtest: read_skill returns the resolved SKILL.md path with the skill body
+ok 246 - read_skill returns the resolved SKILL.md path with the skill body
+  ---
+  duration_ms: 1.328835
+  type: 'test'
+  ...
+# Subtest: read_skill preserves legacy content-only loading when metadata is unavailable
+ok 247 - read_skill preserves legacy content-only loading when metadata is unavailable
+  ---
+  duration_ms: 0.356968
+  type: 'test'
+  ...
+# Subtest: send_attachment rejects workspace .pilotdeck/work candidates with deliver guidance
+ok 248 - send_attachment rejects workspace .pilotdeck/work candidates with deliver guidance
+  ---
+  duration_ms: 42.731725
+  type: 'test'
+  ...
+# Subtest: send_attachment also rejects a configured work directory outside workspace .pilotdeck/work
+ok 249 - send_attachment also rejects a configured work directory outside workspace .pilotdeck/work
+  ---
+  duration_ms: 4.326974
+  type: 'test'
+  ...
+# Subtest: send_attachment rejects symlinks that resolve into an internal work directory
+ok 250 - send_attachment rejects symlinks that resolve into an internal work directory
+  ---
+  duration_ms: 4.527766
+  type: 'test'
+  ...
+# Subtest: send_attachment still sends reviewed files published to the workspace
+ok 251 - send_attachment still sends reviewed files published to the workspace
+  ---
+  duration_ms: 5.349778
+  type: 'test'
+  ...
+# Subtest: web_search retries transient provider failures
+ok 252 - web_search retries transient provider failures
+  ---
+  duration_ms: 545.235618
+  type: 'test'
+  ...
+# Subtest: web_search turns request timeout into tool_timeout
+ok 253 - web_search turns request timeout into tool_timeout
+  ---
+  duration_ms: 3.172972
+  type: 'test'
+  ...
+# Subtest: web_search turns network timeout errors into tool_timeout
+ok 254 - web_search turns network timeout errors into tool_timeout
+  ---
+  duration_ms: 1.090597
+  type: 'test'
+  ...
+# Subtest: web_search supports Serper with its API key header and organic results
+ok 255 - web_search supports Serper with its API key header and organic results
+  ---
+  duration_ms: 1.645759
+  type: 'test'
+  ...
+# Subtest: web_search supports Brave with its subscription token header and web results
+ok 256 - web_search supports Brave with its subscription token header and web results
+  ---
+  duration_ms: 1.053032
+  type: 'test'
+  ...
+# Subtest: web_search supports GLM with its bearer header and search_result payload
+ok 257 - web_search supports GLM with its bearer header and search_result payload
+  ---
+  duration_ms: 1.001023
+  type: 'test'
+  ...
+# Subtest: web_search supports custom POST mappings
+ok 258 - web_search supports custom POST mappings
+  ---
+  duration_ms: 1.213635
+  type: 'test'
+  ...
+# Subtest: web_search supports custom GET query mappings
+ok 259 - web_search supports custom GET query mappings
+  ---
+  duration_ms: 0.864865
+  type: 'test'
+  ...
+# Subtest: web_search selects the provider-specific environment key when provider is omitted
+ok 260 - web_search selects the provider-specific environment key when provider is omitted
+  ---
+  duration_ms: 2.916107
+  type: 'test'
+  ...
+# Subtest: web_search preserves Tavily precedence when multiple provider keys are set
+ok 261 - web_search preserves Tavily precedence when multiple provider keys are set
+  ---
+  duration_ms: 0.978979
+  type: 'test'
+  ...
+# Subtest: web_search rejects non-HTTP(S) endpoints
+ok 262 - web_search rejects non-HTTP(S) endpoints
+  ---
+  duration_ms: 0.334133
+  type: 'test'
+  ...
+# Subtest: command shell prefers /bin/bash on Unix
+ok 263 - command shell prefers /bin/bash on Unix
+  ---
+  duration_ms: 14.340125
+  type: 'test'
+  ...
+# Subtest: command shell uses PATH bash before falling back to sh
+ok 264 - command shell uses PATH bash before falling back to sh
+  ---
+  duration_ms: 9.399674
+  type: 'test'
+  ...
+# Subtest: command shell prefers configured and standard Git Bash on Windows
+ok 265 - command shell prefers configured and standard Git Bash on Windows
+  ---
+  duration_ms: 0.966561
+  type: 'test'
+  ...
+# Subtest: command shell falls back to cmd then PowerShell 7 on Windows
+ok 266 - command shell falls back to cmd then PowerShell 7 on Windows
+  ---
+  duration_ms: 0.864907
+  type: 'test'
+  ...
+# Subtest: command shell never falls back to Windows PowerShell 5
+ok 267 - command shell never falls back to Windows PowerShell 5
+  ---
+  duration_ms: 6.512496
+  type: 'test'
+  ...
+# Subtest: command shell supports an explicit generic shell path
+ok 268 - command shell supports an explicit generic shell path
+  ---
+  duration_ms: 0.691555
+  type: 'test'
+  ...
+# Subtest: cmd shell executes a quoted executable path on Windows
+ok 269 - cmd shell executes a quoted executable path on Windows # SKIP
+  ---
+  duration_ms: 0.190113
+  type: 'test'
+  ...
+# Subtest: write_file freshness error tells the model to read the file first
+ok 270 - write_file freshness error tells the model to read the file first
+  ---
+  duration_ms: 2.836399
+  type: 'test'
+  ...
+# Subtest: write_file missing content points at the missing field and chunked recovery
+ok 271 - write_file missing content points at the missing field and chunked recovery
+  ---
+  duration_ms: 0.859564
+  type: 'test'
+  ...
+# Subtest: invalid tool input keeps a bounded original error block
+ok 272 - invalid tool input keeps a bounded original error block
+  ---
+  duration_ms: 0.69743
+  type: 'test'
+  ...
+# Subtest: edit_file old_string miss tells the model to reread and copy exact text
+ok 273 - edit_file old_string miss tells the model to reread and copy exact text
+  ---
+  duration_ms: 0.340002
+  type: 'test'
+  ...
+# Subtest: read_file invalid range preserves the concrete issue
+ok 274 - read_file invalid range preserves the concrete issue
+  ---
+  duration_ms: 0.486628
+  type: 'test'
+  ...
+# Subtest: bash missing command reports the required command parameter
+ok 275 - bash missing command reports the required command parameter
+  ---
+  duration_ms: 0.438297
+  type: 'test'
+  ...
+# Subtest: bash timeout over max keeps foreground and task_wait guidance
+ok 276 - bash timeout over max keeps foreground and task_wait guidance
+  ---
+  duration_ms: 0.654154
+  type: 'test'
+  ...
+# Subtest: bash background rejection keeps background-specific guidance
+ok 277 - bash background rejection keeps background-specific guidance
+  ---
+  duration_ms: 0.48501
+  type: 'test'
+  ...
+# Subtest: write_file can create a new file without a prior read_file call
+ok 278 - write_file can create a new file without a prior read_file call
+  ---
+  duration_ms: 13.874679
+  type: 'test'
+  ...
+# Subtest: edit_file can create a new file with empty old_string without a prior read_file call
+ok 279 - edit_file can create a new file with empty old_string without a prior read_file call
+  ---
+  duration_ms: 4.532431
+  type: 'test'
+  ...
+# Subtest: read_file auto-pages large text files instead of failing
+ok 280 - read_file auto-pages large text files instead of failing
+  ---
+  duration_ms: 2916.899821
+  type: 'test'
+  ...
+# Subtest: read_file rejects Office container files during validation
+ok 281 - read_file rejects Office container files during validation
+  ---
+  duration_ms: 2.597056
+  type: 'test'
+  ...
+# Subtest: read_file explicit limit reads a large file range without auto paging
+ok 282 - read_file explicit limit reads a large file range without auto paging
+  ---
+  duration_ms: 6.739079
+  type: 'test'
+  ...
+# Subtest: read_file auto-shrinks oversized persisted tool-result ref ranges
+ok 283 - read_file auto-shrinks oversized persisted tool-result ref ranges
+  ---
+  duration_ms: 29880.199387
+  type: 'test'
+  ...
+# Subtest: read_file keeps explicit oversized ordinary file ranges strict
+ok 284 - read_file keeps explicit oversized ordinary file ranges strict
+  ---
+  duration_ms: 4.152266
+  type: 'test'
+  ...
+# Subtest: read_file explicit limit records a ranged snapshot for follow-up edits
+ok 285 - read_file explicit limit records a ranged snapshot for follow-up edits
+  ---
+  duration_ms: 9.798741
+  type: 'test'
+  ...
+# Subtest: read_file auto-paged large files record a ranged snapshot for follow-up edits
+ok 286 - read_file auto-paged large files record a ranged snapshot for follow-up edits
+  ---
+  duration_ms: 2172.070456
+  type: 'test'
+  ...
+# Subtest: read_file returns a head-tail preview for a single oversized line
+ok 287 - read_file returns a head-tail preview for a single oversized line
+  ---
+  duration_ms: 3.522854
+  type: 'test'
+  ...
+# Subtest: read_file classifies common Office formats as binary
+ok 288 - read_file classifies common Office formats as binary
+  ---
+  duration_ms: 0.32401
+  type: 'test'
+  ...
+# Subtest: read_file rejects ranged binary input instead of hanging
+ok 289 - read_file rejects ranged binary input instead of hanging
+  ---
+  duration_ms: 1.339133
+  type: 'test'
+  ...
+# Subtest: read_file range honors an aborted signal
+ok 290 - read_file range honors an aborted signal
+  ---
+  duration_ms: 0.811633
+  type: 'test'
+  ...
+# Subtest: glob result text tells the model when more files are available
+ok 291 - glob result text tells the model when more files are available
+  ---
+  duration_ms: 60.929972
+  type: 'test'
+  ...
+# Subtest: grep result text includes next offset when paginated
+ok 292 - grep result text includes next offset when paginated
+  ---
+  duration_ms: 30.136286
+  type: 'test'
+  ...
+# Subtest: todo_write returns the actual todo list in model-visible content
+ok 293 - todo_write returns the actual todo list in model-visible content
+  ---
+  duration_ms: 1.593965
+  type: 'test'
+  ...
+# Subtest: task_list returns model-visible status and next action hints
+ok 294 - task_list returns model-visible status and next action hints
+  ---
+  duration_ms: 0.962823
+  type: 'test'
+  ...
+# Subtest: applyResultSizeLimit keeps both head and tail when truncating text output
+ok 295 - applyResultSizeLimit keeps both head and tail when truncating text output
+  ---
+  duration_ms: 1.243743
+  type: 'test'
+  ...
+# Subtest: large tool results are persisted under workspace .pilotdeck and readable by read_file
+ok 296 - large tool results are persisted under workspace .pilotdeck and readable by read_file
+  ---
+  duration_ms: 14.156722
+  type: 'test'
+  ...
+# Subtest: large tool result read_file aliases are short and sequential
+ok 297 - large tool result read_file aliases are short and sequential
+  ---
+  duration_ms: 4.602926
+  type: 'test'
+  ...
+# Subtest: filtered setup-required tools retain their diagnostic and error code
+ok 298 - filtered setup-required tools retain their diagnostic and error code
+  ---
+  duration_ms: 3.363812
+  type: 'test'
+  ...
+# Subtest: failed availability checks become a generic tool_unavailable error
+ok 299 - failed availability checks become a generic tool_unavailable error
+  ---
+  duration_ms: 0.767862
+  type: 'test'
+  ...
+# Subtest: pre-marked unavailable diagnostics preserve aliases through filtering
+ok 300 - pre-marked unavailable diagnostics preserve aliases through filtering
+  ---
+  duration_ms: 0.649548
+  type: 'test'
+  ...
+# Subtest: explicitly disabled builtin tools retain an unavailable diagnostic
+ok 301 - explicitly disabled builtin tools retain an unavailable diagnostic
+  ---
+  duration_ms: 9.155309
+  type: 'test'
+  ...
+1..301
+# tests 301
+# suites 0
+# pass 300
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 38966.260589

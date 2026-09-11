@@ -1,0 +1,9 @@
+{
+  "kind": "seeded-semantic-fault",
+  "model": "competition/glm-5.3",
+  "fault": "供应风险简报格式正确，但把延期七天、影响十八单写成一切正常",
+  "runRoot": "<REPO_ROOT>/artifacts/native-oTZoZr",
+  "workspace": "<REPO_ROOT>/artifacts/native-oTZoZr/workspace",
+  "pilotHome": "<REPO_ROOT>/artifacts/native-oTZoZr/pilot-home",
+  "acceptancePath": "<REPO_ROOT>/artifacts/native-oTZoZr/acceptance.json"
+}

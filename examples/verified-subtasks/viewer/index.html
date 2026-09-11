@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PilotDeck · 交付验收工作台</title>
+<style>
+:root{--ink:#162923;--muted:#67776f;--paper:#f3f1e9;--green:#087357;--line:#d2d8ce;--red:#b63f25;--amber:#a06017}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.65 "Noto Sans CJK SC","Microsoft YaHei",sans-serif}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-offset:4px}header{border-bottom:1px solid var(--ink);padding:20px 5vw;display:flex;justify-content:space-between;align-items:center}.brand{font:700 21px Georgia,serif;letter-spacing:.03em}.badge{font-size:12px;letter-spacing:.1em;color:var(--muted)}main{max-width:1400px;margin:auto;padding:48px 5vw}.hero{display:grid;grid-template-columns:1.45fr 1fr;gap:70px;align-items:end}.eyebrow{font-size:12px;letter-spacing:.15em;font-weight:700;color:var(--green)}h1{font:500 clamp(34px,4.6vw,64px)/1.2 "Noto Serif CJK SC","Songti SC",serif;letter-spacing:-.04em;margin:18px 0 16px}h1 em{font-style:normal;color:var(--green)}.intro{max-width:600px;color:var(--muted)}.metric{padding:22px 0;border-top:2px solid var(--green)}.metric strong{display:block;font:500 64px/1 Georgia,serif;letter-spacing:-.04em}.metric small{color:var(--muted)}.tabs{margin-top:42px;display:flex;gap:8px;flex-wrap:wrap}.tabs button{border:1px solid var(--line);background:transparent;padding:9px 20px;border-radius:3px;color:var(--ink)}.tabs button[aria-selected=true]{background:var(--ink);color:white;border-color:var(--ink)}.workspace{margin-top:22px;display:grid;grid-template-columns:1.1fr 1fr;border:1px solid var(--line);background:#faf9f4}.tasks{padding:26px;border-right:1px solid var(--line)}.section-label{font-size:12px;font-weight:700;letter-spacing:.1em;margin-bottom:16px;color:var(--muted)}.task{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}.task:last-child{border-bottom:0}.number{font:24px Georgia,serif;color:#96a49a}.task h3{font-size:17px;margin:0 0 3px}.task p{margin:0;font-size:13px;color:var(--muted)}.state{font-size:12px;padding:4px 9px;background:#e8ece6;border-radius:20px}.state.accepted{color:var(--green);background:#dcede2}.state.rejected{color:var(--red);background:#f5e4de}.state.repairing{color:var(--amber);background:#f4ead6}.inspector{padding:26px;background:#eaf0e9;min-height:290px}.inspector h2{font:500 25px "Noto Serif CJK SC",serif;margin:14px 0}.inspector pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.8 monospace;background:#f8faf6;border-left:3px solid var(--green);padding:18px;min-height:110px;margin-bottom:0}.controls{display:flex;align-items:center;gap:14px;padding:16px 22px;border:1px solid var(--line);border-top:0;background:#faf9f4}.controls button{background:var(--green);color:white;border:0;padding:8px 20px;border-radius:3px;white-space:nowrap}.controls button.secondary{background:transparent;border:1px solid var(--line);color:var(--ink)}input[type=range]{flex:1;accent-color:var(--green);min-width:80px}.position{font:13px monospace;color:var(--muted);white-space:nowrap}.bottom{margin-top:34px;display:grid;grid-template-columns:1.2fr 1fr;gap:50px}table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font-weight:500;color:var(--muted);font-size:12px}td,th{padding:12px 7px;border-bottom:1px solid var(--line)}td:first-child,th:first-child{padding-left:0}.selected{color:var(--green);font-weight:700}.note{font-size:13px;color:var(--muted);line-height:1.9}.note strong{color:var(--ink)}footer{border-top:1px solid var(--line);margin-top:38px;padding-top:18px;display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}a{color:var(--green)}@media(max-width:800px){main{padding-top:24px}.hero,.workspace,.bottom{grid-template-columns:1fr;gap:20px}.hero{gap:10px}.metric strong{font-size:44px}.tasks{border-right:0;border-bottom:1px solid var(--line)}.controls{gap:9px;flex-wrap:wrap}.controls input{flex-basis:40%}.task{gap:8px}.badge{max-width:160px;text-align:right}.bottom{gap:26px}h1{font-size:38px}}
+</style>
+<header><span class="brand">PilotDeck <span style="font-weight:400">/ Verified Subtasks</span></span><span class="badge">方向三 · HARNESS 升级</span></header>
+<main>
+<div class="hero"><div><div class="eyebrow">交付必须经过验收</div><h1>哪里没通过，<br><em>就从哪里修好。</em></h1><p class="intro">为子任务定义交付契约，检查真正写出的文件。失败时携带具体反馈继续修复，已完成的工作保留在原处。</p></div><div class="metric"><strong id="saving">—</strong><span>减少的模型请求</span><br><small>本次故障注入实验 · 相比整批重跑 · 同为 3 项交付通过</small></div></div>
+<div class="tabs" role="tablist" aria-label="实验策略"><button role="tab" data-i="2" aria-selected="true">局部自动修复</button><button role="tab" data-i="1" aria-selected="false">整批重跑</button><button role="tab" data-i="0" aria-selected="false">仅验收，不修复</button></div>
+<div class="workspace"><section class="tasks"><div class="section-label">三个独立子任务 / 真实文件工具</div><div id="tasks"></div></section><section class="inspector" aria-live="polite"><div class="section-label">验收记录</div><h2 id="phase">准备回放</h2><p id="detail" class="note">选择播放，查看框架实际记录的验收与修复过程。</p><pre id="issues">等待首次交付。</pre></section></div>
+<div class="controls"><button id="play">播放记录</button><button class="secondary" id="reset">重新开始</button><input aria-label="回放进度" id="range" type="range" min="0" value="0"><span id="position" class="position">0 / 0</span></div>
+<div class="bottom"><section><div class="section-label">同样的任务、工具与检查器</div><table><thead><tr><th>策略</th><th>通过</th><th>模型请求</th><th>文件写入</th></tr></thead><tbody id="comparison"></tbody></table></section><section class="note"><strong>这是可核查的机制实验。</strong><br>销售汇总首次被注入错误：196，正确值为 186。其余两个任务首次即可通过。所有策略共享每组 30 次模型请求上限；数字来自真实 Harness 运行记录，模型响应本身为预设序列。<br><br>页面播放的是记录，不会发起新的模型请求。真实 MiniCPM 小样本结果另列于交付文档；不能由本页推断真实模型的普遍成功率。</section></div>
+<footer><span>验收 → 具体反馈 → 原子任务继续 → 再次验收</span><a href="results.json">查看原始结果 JSON ↗</a></footer>
+</main>
+<script>
+const evidence=/*__EVIDENCE__*/null;
+if(!evidence){document.getElementById('detail').textContent='请先运行实验与 viewer 生成脚本。';throw new Error('Missing experiment evidence')}
+const names=['仅验收，不修复','整批重跑','局部自动修复'];
+const taskNames={sales:'销售汇总',stock:'库存盘点',refunds:'退款统计'};
+const phaseNames={validating:'正在验收',repairing:'正在局部修复',accepted:'验收通过',rejected:'验收未通过'};
+let selected=2,position=0,timer=null;
+const $=id=>document.getElementById(id);
+const results=evidence.summary.results;
+$('saving').textContent=Math.round((1-results[2].modelRequests/results[1].modelRequests)*100)+'%';
+function stop(){if(timer)clearInterval(timer);timer=null;$('play').textContent='播放记录'}
+function render(){
+ const trace=evidence.traces[selected],events=trace.events;
+ $('range').max=events.length;$('range').value=position;$('position').textContent=position+' / '+events.length;
+ const states={}; for(const event of events.slice(0,position))states[event.subagentId.replace(/-\d+$/,'')]=event;
+ $('tasks').replaceChildren();
+ Object.entries(taskNames).forEach(([id,name],i)=>{const e=states[id],row=document.createElement('div');row.className='task';
+ const num=document.createElement('span');num.className='number';num.textContent='0'+(i+1);
+ const main=document.createElement('div'),h=document.createElement('h3'),p=document.createElement('p');h.textContent=name;p.textContent=id+'.json'+(e?' · 第 '+e.attempt+' 次验收':' · 等待交付');main.append(h,p);
+ const state=document.createElement('span');state.className='state '+(e?.phase||'');state.textContent=phaseNames[e?.phase]||'执行中';row.append(num,main,state);$('tasks').append(row);});
+ const current=events[position-1];
+ $('phase').textContent=current?phaseNames[current.phase]:'准备回放';
+ $('detail').textContent=current?taskNames[current.subagentId.replace(/-\d+$/,'')]+' · 子任务 '+current.subagentId+' · 第 '+current.attempt+' 次验收':'选择播放，查看实际记录的状态变化。';
+ $('issues').textContent=current?(current.issues?.length?current.issues.map(i=>i.path+' ['+i.code+']\n'+i.message).join('\n\n'):current.phase==='accepted'?'宿主检查通过：报告与真实文件一致。':current.phase==='repairing'?'继续当前子任务，复用已有上下文与工作。':'检查输出格式与实际文件内容。'):'等待首次交付。';
+ $('comparison').replaceChildren();results.forEach((r,i)=>{const tr=document.createElement('tr');if(i===selected)tr.className='selected';[names[i],r.passed+' / '+r.tasks,r.modelRequests,Object.values(r.writes).reduce((a,b)=>a+b,0)].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.append(td)});$('comparison').append(tr)});
+ document.querySelectorAll('[data-i]').forEach(b=>b.setAttribute('aria-selected',String(Number(b.dataset.i)===selected)));
+}
+document.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{stop();selected=Number(b.dataset.i);position=0;render()});
+$('range').oninput=e=>{stop();position=Number(e.target.value);render()};
+$('reset').onclick=()=>{stop();position=0;render()};
+$('play').onclick=()=>{if(timer){stop();return}if(position>=evidence.traces[selected].events.length)position=0;$('play').textContent='暂停';timer=setInterval(()=>{position++;render();if(position>=evidence.traces[selected].events.length)stop()},1100)};
+render();
+</script></html>

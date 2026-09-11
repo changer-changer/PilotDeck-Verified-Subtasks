@@ -1,0 +1,224 @@
+[
+  {
+    "subagentType": "general-purpose",
+    "description": "销售报表",
+    "text": "{\"artifact\":\"sales.json\",\"result\":{\"count\":3,\"total\":186}}",
+    "usage": {
+      "inputTokens": 12963,
+      "outputTokens": 1707,
+      "cacheReadTokens": 18240,
+      "totalTokens": 32910
+    },
+    "turns": 6,
+    "durationMs": 84081,
+    "acceptance": {
+      "status": "accepted",
+      "stopReason": "accepted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "accepted": true,
+          "issues": [],
+          "review": {
+            "model": {
+              "provider": "competition",
+              "model": "glm-5.3"
+            },
+            "evidence": [
+              "<REPO_ROOT>/artifacts/native-NatqKX/workspace/sales.json",
+              "<REPO_ROOT>/artifacts/native-NatqKX/workspace/sales-source.json"
+            ],
+            "turns": 4,
+            "usage": {
+              "inputTokens": 6157,
+              "outputTokens": 1459,
+              "cacheReadTokens": 10176,
+              "totalTokens": 17792
+            },
+            "durationMs": 49949,
+            "status": "accepted",
+            "summary": "Verified against actual workspace artifacts: /sales.json contains {\"count\":3,\"total\":186}, which exactly matches the delivery claim. Cross-checked with /sales-source.json, whose amounts array is [48,63,75] — length 3 and sum 186 (48+63+75), so the report accurately reflects the source file's quantity and total. Both files are valid JSON and the claim's schema (artifact + result{count,total}) confo",
+            "issues": []
+          }
+        }
+      ],
+      "repairs": 0,
+      "value": {
+        "artifact": "sales.json",
+        "result": {
+          "count": 3,
+          "total": 186
+        }
+      }
+    }
+  },
+  {
+    "subagentType": "general-purpose",
+    "description": "库存报表",
+    "text": "{\"artifact\":\"stock.json\",\"result\":{\"count\":2,\"total\":48}}",
+    "usage": {
+      "inputTokens": 11532,
+      "outputTokens": 1610,
+      "cacheReadTokens": 15360,
+      "totalTokens": 28502
+    },
+    "turns": 5,
+    "durationMs": 60213,
+    "acceptance": {
+      "status": "rejected",
+      "stopReason": "reviewer_error",
+      "attempts": [
+        {
+          "attempt": 1,
+          "accepted": false,
+          "issues": [
+            {
+              "path": "$",
+              "code": "reviewer_verdict_invalid",
+              "message": "Reviewer did not return a well-formed verdict JSON; failing closed"
+            }
+          ],
+          "review": {
+            "status": "error",
+            "model": {
+              "provider": "competition",
+              "model": "glm-5.3"
+            },
+            "summary": "Reviewer did not return a well-formed verdict JSON; failing closed",
+            "issues": [
+              {
+                "path": "$",
+                "code": "reviewer_verdict_invalid",
+                "message": "Reviewer did not return a well-formed verdict JSON; failing closed"
+              }
+            ],
+            "evidence": [
+              "<REPO_ROOT>/artifacts/native-NatqKX/workspace/stock.json",
+              "<REPO_ROOT>/artifacts/native-NatqKX/workspace/stock-source.json"
+            ],
+            "turns": 3,
+            "usage": {
+              "inputTokens": 4749,
+              "outputTokens": 1337,
+              "cacheReadTokens": 7296,
+              "totalTokens": 13382
+            },
+            "durationMs": 28484
+          }
+        }
+      ],
+      "repairs": 0
+    }
+  },
+  {
+    "subagentType": "general-purpose",
+    "description": "退款报表",
+    "text": "{\"artifact\":\"refunds.json\",\"result\":{\"count\":2,\"total\":12}}",
+    "usage": {
+      "inputTokens": 10748,
+      "outputTokens": 2171,
+      "cacheReadTokens": 24384,
+      "totalTokens": 37303
+    },
+    "turns": 6,
+    "durationMs": 97113,
+    "acceptance": {
+      "status": "accepted",
+      "stopReason": "accepted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "accepted": true,
+          "issues": [],
+          "review": {
+            "model": {
+              "provider": "competition",
+              "model": "glm-5.3"
+            },
+            "evidence": [
+              "<REPO_ROOT>/artifacts/native-NatqKX/workspace/refunds.json",
+              "<REPO_ROOT>/artifacts/native-NatqKX/workspace/refunds-source.json"
+            ],
+            "turns": 3,
+            "usage": {
+              "inputTokens": 2161,
+              "outputTokens": 909,
+              "cacheReadTokens": 9600,
+              "totalTokens": 12670
+            },
+            "durationMs": 29369,
+            "status": "accepted",
+            "summary": "已独立核验工作区实际产物：refunds.json 内容为 {\"count\": 2, \"total\": 12}；来源文件 refunds-source.json 的 amounts 为 [5, 7]，其长度为 2、数字之和为 12，与 refunds.json 中的 count/total 完全一致。交付声明 {\"artifact\":\"refunds.json\",\"result\":{\"count\":2,\"total\":12}} 与实际文件内容及来源推导值均相符，满足最终验收标准（报表准确反映来源文件的金额总和与数量），且符合要求的返回格式。glob 确认工作区中仅存在 refunds.json 与 refunds-source.json 两个相关文件。",
+            "issues": []
+          }
+        }
+      ],
+      "repairs": 0,
+      "value": {
+        "artifact": "refunds.json",
+        "result": {
+          "count": 2,
+          "total": 12
+        }
+      }
+    }
+  },
+  {
+    "subagentType": "general-purpose",
+    "description": "供应风险简报",
+    "text": "{\"artifact\":\"briefing.json\",\"result\":{\"summary\":\"供应稳定，下周可正常发货。\",\"risk\":\"无\",\"action\":\"无需跟进\"}}",
+    "usage": {
+      "inputTokens": 10940,
+      "outputTokens": 1514,
+      "cacheReadTokens": 11712,
+      "totalTokens": 24166
+    },
+    "turns": 4,
+    "durationMs": 61202,
+    "acceptance": {
+      "status": "rejected",
+      "stopReason": "reviewer_error",
+      "attempts": [
+        {
+          "attempt": 1,
+          "accepted": false,
+          "issues": [
+            {
+              "path": "$",
+              "code": "reviewer_verdict_invalid",
+              "message": "Reviewer did not return a well-formed verdict JSON; failing closed"
+            }
+          ],
+          "review": {
+            "status": "error",
+            "model": {
+              "provider": "competition",
+              "model": "glm-5.3"
+            },
+            "summary": "Reviewer did not return a well-formed verdict JSON; failing closed",
+            "issues": [
+              {
+                "path": "$",
+                "code": "reviewer_verdict_invalid",
+                "message": "Reviewer did not return a well-formed verdict JSON; failing closed"
+              }
+            ],
+            "evidence": [
+              "<REPO_ROOT>/artifacts/native-NatqKX/workspace/briefing.json",
+              "<REPO_ROOT>/artifacts/native-NatqKX/workspace/briefing-source.json"
+            ],
+            "turns": 2,
+            "usage": {
+              "inputTokens": 3902,
+              "outputTokens": 1053,
+              "cacheReadTokens": 3584,
+              "totalTokens": 8539
+            },
+            "durationMs": 26465
+          }
+        }
+      ],
+      "repairs": 0
+    }
+  }
+]

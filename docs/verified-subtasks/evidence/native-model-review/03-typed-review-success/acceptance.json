@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "root": "<REPO_ROOT>/artifacts/native-oTZoZr/workspace",
+      "validators": {
+        "sales-file": {
+          "file": "sales.json",
+          "expected": {
+            "count": 3,
+            "total": 186
+          }
+        },
+        "stock-file": {
+          "file": "stock.json",
+          "expected": {
+            "count": 2,
+            "total": 48
+          }
+        },
+        "refunds-file": {
+          "file": "refunds.json",
+          "expected": {
+            "count": 2,
+            "total": 12
+          }
+        },
+        "briefing-file": {
+          "file": "briefing.json",
+          "matchClaimOnly": true
+        }
+      }
+    }
+  ]
+}

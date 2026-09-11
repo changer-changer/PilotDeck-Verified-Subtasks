@@ -1,0 +1,60 @@
+[
+  {
+    "run": "native-NatqKX",
+    "scenarioPassed": false,
+    "durationMs": 285126,
+    "acceptedSubtasks": 2,
+    "repairEvents": 0,
+    "reviewModelCalls": 12,
+    "reviewUsageTotalTokens": 52383,
+    "producerAndReviewTurns": 21,
+    "producerAndReviewUsageTotalTokens": 122881,
+    "mainModelUsage": {
+      "inputTokens": 21067,
+      "outputTokens": 8415,
+      "cacheReadTokens": 23168,
+      "totalTokens": 52650
+    },
+    "sourceSha256": "a46bb1c56eaf574c88908c59beb41da0c6b4622b42ece7ddf34c2e9eaf686adf"
+  },
+  {
+    "run": "native-ClX7Lt",
+    "scenarioPassed": false,
+    "durationMs": 360597,
+    "acceptedSubtasks": 4,
+    "repairEvents": 0,
+    "reviewModelCalls": 9,
+    "reviewUsageTotalTokens": 40040,
+    "producerAndReviewTurns": 22,
+    "producerAndReviewUsageTotalTokens": 156196,
+    "mainModelUsage": null,
+    "sourceSha256": "fb3d3c853ef6f20efb75a292ca684d37288e149f523951ae6e6eda58454ee1b4"
+  },
+  {
+    "run": "native-oTZoZr",
+    "scenarioPassed": true,
+    "durationMs": 160474,
+    "acceptedSubtasks": 4,
+    "repairEvents": 1,
+    "reviewModelCalls": 13,
+    "reviewUsageTotalTokens": 58042,
+    "producerAndReviewTurns": 25,
+    "producerAndReviewUsageTotalTokens": 151619,
+    "mainModelUsage": {
+      "inputTokens": 16924,
+      "outputTokens": 2970,
+      "cacheReadTokens": 11648,
+      "totalTokens": 31542
+    },
+    "sourceSha256": "f360c0ee8bd6f688852bf52488aaa705a44493705ae5ebd5baefe8713b138fd8",
+    "independentAssertions": {
+      "onlyFourChildren": true,
+      "modelCausedRepair": true,
+      "sameChildAcceptedAfterRepair": true,
+      "firstLayerPassedBeforeModelRejection": true,
+      "threeSiblingsHashAndMtimeUnchanged": true,
+      "mainTurnCompletedWithoutGatewayError": true
+    },
+    "repairedSubagentId": "980c6a8e-f540-47f3-bd21-8d07b7c1420a"
+  }
+]

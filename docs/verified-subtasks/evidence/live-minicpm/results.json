@@ -1,0 +1,591 @@
+{
+  "experiment": "live-small-sample",
+  "model": "hf.co/openbmb/MiniCPM5-1B-GGUF:Q4_K_M",
+  "sampleSize": 3,
+  "injectedFaults": false,
+  "fairness": "Local repair replays exactly the same initial responses, including their logical tokens. Every strategy has a maximum of 9 total model requests; whole-batch uses one extra complete round. Timing not compared because local initial responses are replayed.",
+  "physicalRequests": 12,
+  "results": [
+    {
+      "strategy": "no-repair",
+      "tasks": 3,
+      "accepted": 0,
+      "logicalRequests": 3,
+      "totalTokens": 1925
+    },
+    {
+      "strategy": "local-repair",
+      "tasks": 3,
+      "accepted": 0,
+      "logicalRequests": 9,
+      "totalTokens": 7331
+    },
+    {
+      "strategy": "whole-batch",
+      "tasks": 3,
+      "accepted": 0,
+      "logicalRequests": 6,
+      "totalTokens": 3850
+    }
+  ],
+  "first": [
+    {
+      "task": "paid-orders",
+      "requests": 1,
+      "report": {
+        "subagentId": "no-repair-paid-orders",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":2, \"total\":113}",
+        "usage": {
+          "inputTokens": 612,
+          "outputTokens": 11,
+          "totalTokens": 623
+        },
+        "turns": 1,
+        "durationMs": 2085,
+        "acceptance": {
+          "status": "rejected",
+          "stopReason": "repair_limit",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "source_mismatch",
+                  "message": "Result does not match the supplied rows and calculation rules. Recalculate count and total, checking filters and duplicate handling."
+                }
+              ]
+            }
+          ],
+          "repairs": 0
+        }
+      }
+    },
+    {
+      "task": "inventory",
+      "requests": 1,
+      "report": {
+        "subagentId": "no-repair-inventory",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":0,\"total\":0}",
+        "usage": {
+          "inputTokens": 559,
+          "outputTokens": 10,
+          "totalTokens": 569
+        },
+        "turns": 1,
+        "durationMs": 168,
+        "acceptance": {
+          "status": "rejected",
+          "stopReason": "repair_limit",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "source_mismatch",
+                  "message": "Result does not match the supplied rows and calculation rules. Recalculate count and total, checking filters and duplicate handling."
+                }
+              ]
+            }
+          ],
+          "repairs": 0
+        }
+      }
+    },
+    {
+      "task": "refunds",
+      "requests": 1,
+      "report": {
+        "subagentId": "no-repair-refunds",
+        "definitionId": "general-purpose",
+        "markdown": "The task requires processing a list of rows with specific conditions and returning only the count and total number of rows that meet the criteria, including filtering by approved=true, deduplicating by id, and performing arithmetic calculations.\n\nFirst, I will filter the rows to include only those where `approved` is true. Then, I will calculate the sum of amounts for these filtered rows. Finally, I will return the count and total number of such rows as a JSON object with the required schema.\n\n```json\n{\"count\": 3, \"total\": 3}\n```",
+        "usage": {
+          "inputTokens": 616,
+          "outputTokens": 117,
+          "totalTokens": 733
+        },
+        "turns": 1,
+        "durationMs": 623,
+        "acceptance": {
+          "status": "rejected",
+          "stopReason": "repair_limit",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "invalid_json",
+                  "message": "Return exactly one complete JSON value, without surrounding prose"
+                }
+              ]
+            }
+          ],
+          "repairs": 0
+        }
+      }
+    }
+  ],
+  "local": [
+    {
+      "task": "paid-orders",
+      "requests": 3,
+      "report": {
+        "subagentId": "local-repair-paid-orders",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":2, \"total\":113}",
+        "usage": {
+          "inputTokens": 2181,
+          "outputTokens": 33,
+          "totalTokens": 2214
+        },
+        "turns": 3,
+        "durationMs": 367,
+        "acceptance": {
+          "status": "rejected",
+          "stopReason": "turn_limit",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "source_mismatch",
+                  "message": "Result does not match the supplied rows and calculation rules. Recalculate count and total, checking filters and duplicate handling."
+                }
+              ]
+            },
+            {
+              "attempt": 2,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "source_mismatch",
+                  "message": "Result does not match the supplied rows and calculation rules. Recalculate count and total, checking filters and duplicate handling."
+                }
+              ]
+            },
+            {
+              "attempt": 3,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "source_mismatch",
+                  "message": "Result does not match the supplied rows and calculation rules. Recalculate count and total, checking filters and duplicate handling."
+                }
+              ]
+            }
+          ],
+          "repairs": 2
+        }
+      }
+    },
+    {
+      "task": "inventory",
+      "requests": 3,
+      "report": {
+        "subagentId": "local-repair-inventory",
+        "definitionId": "general-purpose",
+        "markdown": "I'm sorry for the confusion. I'll now recalculate the stock based on the adjusted values:\n\n1. Start stock at 40.\n2. Apply all signed adjustments: +13, -7, -9, +22, -4, -8, +6.\n3. Calculate final stock by subtracting the net adjustment from the starting stock.\n\nLet's perform the calculation step-by-step:\n- Initial stock = $40\n- Net adjustment = +13 - 7 - 9 + 22 - 4 - 8 + 6\n\nFirst, calculate the net adjustment:\n+13 - 7 - 9 + 22 - 4 - 8 + 6 \n= (13 + 22 + 6) - (7 + 9 + 4 + 8)\n= 41 - 28\n= 13\n\nNow, subtract the net adjustment from the initial stock:\nFinal stock = Initial stock - Net adjustment\n= $40 - $13\n= $27\n\nThe final result is:\n{\"count\":1,\"total\":27}",
+        "usage": {
+          "inputTokens": 2019,
+          "outputTokens": 242,
+          "totalTokens": 2261
+        },
+        "turns": 3,
+        "durationMs": 1243,
+        "acceptance": {
+          "status": "rejected",
+          "stopReason": "turn_limit",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "source_mismatch",
+                  "message": "Result does not match the supplied rows and calculation rules. Recalculate count and total, checking filters and duplicate handling."
+                }
+              ]
+            },
+            {
+              "attempt": 2,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "source_mismatch",
+                  "message": "Result does not match the supplied rows and calculation rules. Recalculate count and total, checking filters and duplicate handling."
+                }
+              ]
+            },
+            {
+              "attempt": 3,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "invalid_json",
+                  "message": "Return exactly one complete JSON value, without surrounding prose"
+                }
+              ]
+            }
+          ],
+          "repairs": 2
+        }
+      }
+    },
+    {
+      "task": "refunds",
+      "requests": 3,
+      "report": {
+        "subagentId": "local-repair-refunds",
+        "definitionId": "general-purpose",
+        "markdown": "I have reviewed the provided information and the task requirements. The task requires processing a list of rows with specific conditions and returning only the count and total number of rows that meet the criteria, including filtering by approved=true, deduplicating by id, and performing arithmetic calculations.\n\nFirst, I will filter the rows to include only those where `approved` is true. Then, I will calculate the sum of amounts for these filtered rows. Finally, I will return the count and total number of such rows as a JSON object with the required schema.\n\n```json\n{\"count\": 3, \"total\": 3}\n```",
+        "usage": {
+          "inputTokens": 2483,
+          "outputTokens": 373,
+          "totalTokens": 2856
+        },
+        "turns": 3,
+        "durationMs": 1402,
+        "acceptance": {
+          "status": "rejected",
+          "stopReason": "turn_limit",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "invalid_json",
+                  "message": "Return exactly one complete JSON value, without surrounding prose"
+                }
+              ]
+            },
+            {
+              "attempt": 2,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "invalid_json",
+                  "message": "Return exactly one complete JSON value, without surrounding prose"
+                }
+              ]
+            },
+            {
+              "attempt": 3,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "invalid_json",
+                  "message": "Return exactly one complete JSON value, without surrounding prose"
+                }
+              ]
+            }
+          ],
+          "repairs": 2
+        }
+      }
+    }
+  ],
+  "full": [
+    {
+      "task": "paid-orders",
+      "requests": 1,
+      "report": {
+        "subagentId": "whole-batch-paid-orders",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":2, \"total\":113}",
+        "usage": {
+          "inputTokens": 612,
+          "outputTokens": 11,
+          "totalTokens": 623
+        },
+        "turns": 1,
+        "durationMs": 184,
+        "acceptance": {
+          "status": "rejected",
+          "stopReason": "repair_limit",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "source_mismatch",
+                  "message": "Result does not match the supplied rows and calculation rules. Recalculate count and total, checking filters and duplicate handling."
+                }
+              ]
+            }
+          ],
+          "repairs": 0
+        }
+      }
+    },
+    {
+      "task": "inventory",
+      "requests": 1,
+      "report": {
+        "subagentId": "whole-batch-inventory",
+        "definitionId": "general-purpose",
+        "markdown": "{\"count\":0,\"total\":0}",
+        "usage": {
+          "inputTokens": 559,
+          "outputTokens": 10,
+          "totalTokens": 569
+        },
+        "turns": 1,
+        "durationMs": 170,
+        "acceptance": {
+          "status": "rejected",
+          "stopReason": "repair_limit",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "source_mismatch",
+                  "message": "Result does not match the supplied rows and calculation rules. Recalculate count and total, checking filters and duplicate handling."
+                }
+              ]
+            }
+          ],
+          "repairs": 0
+        }
+      }
+    },
+    {
+      "task": "refunds",
+      "requests": 1,
+      "report": {
+        "subagentId": "whole-batch-refunds",
+        "definitionId": "general-purpose",
+        "markdown": "The task requires processing a list of rows with specific conditions and returning only the count and total number of rows that meet the criteria, including filtering by approved=true, deduplicating by id, and performing arithmetic calculations.\n\nFirst, I will filter the rows to include only those where `approved` is true. Then, I will calculate the sum of amounts for these filtered rows. Finally, I will return the count and total number of such rows as a JSON object with the required schema.\n\n```json\n{\"count\": 3, \"total\": 3}\n```",
+        "usage": {
+          "inputTokens": 616,
+          "outputTokens": 117,
+          "totalTokens": 733
+        },
+        "turns": 1,
+        "durationMs": 609,
+        "acceptance": {
+          "status": "rejected",
+          "stopReason": "repair_limit",
+          "attempts": [
+            {
+              "attempt": 1,
+              "accepted": false,
+              "issues": [
+                {
+                  "path": "$",
+                  "code": "invalid_json",
+                  "message": "Return exactly one complete JSON value, without surrounding prose"
+                }
+              ]
+            }
+          ],
+          "repairs": 0
+        }
+      }
+    }
+  ],
+  "traces": [
+    {
+      "task": "paid-orders",
+      "strategy": "no-repair",
+      "replay": false,
+      "text": "{\"count\":2, \"total\":113}",
+      "usage": {
+        "inputTokens": 612,
+        "outputTokens": 11,
+        "totalTokens": 623
+      },
+      "durationMs": 2079
+    },
+    {
+      "task": "inventory",
+      "strategy": "no-repair",
+      "replay": false,
+      "text": "{\"count\":0,\"total\":0}",
+      "usage": {
+        "inputTokens": 559,
+        "outputTokens": 10,
+        "totalTokens": 569
+      },
+      "durationMs": 167
+    },
+    {
+      "task": "refunds",
+      "strategy": "no-repair",
+      "replay": false,
+      "text": "The task requires processing a list of rows with specific conditions and returning only the count and total number of rows that meet the criteria, including filtering by approved=true, deduplicating by id, and performing arithmetic calculations.\n\nFirst, I will filter the rows to include only those where `approved` is true. Then, I will calculate the sum of amounts for these filtered rows. Finally, I will return the count and total number of such rows as a JSON object with the required schema.\n\n```json\n{\"count\": 3, \"total\": 3}\n```",
+      "usage": {
+        "inputTokens": 616,
+        "outputTokens": 117,
+        "totalTokens": 733
+      },
+      "durationMs": 622
+    },
+    {
+      "task": "paid-orders",
+      "strategy": "local-repair",
+      "replay": true,
+      "text": "{\"count\":2, \"total\":113}",
+      "usage": {
+        "inputTokens": 612,
+        "outputTokens": 11,
+        "totalTokens": 623
+      },
+      "durationMs": 2079
+    },
+    {
+      "task": "paid-orders",
+      "strategy": "local-repair",
+      "replay": false,
+      "text": "{\"count\":2, \"total\":113}",
+      "usage": {
+        "inputTokens": 727,
+        "outputTokens": 11,
+        "totalTokens": 738
+      },
+      "durationMs": 194
+    },
+    {
+      "task": "paid-orders",
+      "strategy": "local-repair",
+      "replay": false,
+      "text": "{\"count\":2, \"total\":113}",
+      "usage": {
+        "inputTokens": 842,
+        "outputTokens": 11,
+        "totalTokens": 853
+      },
+      "durationMs": 171
+    },
+    {
+      "task": "inventory",
+      "strategy": "local-repair",
+      "replay": true,
+      "text": "{\"count\":0,\"total\":0}",
+      "usage": {
+        "inputTokens": 559,
+        "outputTokens": 10,
+        "totalTokens": 569
+      },
+      "durationMs": 167
+    },
+    {
+      "task": "inventory",
+      "strategy": "local-repair",
+      "replay": false,
+      "text": "{\"count\":0,\"total\":0}",
+      "usage": {
+        "inputTokens": 673,
+        "outputTokens": 10,
+        "totalTokens": 683
+      },
+      "durationMs": 196
+    },
+    {
+      "task": "inventory",
+      "strategy": "local-repair",
+      "replay": false,
+      "text": "I'm sorry for the confusion. I'll now recalculate the stock based on the adjusted values:\n\n1. Start stock at 40.\n2. Apply all signed adjustments: +13, -7, -9, +22, -4, -8, +6.\n3. Calculate final stock by subtracting the net adjustment from the starting stock.\n\nLet's perform the calculation step-by-step:\n- Initial stock = $40\n- Net adjustment = +13 - 7 - 9 + 22 - 4 - 8 + 6\n\nFirst, calculate the net adjustment:\n+13 - 7 - 9 + 22 - 4 - 8 + 6 \n= (13 + 22 + 6) - (7 + 9 + 4 + 8)\n= 41 - 28\n= 13\n\nNow, subtract the net adjustment from the initial stock:\nFinal stock = Initial stock - Net adjustment\n= $40 - $13\n= $27\n\nThe final result is:\n{\"count\":1,\"total\":27}",
+      "usage": {
+        "inputTokens": 787,
+        "outputTokens": 222,
+        "totalTokens": 1009
+      },
+      "durationMs": 1044
+    },
+    {
+      "task": "refunds",
+      "strategy": "local-repair",
+      "replay": true,
+      "text": "The task requires processing a list of rows with specific conditions and returning only the count and total number of rows that meet the criteria, including filtering by approved=true, deduplicating by id, and performing arithmetic calculations.\n\nFirst, I will filter the rows to include only those where `approved` is true. Then, I will calculate the sum of amounts for these filtered rows. Finally, I will return the count and total number of such rows as a JSON object with the required schema.\n\n```json\n{\"count\": 3, \"total\": 3}\n```",
+      "usage": {
+        "inputTokens": 616,
+        "outputTokens": 117,
+        "totalTokens": 733
+      },
+      "durationMs": 622
+    },
+    {
+      "task": "refunds",
+      "strategy": "local-repair",
+      "replay": false,
+      "text": "I have reviewed the provided information and the task requirements. The task requires processing a list of rows with specific conditions and returning only the count and total number of rows that meet the criteria, including filtering by approved=true, deduplicating by id, and performing arithmetic calculations.\n\nFirst, I will filter the rows to include only those where `approved` is true. Then, I will calculate the sum of amounts for these filtered rows. Finally, I will return the count and total number of such rows as a JSON object with the required schema.\n\n```json\n{\"count\": 3, \"total\": 3}\n```",
+      "usage": {
+        "inputTokens": 824,
+        "outputTokens": 128,
+        "totalTokens": 952
+      },
+      "durationMs": 696
+    },
+    {
+      "task": "refunds",
+      "strategy": "local-repair",
+      "replay": false,
+      "text": "I have reviewed the provided information and the task requirements. The task requires processing a list of rows with specific conditions and returning only the count and total number of rows that meet the criteria, including filtering by approved=true, deduplicating by id, and performing arithmetic calculations.\n\nFirst, I will filter the rows to include only those where `approved` is true. Then, I will calculate the sum of amounts for these filtered rows. Finally, I will return the count and total number of such rows as a JSON object with the required schema.\n\n```json\n{\"count\": 3, \"total\": 3}\n```",
+      "usage": {
+        "inputTokens": 1043,
+        "outputTokens": 128,
+        "totalTokens": 1171
+      },
+      "durationMs": 706
+    },
+    {
+      "task": "paid-orders",
+      "strategy": "whole-batch",
+      "replay": false,
+      "text": "{\"count\":2, \"total\":113}",
+      "usage": {
+        "inputTokens": 612,
+        "outputTokens": 11,
+        "totalTokens": 623
+      },
+      "durationMs": 183
+    },
+    {
+      "task": "inventory",
+      "strategy": "whole-batch",
+      "replay": false,
+      "text": "{\"count\":0,\"total\":0}",
+      "usage": {
+        "inputTokens": 559,
+        "outputTokens": 10,
+        "totalTokens": 569
+      },
+      "durationMs": 169
+    },
+    {
+      "task": "refunds",
+      "strategy": "whole-batch",
+      "replay": false,
+      "text": "The task requires processing a list of rows with specific conditions and returning only the count and total number of rows that meet the criteria, including filtering by approved=true, deduplicating by id, and performing arithmetic calculations.\n\nFirst, I will filter the rows to include only those where `approved` is true. Then, I will calculate the sum of amounts for these filtered rows. Finally, I will return the count and total number of such rows as a JSON object with the required schema.\n\n```json\n{\"count\": 3, \"total\": 3}\n```",
+      "usage": {
+        "inputTokens": 616,
+        "outputTokens": 117,
+        "totalTokens": 733
+      },
+      "durationMs": 609
+    }
+  ]
+}
