@@ -1,0 +1,490 @@
+TAP version 13
+# (node:675597) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: public session API carries contracts through real agent tool, fork, repair and parent projection
+ok 1 - public session API carries contracts through real agent tool, fork, repair and parent projection
+  ---
+  duration_ms: 339.584143
+  type: 'test'
+  ...
+# Subtest: contract mode removes conflicting mandatory five-field system report
+ok 2 - contract mode removes conflicting mandatory five-field system report
+  ---
+  duration_ms: 1.056004
+  type: 'test'
+  ...
+# Subtest: sidechain accepted_input contains only the new repair feedback, not repeated history
+ok 3 - sidechain accepted_input contains only the new repair feedback, not repeated history
+  ---
+  duration_ms: 1.525494
+  type: 'test'
+  ...
+# Subtest: invalid host turn cap and null contract do not silently execute
+ok 4 - invalid host turn cap and null contract do not silently execute
+  ---
+  duration_ms: 0.533474
+  type: 'test'
+  ...
+# Subtest: a repair ending on a tool call cannot accept a stale earlier final answer
+ok 5 - a repair ending on a tool call cannot accept a stale earlier final answer
+  ---
+  duration_ms: 1.880106
+  type: 'test'
+  ...
+# Subtest: rejected delivery is an error tool result while retaining structured report and usage
+ok 6 - rejected delivery is an error tool result while retaining structured report and usage
+  ---
+  duration_ms: 0.421568
+  type: 'test'
+  ...
+# (node:675598) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: completed acceptance emits one isolated metadata observation including failed attempts and actual model
+ok 7 - completed acceptance emits one isolated metadata observation including failed attempts and actual model
+  ---
+  duration_ms: 7.386838
+  type: 'test'
+  ...
+# Subtest: terminal rejected deliveries are observed too
+ok 8 - terminal rejected deliveries are observed too
+  ---
+  duration_ms: 1.221671
+  type: 'test'
+  ...
+# Subtest: observer failure warns without changing the accepted delivery
+ok 9 - observer failure warns without changing the accepted delivery
+  ---
+  duration_ms: 1.163557
+  type: 'test'
+  ...
+# Subtest: legacy tasks never invoke the acceptance observer
+ok 10 - legacy tasks never invoke the acceptance observer
+  ---
+  duration_ms: 0.49915
+  type: 'test'
+  ...
+# (node:675599) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: rejected review repairs in the SAME child, then acceptance folds review into the shared budget
+ok 11 - rejected review repairs in the SAME child, then acceptance folds review into the shared budget
+  ---
+  duration_ms: 8.191031
+  type: 'test'
+  ...
+# Subtest: deterministic schema failure skips the expensive model review
+ok 12 - deterministic schema failure skips the expensive model review
+  ---
+  duration_ms: 0.973288
+  type: 'test'
+  ...
+# Subtest: accepted requires BOTH layers and keeps every review report in attempts
+ok 13 - accepted requires BOTH layers and keeps every review report in attempts
+  ---
+  duration_ms: 0.963494
+  type: 'test'
+  ...
+# Subtest: reviewer error report is terminal reviewer_error and never accepted
+ok 14 - reviewer error report is terminal reviewer_error and never accepted
+  ---
+  duration_ms: 0.926624
+  type: 'test'
+  ...
+# Subtest: malformed reviewer (throws) is terminal reviewer_error
+ok 15 - malformed reviewer (throws) is terminal reviewer_error
+  ---
+  duration_ms: 1.116264
+  type: 'test'
+  ...
+# Subtest: reviewer turns/usage count against the shared turn budget
+ok 16 - reviewer turns/usage count against the shared turn budget
+  ---
+  duration_ms: 0.952276
+  type: 'test'
+  ...
+# Subtest: no remaining review budget → reviewer never invoked, stopReason turn_limit
+ok 17 - no remaining review budget → reviewer never invoked, stopReason turn_limit
+  ---
+  duration_ms: 1.466427
+  type: 'test'
+  ...
+# Subtest: default reviewer inherits the parent model despite a different subagentModel
+ok 18 - default reviewer inherits the parent model despite a different subagentModel
+  ---
+  duration_ms: 1.053348
+  type: 'test'
+  ...
+# Subtest: no reviewer configured preserves legacy behavior
+ok 19 - no reviewer configured preserves legacy behavior
+  ---
+  duration_ms: 1.12227
+  type: 'test'
+  ...
+# (node:675600) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: model rejection repairs the same child and includes both layers in usage
+ok 20 - model rejection repairs the same child and includes both layers in usage
+  ---
+  duration_ms: 9.72498
+  type: 'test'
+  ...
+# Subtest: schema failure skips expensive model review
+ok 21 - schema failure skips expensive model review
+  ---
+  duration_ms: 1.204702
+  type: 'test'
+  ...
+# Subtest: review budget exhaustion prevents repair or unchecked acceptance
+ok 22 - review budget exhaustion prevents repair or unchecked acceptance
+  ---
+  duration_ms: 1.360033
+  type: 'test'
+  ...
+# Subtest: unavailable, malformed and contradictory reviewer results fail closed
+ok 23 - unavailable, malformed and contradictory reviewer results fail closed
+  ---
+  duration_ms: 3.836915
+  type: 'test'
+  ...
+# Subtest: factory uses an independent read-only model with no parent system prompt or recursion
+ok 24 - factory uses an independent read-only model with no parent system prompt or recursion
+  ---
+  duration_ms: 7.603367
+  type: 'test'
+  ...
+# Subtest: factory refuses artifact claims without an actual successful read
+ok 25 - factory refuses artifact claims without an actual successful read
+  ---
+  duration_ms: 1.02162
+  type: 'test'
+  ...
+# Subtest: factory records independently read artifact evidence using the selected reviewer
+ok 26 - factory records independently read artifact evidence using the selected reviewer
+  ---
+  duration_ms: 18.76092
+  type: 'test'
+  ...
+# Subtest: inconclusive and internally conflicting verdicts are terminal errors
+ok 27 - inconclusive and internally conflicting verdicts are terminal errors
+  ---
+  duration_ms: 2.867332
+  type: 'test'
+  ...
+# Subtest: factory counts failed requests even when the provider supplies no usage
+ok 28 - factory counts failed requests even when the provider supplies no usage
+  ---
+  duration_ms: 0.988582
+  type: 'test'
+  ...
+# Subtest: zero review budget or prior abort never starts a model request
+ok 29 - zero review budget or prior abort never starts a model request
+  ---
+  duration_ms: 0.522057
+  type: 'test'
+  ...
+# Subtest: review timeout returns a terminal error even when transport ignores cancellation
+ok 30 - review timeout returns a terminal error even when transport ignores cancellation
+  ---
+  duration_ms: 1000.875359
+  type: 'test'
+  ...
+# Subtest: typed verdict submission ends the reviewer without an extra prose turn
+ok 31 - typed verdict submission ends the reviewer without an extra prose turn
+  ---
+  duration_ms: 2.714204
+  type: 'test'
+  ...
+# Subtest: a producer structured submission reaches acceptance before it can continue working
+ok 32 - a producer structured submission reaches acceptance before it can continue working
+  ---
+  duration_ms: 3.878594
+  type: 'test'
+  ...
+# (node:675606) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: acceptance passes on the first attempt without repairs
+ok 33 - acceptance passes on the first attempt without repairs
+  ---
+  duration_ms: 6.736812
+  type: 'test'
+  ...
+# Subtest: invalid first attempt repairs with feedback while prior messages stay visible
+ok 34 - invalid first attempt repairs with feedback while prior messages stay visible
+  ---
+  duration_ms: 1.543902
+  type: 'test'
+  ...
+# Subtest: repeated invalid answers stop at the repair limit with the latest markdown
+ok 35 - repeated invalid answers stop at the repair limit with the latest markdown
+  ---
+  duration_ms: 1.57959
+  type: 'test'
+  ...
+# Subtest: total maxTurns budget is shared across attempts and reports turn_limit
+ok 36 - total maxTurns budget is shared across attempts and reports turn_limit
+  ---
+  duration_ms: 1.792195
+  type: 'test'
+  ...
+# Subtest: abort is never repaired
+ok 37 - abort is never repaired
+  ---
+  duration_ms: 0.990797
+  type: 'test'
+  ...
+# Subtest: host validator exception is terminal and not repaired
+ok 38 - host validator exception is terminal and not repaired
+  ---
+  duration_ms: 0.950677
+  type: 'test'
+  ...
+# Subtest: omitted acceptance contract preserves the legacy report
+ok 39 - omitted acceptance contract preserves the legacy report
+  ---
+  duration_ms: 0.661967
+  type: 'test'
+  ...
+# Subtest: unknown validator fails preflight before any model call
+ok 40 - unknown validator fails preflight before any model call
+  ---
+  duration_ms: 0.347498
+  type: 'test'
+  ...
+# Subtest: out-of-range acceptance budgets fail preflight before any model call
+ok 41 - out-of-range acceptance budgets fail preflight before any model call
+  ---
+  duration_ms: 0.422224
+  type: 'test'
+  ...
+# Subtest: repairing one child never reruns a successful sibling
+ok 42 - repairing one child never reruns a successful sibling
+  ---
+  duration_ms: 7.159577
+  type: 'test'
+  ...
+# Subtest: rejected acceptance marks lifecycle failure without destroying the report
+ok 43 - rejected acceptance marks lifecycle failure without destroying the report
+  ---
+  duration_ms: 1.258592
+  type: 'test'
+  ...
+# Subtest: host can register a not-yet-produced file, then validate creation and repair
+ok 44 - host can register a not-yet-produced file, then validate creation and repair
+  ---
+  duration_ms: 18.820473
+  type: 'test'
+  ...
+# Subtest: snapshot and exact project scope survive manifest edits
+ok 45 - snapshot and exact project scope survive manifest edits
+  ---
+  duration_ms: 12.120111
+  type: 'test'
+  ...
+# Subtest: read bounds reject invalid JSON, trailing bytes, oversize, directories and symlink escape
+ok 46 - read bounds reject invalid JSON, trailing bytes, oversize, directories and symlink escape
+  ---
+  duration_ms: 7.969561
+  type: 'test'
+  ...
+# Subtest: opt-in config fails closed for missing, relative, directory, oversize and unknown fields
+ok 47 - opt-in config fails closed for missing, relative, directory, oversize and unknown fields
+  ---
+  duration_ms: 9.389481
+  type: 'test'
+  ...
+# Subtest: aborted checks propagate and are never accepted
+ok 48 - aborted checks propagate and are never accepted
+  ---
+  duration_ms: 3.147565
+  type: 'test'
+  ...
+# Subtest: explicit claim matching checks actual delivery without a fixed business answer
+ok 49 - explicit claim matching checks actual delivery without a fixed business answer
+  ---
+  duration_ms: 6.787879
+  type: 'test'
+  ...
+# Subtest: preflight rejects unsupported/impossible schemas and invalid budgets
+ok 50 - preflight rejects unsupported/impossible schemas and invalid budgets
+  ---
+  duration_ms: 2.934609
+  type: 'test'
+  ...
+# Subtest: supported schema checks types, required fields, extra fields, bounds and uniqueness
+ok 51 - supported schema checks types, required fields, extra fields, bounds and uniqueness
+  ---
+  duration_ms: 1.120024
+  type: 'test'
+  ...
+# Subtest: strict parsing rejects prose/truncated/oversized output, accepts one JSON fence
+ok 52 - strict parsing rejects prose/truncated/oversized output, accepts one JSON fence
+  ---
+  duration_ms: 1.164043
+  type: 'test'
+  ...
+# Subtest: deep const/enum comparison ignores object key order and honors Unicode length
+ok 53 - deep const/enum comparison ignores object key order and honors Unicode length
+  ---
+  duration_ms: 0.908582
+  type: 'test'
+  ...
+# Subtest: trusted semantic checker can reject a structurally valid false claim
+ok 54 - trusted semantic checker can reject a structurally valid false claim
+  ---
+  duration_ms: 0.613231
+  type: 'test'
+  ...
+# Subtest: validator exceptions and invalid return values are operational failures
+ok 55 - validator exceptions and invalid return values are operational failures
+  ---
+  duration_ms: 0.753219
+  type: 'test'
+  ...
+# Subtest: abort ends a pending validator without starting later validators
+ok 56 - abort ends a pending validator without starting later validators
+  ---
+  duration_ms: 0.691275
+  type: 'test'
+  ...
+# Subtest: contract snapshot resists caller mutation and repair feedback is bounded
+ok 57 - contract snapshot resists caller mutation and repair feedback is bounded
+  ---
+  duration_ms: 0.939869
+  type: 'test'
+  ...
+# (node:675619) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: accepts only after an independent successful read; explicit model override; no recursion
+ok 58 - accepts only after an independent successful read; explicit model override; no recursion
+  ---
+  duration_ms: 23.601823
+  type: 'test'
+  ...
+# Subtest: cannot accept a claimed artifact that was never actually read
+ok 59 - cannot accept a claimed artifact that was never actually read
+  ---
+  duration_ms: 2.368576
+  type: 'test'
+  ...
+# Subtest: a FAILED read does not count as evidence
+ok 60 - a FAILED read does not count as evidence
+  ---
+  duration_ms: 3.674109
+  type: 'test'
+  ...
+# Subtest: default reviewer model inherits the parent conversation model
+ok 61 - default reviewer model inherits the parent conversation model
+  ---
+  duration_ms: 2.556046
+  type: 'test'
+  ...
+# Subtest: malformed verdict fails closed as error
+ok 62 - malformed verdict fails closed as error
+  ---
+  duration_ms: 1.859623
+  type: 'test'
+  ...
+# Subtest: inconclusive verdict is a terminal error, never accepted
+ok 63 - inconclusive verdict is a terminal error, never accepted
+  ---
+  duration_ms: 1.204574
+  type: 'test'
+  ...
+# Subtest: reviewer timeout fails closed while keeping usage captured from the stream
+ok 64 - reviewer timeout fails closed while keeping usage captured from the stream
+  ---
+  duration_ms: 1001.981936
+  type: 'test'
+  ...
+# Subtest: oversized task or claim fails closed before any model call
+ok 65 - oversized task or claim fails closed before any model call
+  ---
+  duration_ms: 0.868678
+  type: 'test'
+  ...
+# Subtest: maps subagent acceptance phases to a gateway subagent_acceptance status
+ok 66 - maps subagent acceptance phases to a gateway subagent_acceptance status
+  ---
+  duration_ms: 1.478312
+  type: 'test'
+  ...
+# Subtest: maps a rejected acceptance preserving phase, attempt and bounded issues
+ok 67 - maps a rejected acceptance preserving phase, attempt and bounded issues
+  ---
+  duration_ms: 0.346494
+  type: 'test'
+  ...
+# Subtest: legacy subagent lifecycle events keep their existing mapping
+ok 68 - legacy subagent lifecycle events keep their existing mapping
+  ---
+  duration_ms: 0.138751
+  type: 'test'
+  ...
+# Subtest: acceptance observation capture is opt-out within enabled native memory
+ok 69 - acceptance observation capture is opt-out within enabled native memory
+  ---
+  duration_ms: 1.07918
+  type: 'test'
+  ...
+# Subtest: invalid acceptance memory setting is rejected, not coerced into capture
+ok 70 - invalid acceptance memory setting is rejected, not coerced into capture
+  ---
+  duration_ms: 0.479202
+  type: 'test'
+  ...
+# Subtest: review defaults preserve main model inheritance and allow explicit reviewer
+ok 71 - review defaults preserve main model inheritance and allow explicit reviewer
+  ---
+  duration_ms: 31.995697
+  type: 'test'
+  ...
+# Subtest: review config rejects ambiguous models, typos, unbounded budgets and wrong types
+ok 72 - review config rejects ambiguous models, typos, unbounded budgets and wrong types
+  ---
+  duration_ms: 50.030818
+  type: 'test'
+  ...
+# Subtest: acceptance contract reaches the fork and survives into tool output metadata
+ok 73 - acceptance contract reaches the fork and survives into tool output metadata
+  ---
+  duration_ms: 2.438853
+  type: 'test'
+  ...
+# Subtest: accepted acceptance passes through without rejection framing
+ok 74 - accepted acceptance passes through without rejection framing
+  ---
+  duration_ms: 0.849264
+  type: 'test'
+  ...
+# Subtest: invalid acceptance shape is rejected before the fork launches
+ok 75 - invalid acceptance shape is rejected before the fork launches
+  ---
+  duration_ms: 1.199523
+  type: 'test'
+  ...
+# Subtest: standalone fallback refuses acceptance instead of silently ignoring it
+ok 76 - standalone fallback refuses acceptance instead of silently ignoring it
+  ---
+  duration_ms: 0.46096
+  type: 'test'
+  ...
+# Subtest: fallback without acceptance keeps legacy single-shot behavior
+ok 77 - fallback without acceptance keeps legacy single-shot behavior
+  ---
+  duration_ms: 0.466228
+  type: 'test'
+  ...
+# Subtest: normal and ask-mode agent tool schemas advertise the acceptance property
+ok 78 - normal and ask-mode agent tool schemas advertise the acceptance property
+  ---
+  duration_ms: 0.664309
+  type: 'test'
+  ...
+1..78
+# tests 78
+# suites 0
+# pass 78
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1810.873834

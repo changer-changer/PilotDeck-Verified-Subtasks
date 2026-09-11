@@ -48,7 +48,7 @@ export function parseMemoryConfig(
     ?? buildScheduleFromFlatFields(rawMemory);
 
   const KNOWN_FIELDS = new Set([
-    "enabled", "provider", "rootDir", "captureStrategy", "includeAssistant",
+    "enabled", "provider", "rootDir", "captureStrategy", "includeAssistant", "captureAcceptance",
     "maxMessageChars", "retrievalTimeoutMs", "model", "apiType", "schedule",
     "heartbeatBatchSize",
     "reasoningMode", "autoIndexIntervalMinutes", "autoDreamIntervalMinutes",
@@ -67,6 +67,7 @@ export function parseMemoryConfig(
 
   return {
     enabled,
+    ...(rawMemory.captureAcceptance === undefined ? {} : { captureAcceptance: readBoolean(rawMemory.captureAcceptance, true, "memory.captureAcceptance") }),
     provider,
     rootDir: readOptionalString(rawMemory.rootDir, "memory.rootDir") ?? defaultRootDir,
     captureStrategy: readCaptureStrategy(rawMemory.captureStrategy),

@@ -1,0 +1,110 @@
+TAP version 13
+# (node:688346) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: ledger records accepted, repaired, rejected and infrastructure outcomes with exact counts
+ok 1 - ledger records accepted, repaired, rejected and infrastructure outcomes with exact counts
+  ---
+  duration_ms: 148.452821
+  type: 'test'
+  ...
+# Subtest: native list/get see the projection and MEMORY.md lists it; repeated captures keep one sameOrigin file
+ok 2 - native list/get see the projection and MEMORY.md lists it; repeated captures keep one sameOrigin file
+  ---
+  duration_ms: 137.106021
+  type: 'test'
+  ...
+# Subtest: contract fingerprint is key-order and budget insensitive but schema sensitive
+ok 3 - contract fingerprint is key-order and budget insensitive but schema sensitive
+  ---
+  duration_ms: 137.935558
+  type: 'test'
+  ...
+# Subtest: replay of the same identity and reopen of the store are idempotent
+ok 4 - replay of the same identity and reopen of the store are idempotent
+  ---
+  duration_ms: 76.861057
+  type: 'test'
+  ...
+# Subtest: 130 inserts bound the window to 128 unique records with exact denominators
+ok 5 - 130 inserts bound the window to 128 unique records with exact denominators
+  ---
+  duration_ms: 583.160476
+  type: 'test'
+  ...
+# Subtest: stored ledger and profile are sanitized: caps, redaction, no secrets, paths or control chars
+ok 6 - stored ledger and profile are sanitized: caps, redaction, no secrets, paths or control chars
+  ---
+  duration_ms: 37.223142
+  type: 'test'
+  ...
+# Subtest: corrupt or unknown-version ledger throws and is never overwritten
+ok 7 - corrupt or unknown-version ledger throws and is never overwritten
+  ---
+  duration_ms: 42.02579
+  type: 'test'
+  ...
+# Subtest: native clear removes the ledger and the next capture starts fresh without resurrection
+ok 8 - native clear removes the ledger and the next capture starts fresh without resurrection
+  ---
+  duration_ms: 48.226961
+  type: 'test'
+  ...
+# Subtest: Dream stage root swap changes memory files but keeps ledger and projection byte-for-byte
+ok 9 - Dream stage root swap changes memory files but keeps ledger and projection byte-for-byte
+  ---
+  duration_ms: 75.648729
+  type: 'test'
+  ...
+# Subtest: projection caps groups, signatures and recent records, and counts each run once per signature
+ok 10 - projection caps groups, signatures and recent records, and counts each run once per signature
+  ---
+  duration_ms: 93.961429
+  type: 'test'
+  ...
+# (node:688347) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Dream can delete the derived feedback without deleting observations; next capture rebuilds it
+ok 11 - Dream can delete the derived feedback without deleting observations; next capture rebuilds it
+  ---
+  duration_ms: 269.991721
+  type: 'test'
+  ...
+# Subtest: project isolation and metadata whitelist exclude hidden payload fields and raw schema values
+ok 12 - project isolation and metadata whitelist exclude hidden payload fields and raw schema values
+  ---
+  duration_ms: 159.317408
+  type: 'test'
+  ...
+# Subtest: deeply corrupted persisted attempts are rejected without overwriting the saved state
+ok 13 - deeply corrupted persisted attempts are rejected without overwriting the saved state
+  ---
+  duration_ms: 49.742844
+  type: 'test'
+  ...
+# Subtest: invalid SQLite JSON is corruption rather than a missing ledger
+ok 14 - invalid SQLite JSON is corruption rather than a missing ledger
+  ---
+  duration_ms: 65.376523
+  type: 'test'
+  ...
+# Subtest: identifiers and issue metadata cannot carry paths, credential-shaped strings or markup
+ok 15 - identifiers and issue metadata cannot carry paths, credential-shaped strings or markup
+  ---
+  duration_ms: 47.415784
+  type: 'test'
+  ...
+# Subtest: infrastructure failures stay in the denominator but are excluded from defect signatures
+ok 16 - infrastructure failures stay in the denominator but are excluded from defect signatures
+  ---
+  duration_ms: 48.859169
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1587.894851

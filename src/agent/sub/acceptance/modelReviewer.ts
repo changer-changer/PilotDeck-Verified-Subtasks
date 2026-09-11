@@ -298,6 +298,7 @@ export function createModelSubtaskReviewer(options: {
       tools: { ...input.parentDependencies.tools, registry: reviewTools },
       context: undefined,
       subtaskReviewer: undefined,
+      subtaskAcceptanceObserver: undefined,
       subtaskValidators: undefined,
       subagentTranscript: undefined,
       eventEmitter,

@@ -13,7 +13,7 @@ const config: PilotDeckConfig = { agent: { model: "main/model", subagents: { def
 it("defaults to the main Agent and lets users select or clear a separate reviewer", () => {
   const onChange = vi.fn();
   const { rerender } = render(<ReviewerSettings config={config} onChange={onChange} />);
-  expect(screen.getByRole("switch").getAttribute("aria-checked")).toBe("true");
+  expect(screen.getByRole("switch", { name: "acceptanceReview.enabled" }).getAttribute("aria-checked")).toBe("true");
   expect((screen.getByRole("combobox") as HTMLSelectElement).value).toBe("");
   fireEvent.change(screen.getByRole("combobox"), { target: { value: "main/judge" } });
   const custom = onChange.mock.calls[0][0];
@@ -27,7 +27,7 @@ it("defaults to the main Agent and lets users select or clear a separate reviewe
 it("persists disabling and hides model controls", () => {
   const onChange = vi.fn();
   const { rerender } = render(<ReviewerSettings config={config} onChange={onChange} />);
-  fireEvent.click(screen.getByRole("switch"));
+  fireEvent.click(screen.getByRole("switch", { name: "acceptanceReview.enabled" }));
   const next = onChange.mock.calls[0][0];
   expect(next.agent.acceptanceReview.enabled).toBe(false);
   rerender(<ReviewerSettings config={next} onChange={onChange} />);
@@ -40,4 +40,17 @@ it("renames reviewer providers and returns to inheritance on model/provider remo
   expect(clearSubagentDefaultForRemovedModel(custom, "main", "judge").agent?.acceptanceReview?.model).toBeUndefined();
   expect(clearSubagentDefaultForRemovedProvider(custom, "main").agent?.acceptanceReview?.model).toBeUndefined();
   expect(clearSubagentDefaultForRemovedModel(custom, "main", "worker").agent?.acceptanceReview?.model).toBe("main/judge");
+});
+
+it("captures acceptance observations only when native memory is on and supports opting out", () => {
+  const onChange = vi.fn();
+  const { rerender } = render(<ReviewerSettings config={config} onChange={onChange} />);
+  expect((screen.getByRole("switch", { name: "acceptanceReview.memoryCapture" }) as HTMLButtonElement).disabled).toBe(true);
+  rerender(<ReviewerSettings config={{ ...config, memory: { enabled: true } }} onChange={onChange} />);
+  const control = screen.getByRole("switch", { name: "acceptanceReview.memoryCapture" });
+  expect(control.getAttribute("aria-checked")).toBe("true");
+  fireEvent.click(control);
+  expect(onChange.mock.calls[0][0].memory.captureAcceptance).toBe(false);
+  expect(onChange.mock.calls[0][0].memory.enabled).toBe(true);
+  expect(onChange.mock.calls[0][0].agent.model).toBe("main/model");
 });

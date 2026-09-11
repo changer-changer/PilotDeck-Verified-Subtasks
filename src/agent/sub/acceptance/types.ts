@@ -60,3 +60,32 @@ export type PreparedAcceptance = {
   maxRepairs: number;
   maxTurns: number;
 };
+
+/** Host observation of a completed acceptance run, without delivery bodies or feedback text. */
+export type SubtaskAcceptanceObservation = {
+  version: 1;
+  subagentId: string;
+  sessionId: string;
+  parentSessionId: string;
+  definitionId: string;
+  /** Isolated contract copy; adapters should persist only its fingerprint. */
+  contract: SubtaskAcceptanceContract;
+  /** Actual request_started models, never inferred from the pre-routing default. */
+  producerModels: Array<{ provider: string; model: string }>;
+  status: SubtaskAcceptanceResult["status"];
+  stopReason: SubtaskAcceptanceResult["stopReason"];
+  repairs: number;
+  turns: number;
+  usage: CanonicalUsage;
+  durationMs: number;
+  attempts: Array<{
+    attempt: number;
+    accepted: boolean;
+    checksPassed?: boolean;
+    issues: Array<Pick<AcceptanceIssue, "path" | "code">>;
+    review?: Pick<SubtaskReviewResult, "status" | "model" | "turns">;
+  }>;
+};
+
+/** Synchronous, bounded host persistence. Failure cannot change the delivery verdict. */
+export type SubtaskAcceptanceObserver = (observation: SubtaskAcceptanceObservation) => void;

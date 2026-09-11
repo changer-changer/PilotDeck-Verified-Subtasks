@@ -510,6 +510,9 @@ export function validatePilotDeckConfig(config) {
 
   validateOptionalSubagentDefault(normalized, warnings);
   validateAcceptanceReview(normalized, errors);
+  if (normalized.memory?.captureAcceptance !== undefined && typeof normalized.memory.captureAcceptance !== 'boolean') {
+    errors.push('memory.captureAcceptance must be a boolean');
+  }
   validateRouterModelRefs(normalized, errors);
   validateGatewayConfig(normalized, errors, warnings);
   validateToolsConfig(normalized, errors, warnings);

@@ -12,6 +12,7 @@ export function ReviewerSettings({ config, onChange }: { config: PilotDeckConfig
   const { t } = useTranslation("settings");
   const review = config.agent?.acceptanceReview;
   const enabled = review?.enabled !== false;
+  const memoryEnabled = config.memory?.enabled === true;
   const modelOptions = [{ value: "", label: t("acceptanceReview.inherit") }, ...Object.entries(config.model?.providers ?? {}).flatMap(([provider, definition]) =>
     Object.keys(definition.models ?? {}).map(model => ({ value: `${provider}/${model}`, label: `${provider} / ${model}` })))];
   if (review?.model && !modelOptions.some(option => option.value === review.model)) modelOptions.push({ value: review.model, label: `${review.model} (${t("acceptanceReview.unavailable")})` });
@@ -45,6 +46,13 @@ export function ReviewerSettings({ config, onChange }: { config: PilotDeckConfig
           <NumberInput value={(review?.timeoutMs ?? 60000) / 1000} min={1} max={180} onChange={value => { if (value === undefined || (Number.isInteger(value) && value >= 1 && value <= 180)) update("timeoutMs", value === undefined ? undefined : value * 1000); }} />
         </FormRow>
       </>}
+    </SettingsCard>
+    <SettingsCard>
+      <FormRow label={t("acceptanceReview.memoryCapture")} description={t(memoryEnabled ? "acceptanceReview.memoryCaptureHelp" : "acceptanceReview.memoryDisabledHelp")}>
+        <SettingsToggle checked={memoryEnabled && config.memory?.captureAcceptance !== false} disabled={!memoryEnabled}
+          ariaLabel={t("acceptanceReview.memoryCapture")}
+          onChange={value => onChange(patch(config, ["memory", "captureAcceptance"], value))} />
+      </FormRow>
     </SettingsCard>
     <p className="text-xs leading-5 text-muted-foreground">{t(enabled ? "acceptanceReview.evidenceHelp" : "acceptanceReview.disabledHelp")}</p>
   </div>;

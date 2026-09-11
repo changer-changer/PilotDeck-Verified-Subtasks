@@ -10,6 +10,7 @@
 
 - **交付可检查**：结构与宿主规则先检查，再由只读模型核对原任务、交付声明和实际文件。
 - **修复有边界**：同一子任务、会话和权限继续执行，共享总轮次上限；耗尽后明确拒绝。
+- **经验可审查**：把成功与拒绝的验收元数据写入原生白盒记忆，按实际模型与契约分组，保留样本分母；不自动修改验收标准。
 - **过程可核对**：原生子任务卡片展示验收与修复状态，保留问题、修复次数、工具轨迹和产物。
 
 轨迹回放页用于讲解或备用，现场主线是原生软件中的真实执行。
@@ -29,7 +30,7 @@ npm run build
 隔离现场演示支持任意兼容 OpenAI 的工具调用模型。通过本地环境设置 `PILOTDECK_DEMO_BASE_URL`、`PILOTDECK_DEMO_API_KEY`、`PILOTDECK_DEMO_MODEL`，运行：
 
 ```bash
-node --import tsx scripts/verified-subtasks-native.ts ui --semantic-fault
+node --import tsx scripts/verified-subtasks-native.ts ui --semantic-fault --acceptance-memory
 ```
 
 也可使用智谱 Coding Plan 的 `ZHIPU_API_KEY`：
@@ -74,6 +75,10 @@ flowchart LR
   F -->|同会话局部修复| S
   V -->|预算耗尽或检查器错误| X[明确拒绝]
   V -.状态事件.-> U[原生子任务卡片]
+  R -.终态观察.-> M[项目 SQLite 有界观察]
+  X -.终态观察.-> M
+  M --> B[原生白盒反馈记忆]
+  B -.已有能力.-> D[召回与 Dream 整理]
 ```
 
 | 模块 | 改进 |
@@ -82,9 +87,22 @@ flowchart LR
 | `SubAgentSession` / `AgentLoop` | 同会话修复、总轮次预算、中断与错误传播、累计用量 |
 | `agent` / `ToolRuntime` | 契约透传、结构化验收结果、拒绝作为真实工具失败 |
 | 网关与原生 UI 桥接 | 宿主规则加载、评审模型设置、验收与修复状态、最终判定保留 |
+| `AcceptanceMemory.ts` | 终态元数据桥接、去重、分母统计、原生反馈条目、清除与 Dream 文件整理兼容 |
 | `modelReviewer.ts` | 独立只读会话、实际读取证据、模型继承与覆盖、评审结果与用量 |
 
 启用是显式的：不带 `acceptance` 保留原行为。宿主注册业务检查器，模型只能引用名称。原生启动通过 `PILOTDECK_ACCEPTANCE_CONFIG` 加载批准的 JSON 产物规则，SDK 也支持自定义可信检查器。
+
+本轮开启验收记忆的完整预演：**215.664 秒，4/4 通过，1 次格式修复与 1 次语义修复，4 条观察写入原生记忆**；三份正确报表保持不变。[包含失败实验的本轮证据](docs/verified-subtasks/evidence/acceptance-memory/README.md)。
+
+## 验收经验记忆
+
+在原生设置 **Agent → 记忆**开启白盒记忆后，**Agent → 交付评审 → 保存验收经验到项目记忆**控制记录。配置为 `memory.captureAcceptance`，省略时在已启用记忆的项目内默认记录；设为 `false` 可关闭。原生 Memory 面板可查看“子任务验收经验”。
+
+观察器记录真实验收终态的元数据，不保存任务正文、交付内容和自由文本评语；最近 128 条去重观察保存在项目 SQLite，原生反馈 Markdown 是派生摘要。Dream 整理文件不会覆盖原始观察；清空项目记忆会一起删除。观察写入失败只发警告，不改验收判定。原生会话记忆本来的记录策略不因此改变。
+
+记录本身不增加模型调用；原生检索和 Dream 仍可能调用模型。当前是可审查经验入口，不自动改契约，不宣称已提高跨任务成功率。没有终态报告的异常/取消运行不进入该观察窗口，不能把窗口当成所有请求的可靠性统计。
+
+[现场演示与答辩手册](docs/verified-subtasks/FIELD-GUIDE.zh-CN.md) 包含逐分钟操作、讲稿、工作量与证据对应、问答和备用流程。
 
 ## 证据与边界
 

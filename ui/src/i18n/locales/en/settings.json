@@ -1486,6 +1486,9 @@
     "timeoutHelp": "1–180, default 60. A timeout is reported as a review error.",
     "evidenceHelp": "Each review keeps the model, rationale and files actually read. Insufficient evidence is sent back for clarification.",
     "disabledHelp": "Only deterministic checks are enabled. No reviewer model will be called.",
-    "invalidConfig": "Configuration could not be read. Fix the configuration file first."
+    "invalidConfig": "Configuration could not be read. Fix the configuration file first.",
+    "memoryCapture": "Save acceptance observations to project memory",
+    "memoryCaptureHelp": "Keep failure fields, repair counts and sample provenance for native memory retrieval and Dream. Recording uses no model calls and never edits acceptance criteria.",
+    "memoryDisabledHelp": "Enable white-box memory under Agent → Memory first."
   }
 }

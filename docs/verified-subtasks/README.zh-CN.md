@@ -182,3 +182,16 @@ VERIFIED_SUBTASK_BACKEND=zhipu node --import tsx scripts/verified-subtasks-live.
 ```
 
 该选项明确使用 OpenCode 已保存的 `zhipuai-coding-plan` 凭据（或 `ZHIPU_API_KEY`）；不输出或保存密钥。
+
+
+## 验收经验回写原生白盒记忆
+
+`SubAgentSession` 在带 acceptance 的子任务产生终态报告后调用可选 `subtaskAcceptanceObserver`。该同步旁路观察器拿到隔离契约副本、实际 request_started 模型来源、终态与各次问题代码；没有任务、交付正文或自由文本反馈。旧协议、预检抛错、取消且未产生报告的任务不记录。只读评审子会话不继承观察器。观察器异常产生固定警告，不能覆盖验收结果。
+
+网关在 `memory.enabled: true` 且 `memory.captureAcceptance !== false` 时接入 `createAcceptanceMemoryObserver`。SDK 可自行注入观察器；未注入时无额外存储。UI 的保存开关位于 Agent → 交付评审，需要先开启白盒记忆。
+
+原始元数据保存在本项目 SQLite 的 `acceptanceObservationsV1`；上限为最近 128 条唯一观察和 1 MiB。每次写入重新读取状态，避免清空后从缓存复活旧记录；损坏状态拒绝覆盖。原生 feedback 条目“子任务验收经验”是有界派生摘要，包含分母、首次/最终通过、未解决、基础设施错误，按契约指纹与实际模型来源分组。多模型/未知来源不归因到某一个模型，反馈后通过不证明反馈的因果效果。
+
+Dream 可以重写或合并该 Markdown，原始 SQLite 观察不会因文件整理而改变；清空项目记忆会一起删除。`readAcceptanceMemory(service)` 和原生演示导出的 `acceptance-memory.json` 提供单独的原始观察检查入口。原生记忆文件导出包不等于包含此 SQLite 观察窗口。
+
+写入过程无模型调用；已有原生检索、会话记忆捕获及 Dream 行为保持原有配置，可能增加模型使用。没有跨进程原子合并保证。自动合同优化与成功率提升需要独立留出实验，当前未实现、也未宣称。客观判断与现场讲述见 [完整手册](FIELD-GUIDE.zh-CN.md)。

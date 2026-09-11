@@ -1,6 +1,6 @@
 export { createModelSubtaskReviewer } from "./sub/acceptance/modelReviewer.js";
 export type { SubtaskReviewer, SubtaskReviewInput } from "./sub/acceptance/modelReviewer.js";
-export type { SubtaskReviewResult, AcceptanceAttempt } from "./sub/acceptance/types.js";
+export type { SubtaskReviewResult, AcceptanceAttempt, SubtaskAcceptanceObservation, SubtaskAcceptanceObserver } from "./sub/acceptance/types.js";
 export { AgentLoop, type AgentLoopInput, type AgentLoopRunResult } from "./loop/AgentLoop.js";
 export { collectToolCalls } from "./loop/collectToolCalls.js";
 export { prepareAcceptance, evaluateAcceptance, acceptancePrompt, repairPrompt } from "./sub/acceptance/evaluate.js";

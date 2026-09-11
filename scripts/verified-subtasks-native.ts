@@ -7,6 +7,8 @@ import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import assert from "node:assert/strict";
 import { stringify } from "yaml";
+import { EdgeClawMemoryService } from "edgeclaw-memory-core";
+import { readAcceptanceMemory } from "../src/context/memory/AcceptanceMemory.js";
 import { createLocalGateway } from "../src/cli/createLocalGateway.js";
 import { createCollisionResistantProjectId } from "../src/pilot/paths.js";
 import type { GatewayEvent } from "../src/gateway/index.js";
@@ -24,9 +26,10 @@ const schema = { type: "object", required: ["artifact", "result"], additionalPro
 
 type DemoModel = { provider: string; model: string; url: string; apiKeyEnv: string };
 const codingPlan: DemoModel = { provider: "zhipuai-coding-plan", model: "glm-5.3-flash", url: "https://open.bigmodel.cn/api/coding/paas/v4", apiKeyEnv: "ZHIPU_API_KEY" };
-export async function prepareNativeDemo(parent = join(repoRoot, "artifacts"), options: { model?: DemoModel; semanticFault?: boolean } = {}) {
+export async function prepareNativeDemo(parent = join(repoRoot, "artifacts"), options: { model?: DemoModel; semanticFault?: boolean; acceptanceMemory?: boolean } = {}) {
   const selected = options.model ?? codingPlan;
   const semanticFault = options.semanticFault === true;
+  const acceptanceMemory = options.acceptanceMemory === true;
   const modelId = `${selected.provider}/${selected.model}`;
   await mkdir(parent, { recursive: true });
   const runRoot = await mkdtemp(join(resolve(parent), "native-"));
@@ -54,7 +57,8 @@ export async function prepareNativeDemo(parent = join(repoRoot, "artifacts"), op
       retry: { requestMaxRetries: 0, streamMaxRetries: 0 }, extraBody: { thinking: { type: "disabled" } },
       models: { [selected.model]: { capabilities: { supportsToolUse: true, maxContextTokens: 65536, maxOutputTokens: 4096 } } } } } },
     router: { tokenSaver: { enabled: false }, autoOrchestrate: { enabled: false } },
-    memory: { enabled: false }, tools: { webSearch: { enabled: false } }, telemetry: { enabled: false },
+    memory: { enabled: acceptanceMemory, captureAcceptance: acceptanceMemory, rootDir: join(pilotHome, "memory"),
+      autoIndexIntervalMinutes: 0, autoDreamIntervalMinutes: 0 }, tools: { webSearch: { enabled: false } }, telemetry: { enabled: false },
   }));
   const calls: Array<Record<string, unknown>> = cases.map(item => ({
     description: item.name,
@@ -66,7 +70,7 @@ export async function prepareNativeDemo(parent = join(repoRoot, "artifacts"), op
     await writeFile(join(workspace, "briefing.json"), JSON.stringify({ summary: "供应稳定，下周可正常发货。", risk: "无", action: "无需跟进" }, null, 2));
     await writeFile(join(workspace, "briefing-source.json"), JSON.stringify({ supplier: "远帆", delayDays: 7, affectedOrders: 18, deadline: "下周一12:00", responsible: "采购负责人", action: "确认备选供应商交期" }, null, 2));
     calls.push({ description: "供应风险简报", subagent_type: "general-purpose",
-      prompt: '最终交付目标：根据 briefing-source.json 为运营负责人撰写真实、可执行的供应风险简报，保存 briefing.json，字段 summary、risk、action 均为中文字符串。必须准确说明供应商延期天数和受影响订单数；行动必须明确负责人、截止时间、确认备选供应商交期。验收依据是源数据与这些业务要求。受控故障注入：首次仅 read_file briefing.json，原样调用 structured_output 工具提交 value={"artifact":"briefing.json","result":现有文件内容}，暂不修改。这一首次提交步骤不改变最终验收标准。收到框架拒绝反馈后，读取 briefing-source.json 并用 write_file 或 edit_file 修复实际文件，重新调用 structured_output 提交相同格式。只操作这两个文件，不创建子任务。',
+      prompt: '最终交付目标：根据 briefing-source.json 为运营负责人撰写真实、可执行的供应风险简报，保存 briefing.json，字段 summary、risk、action 均为中文字符串。必须准确说明供应商延期天数和受影响订单数；行动必须明确负责人、截止时间、确认备选供应商交期。验收依据是源数据与这些业务要求。受控故障注入：首次仅 read_file briefing.json，原样调用 structured_output 工具提交 value={"artifact":"briefing.json","result":现有文件内容}，暂不修改。这一首次提交步骤不改变最终验收标准。如果首次只因结构问题被拒绝（如 additionalProperties、字段层级错误），只修正 structured_output 的提交形状，保持 briefing.json 原样，不读取来源或提前修复业务内容，继续等待独立模型复核。只有收到模型复核指出业务内容不符的拒绝反馈后，才读取 briefing-source.json 并用 write_file 或 edit_file 修复实际文件，重新调用 structured_output 提交相同格式。只操作这两个文件，不创建子任务。',
       acceptance: { validators: ["briefing-file"], schema: { type: "object", required: ["artifact", "result"], additionalProperties: false, properties: { artifact: { type: "string", enum: ["briefing.json"] }, result: { type: "object", required: ["summary", "risk", "action"], additionalProperties: false, properties: { summary: { type: "string", minLength: 1 }, risk: { type: "string", minLength: 1 }, action: { type: "string", minLength: 1 } } } } }, maxRepairs: 2, maxTurns: 16 },
     });
   }
@@ -77,8 +81,8 @@ export async function prepareNativeDemo(parent = join(repoRoot, "artifacts"), op
 ${calls.map(call => JSON.stringify(call)).join("\n\n")}
 最后用中文总结${count}份交付的实际验收状态、各自修复次数，并说明这是预置错误实验。不要用完成字样替代验收状态。`;
   await writeFile(join(runRoot, "现场任务.txt"), prompt);
-  await writeFile(join(runRoot, "fixture.json"), JSON.stringify({ kind: semanticFault ? "seeded-semantic-fault" : "seeded-artifact-fault", model: modelId, fault, runRoot, workspace, pilotHome, acceptancePath }, null, 2));
-  return { runRoot, workspace, pilotHome, acceptancePath, prompt, modelId, semanticFault, count, fault };
+  await writeFile(join(runRoot, "fixture.json"), JSON.stringify({ kind: semanticFault ? "seeded-semantic-fault" : "seeded-artifact-fault", model: modelId, fault, runRoot, workspace, pilotHome, acceptancePath, acceptanceMemory }, null, 2));
+  return { runRoot, workspace, pilotHome, acceptancePath, prompt, modelId, semanticFault, acceptanceMemory, count, fault };
 }
 
 async function credentials(): Promise<{ env: NodeJS.ProcessEnv; model: DemoModel }> {
@@ -130,6 +134,17 @@ export async function runNativeDemo(fixture: Awaited<ReturnType<typeof prepareNa
       simulatedModel: false, injectedFault: fixture.fault, sessionKey,
       durationMs: Date.now() - started, before, after, outputs, events };
     await writeFile(join(fixture.runRoot, "native-results.json"), JSON.stringify(result, null, 2));
+    if (fixture.acceptanceMemory) {
+      const memory = new EdgeClawMemoryService({ workspaceDir: fixture.workspace, rootDir: join(fixture.pilotHome, "memory") });
+      try {
+        const ledger = readAcceptanceMemory(memory);
+        const entries = memory.list({ kinds: ["feedback"], scope: "project", limit: 100 });
+        const records = memory.get(entries.map(entry => entry.relativePath), 500);
+        await writeFile(join(fixture.runRoot, "acceptance-memory.json"), JSON.stringify({ ledger, entries, records }, null, 2));
+        assert.equal(ledger.observations.length, fixture.count, "one memory observation per producer, none for reviewers");
+        assert.ok(JSON.stringify(entries).includes("子任务验收经验"), "feedback must appear in native Memory");
+      } finally { memory.close(); }
+    }
     assert.deepEqual(outputs.sales, { count: 3, total: 186 }, "sales was not repaired");
     assert.deepEqual(after.stock, before.stock, "successful stock artifact changed");
     assert.deepEqual(after.refunds, before.refunds, "successful refunds artifact changed");
@@ -147,7 +162,7 @@ export async function runNativeDemo(fixture: Awaited<ReturnType<typeof prepareNa
       assert.match(content, /采购负责人/); assert.match(content, /下周一/); assert.match(content, /备选供应商/);
       assert.deepEqual(after.sales, before.sales, "successful sales artifact changed during semantic repair");
     }
-    console.log(JSON.stringify({ runRoot: fixture.runRoot, sessionKey, durationMs: result.durationMs, outputs, briefing, unchangedSiblings: true }));
+    console.log(JSON.stringify({ runRoot: fixture.runRoot, sessionKey, durationMs: result.durationMs, outputs, briefing, unchangedSiblings: true, acceptanceMemory: fixture.acceptanceMemory }));
     return result;
   } finally {
     await writeFile(join(fixture.runRoot, "gateway-events.json"), JSON.stringify(events, null, 2));
@@ -157,9 +172,9 @@ export async function runNativeDemo(fixture: Awaited<ReturnType<typeof prepareNa
 
 async function main() {
   const mode = process.argv[2] ?? "prepare";
-  if (!["prepare", "live", "ui"].includes(mode)) throw new Error("Usage: verified-subtasks-native.ts prepare|live|ui [--competition-auth|--opencode-auth] [--semantic-fault]");
+  if (!["prepare", "live", "ui"].includes(mode)) throw new Error("Usage: verified-subtasks-native.ts prepare|live|ui [--competition-auth|--opencode-auth] [--semantic-fault] [--acceptance-memory]");
   const { env, model } = mode === "prepare" && !process.argv.includes("--competition-auth") ? { env: process.env, model: codingPlan } : await credentials();
-  const fixture = await prepareNativeDemo(undefined, { model, semanticFault: process.argv.includes("--semantic-fault") });
+  const fixture = await prepareNativeDemo(undefined, { model, semanticFault: process.argv.includes("--semantic-fault"), acceptanceMemory: process.argv.includes("--acceptance-memory") });
   console.log(JSON.stringify({ runRoot: fixture.runRoot, workspace: fixture.workspace, taskFile: join(fixture.runRoot, "现场任务.txt") }));
   if (mode === "live") await runNativeDemo(fixture, env);
   if (mode === "ui") {

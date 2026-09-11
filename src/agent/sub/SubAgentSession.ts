@@ -130,13 +130,17 @@ export type SubagentReport = {
 };
 
 export class SubAgentSession {
+  private readonly observedProducerModels = new Map<string, { provider: string; model: string }>();
   constructor(private readonly options: SubAgentSessionOptions) {}
 
   async run(): Promise<SubagentReport> {
     const startedAt = Date.now();
 
     if (this.options.acceptance !== undefined) {
-      return this.runWithAcceptance(startedAt);
+      this.observedProducerModels.clear();
+      const report = await this.runWithAcceptance(startedAt);
+      this.observeAcceptance(report);
+      return report;
     }
 
     const messages = this.buildInitialMessages();
@@ -191,6 +195,42 @@ export class SubAgentSession {
       turns: last.result.turns,
       durationMs: Date.now() - startedAt,
     };
+  }
+
+  private observeAcceptance(report: SubagentReport): void {
+    const observer = this.options.parentDependencies.subtaskAcceptanceObserver;
+    if (!observer || !report.acceptance || !this.options.acceptance) return;
+    try {
+      const result = report.acceptance;
+      observer({
+        version: 1,
+        subagentId: this.options.subagentId,
+        sessionId: this.options.subagentSessionId,
+        parentSessionId: this.options.parentSessionId,
+        definitionId: this.options.definition.id,
+        contract: structuredClone(this.options.acceptance),
+        producerModels: [...this.observedProducerModels.values()].map(model => ({ ...model })),
+        status: result.status, stopReason: result.stopReason,
+        repairs: result.repairs, turns: report.turns,
+        usage: { ...report.usage }, durationMs: report.durationMs,
+        attempts: result.attempts.map(attempt => ({
+          attempt: attempt.attempt, accepted: attempt.accepted,
+          checksPassed: attempt.checksPassed,
+          issues: attempt.issues.map(({ path, code }) => ({ path, code })),
+          ...(attempt.review ? { review: { status: attempt.review.status, model: { ...attempt.review.model }, turns: attempt.review.turns } } : {}),
+        })),
+      });
+    } catch {
+      // Storage is auxiliary. Do not expose raw storage errors or change a verdict.
+      try {
+        this.options.parentDependencies.eventEmitter?.({ type: "warning",
+          sessionId: this.options.parentSessionId, turnId: this.options.parentTurnId,
+          code: "acceptance_memory_capture_failed",
+          message: "Acceptance finished, but its project memory observation could not be saved.",
+          metadata: { subagentId: this.options.subagentId },
+        });
+      } catch { /* A diagnostic sink must not invalidate a completed delivery. */ }
+    }
   }
 
   /**
@@ -408,6 +448,10 @@ export class SubAgentSession {
         break;
       }
       const event = next.value;
+      if (this.options.parentDependencies.subtaskAcceptanceObserver && event.type === "model_event" && event.event.type === "request_started") {
+        const { provider, model } = event.event;
+        this.observedProducerModels.set(JSON.stringify([provider, model]), { provider, model });
+      }
       this.forwardActivity(event);
       if (
         this.options.sidechainTranscript &&

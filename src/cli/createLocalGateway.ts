@@ -4,6 +4,7 @@ import { dirname, resolve, join as joinPath } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import type { EdgeClawMemoryService } from "edgeclaw-memory-core";
+import { createAcceptanceMemoryObserver } from "../context/memory/AcceptanceMemory.js";
 import type { SessionConfigOverrides } from "../always-on/runtime/SessionConfigOverrides.js";
 import {
   createAgentEventBuffer,
@@ -1293,6 +1294,8 @@ class ProjectRuntimeRegistry {
     const baseDependencies: CreateAgentSessionOptions["dependencies"] = {
       router: runtime.router,
       tools: { registry: sessionTools },
+      ...(runtime.memoryService && runtime.snapshot.config.memory?.captureAcceptance !== false
+        ? { subtaskAcceptanceObserver: createAcceptanceMemoryObserver(runtime.memoryService) } : {}),
       ...(hasAcceptanceValidators ? { subtaskValidators: acceptanceValidators } : {}),
       ...(reviewConfig?.enabled !== false ? { subtaskReviewer: createModelSubtaskReviewer({
         modelRuntime: runtime.model, model: reviewConfig?.model,

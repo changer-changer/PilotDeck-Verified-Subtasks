@@ -1,0 +1,218 @@
+TAP version 13
+# (node:685342) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [session-title] generation skipped (invalid_json): Unexpected token 'R', "Review fixture" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"fd821efd-b92b-4ec6-ab91-8835c44bb975","decisionType":"skip","snapshot":{"tokens":9631,"estimateSource":"estimator","localEstimateTokens":9631,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15675455729166668,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-OC7qAB/workspace::sub::171d7d29-a9ca-401f-a41b-6c2ff34dd5b9","turnId":"171d7d29-a9ca-401f-a41b-6c2ff34dd5b9-a1","decisionType":"skip","snapshot":{"tokens":6584,"estimateSource":"estimator","localEstimateTokens":6584,"totalContextTokens":1000000,"maxContextTokens":995904,"effectiveContextTokens":995904,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.0066110789795000326,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=undefined, model=test/old-main, orchGate=false, alreadyOrch=false, resolvedFrom=scenario
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-OC7qAB/workspace::sub::171d7d29-a9ca-401f-a41b-6c2ff34dd5b9","turnId":"171d7d29-a9ca-401f-a41b-6c2ff34dd5b9-a1","decisionType":"skip","snapshot":{"tokens":6584,"estimateSource":"estimator","localEstimateTokens":6584,"totalContextTokens":65536,"maxContextTokens":65536,"effectiveContextTokens":65536,"maxOutputTokens":0,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1004638671875,"source":"local","exact":false,"reservedOutputTokens":0}}
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"fd821efd-b92b-4ec6-ab91-8835c44bb975","decisionType":"skip","snapshot":{"tokens":9915,"estimateSource":"estimator","localEstimateTokens":9915,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.161376953125,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# Subtest: native acceptance memory default-on
+ok 1 - native acceptance memory default-on
+  ---
+  duration_ms: 1014.851832
+  type: 'test'
+  ...
+# [session-title] generation skipped (invalid_json): Unexpected token 'R', "Review fixture" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"7ea70bf8-ce3c-45f9-8c12-66912fcb5558","decisionType":"skip","snapshot":{"tokens":9630,"estimateSource":"estimator","localEstimateTokens":9630,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15673828125,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-q7SlYD/workspace::sub::fe584c46-3dbf-4417-9f97-4308f13680fb","turnId":"fe584c46-3dbf-4417-9f97-4308f13680fb-a1","decisionType":"skip","snapshot":{"tokens":6583,"estimateSource":"estimator","localEstimateTokens":6583,"totalContextTokens":1000000,"maxContextTokens":995904,"effectiveContextTokens":995904,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.006610074866653814,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=undefined, model=test/old-main, orchGate=false, alreadyOrch=false, resolvedFrom=scenario
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-q7SlYD/workspace::sub::fe584c46-3dbf-4417-9f97-4308f13680fb","turnId":"fe584c46-3dbf-4417-9f97-4308f13680fb-a1","decisionType":"skip","snapshot":{"tokens":6583,"estimateSource":"estimator","localEstimateTokens":6583,"totalContextTokens":65536,"maxContextTokens":65536,"effectiveContextTokens":65536,"maxOutputTokens":0,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1004486083984375,"source":"local","exact":false,"reservedOutputTokens":0}}
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"7ea70bf8-ce3c-45f9-8c12-66912fcb5558","decisionType":"skip","snapshot":{"tokens":9913,"estimateSource":"estimator","localEstimateTokens":9913,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.16134440104166667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# Subtest: native acceptance memory opt-out
+ok 2 - native acceptance memory opt-out
+  ---
+  duration_ms: 281.21929
+  type: 'test'
+  ...
+# [session-title] generation skipped (invalid_json): Unexpected token 'R', "Review fixture" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"3990f166-f3ff-4fb9-8f20-2900c5ca53d9","decisionType":"skip","snapshot":{"tokens":9632,"estimateSource":"estimator","localEstimateTokens":9632,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15677083333333333,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-y3b5r8/workspace::sub::ff0a6c61-3ffe-4470-b38f-a95765b0d00a","turnId":"ff0a6c61-3ffe-4470-b38f-a95765b0d00a-a1","decisionType":"skip","snapshot":{"tokens":6585,"estimateSource":"estimator","localEstimateTokens":6585,"totalContextTokens":1000000,"maxContextTokens":995904,"effectiveContextTokens":995904,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.00661208309234625,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=undefined, model=test/old-main, orchGate=false, alreadyOrch=false, resolvedFrom=scenario
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-y3b5r8/workspace::sub::ff0a6c61-3ffe-4470-b38f-a95765b0d00a","turnId":"ff0a6c61-3ffe-4470-b38f-a95765b0d00a-a1","decisionType":"skip","snapshot":{"tokens":6585,"estimateSource":"estimator","localEstimateTokens":6585,"totalContextTokens":65536,"maxContextTokens":65536,"effectiveContextTokens":65536,"maxOutputTokens":0,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1004791259765625,"source":"local","exact":false,"reservedOutputTokens":0}}
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"3990f166-f3ff-4fb9-8f20-2900c5ca53d9","decisionType":"skip","snapshot":{"tokens":9917,"estimateSource":"estimator","localEstimateTokens":9917,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.16140950520833333,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# Subtest: native acceptance memory disabled
+ok 3 - native acceptance memory disabled
+  ---
+  duration_ms: 230.694853
+  type: 'test'
+  ...
+# (node:685343) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [session-title] generation skipped (invalid_json): Unexpected token 'R', "Review fixture" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"7c7cb4fd-0485-4f17-a064-47dfa422a045","decisionType":"skip","snapshot":{"tokens":9630,"estimateSource":"estimator","localEstimateTokens":9630,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15673828125,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-uH93pi/workspace::sub::b153615f-0b2b-444b-9d8f-0b5f943692ae","turnId":"b153615f-0b2b-444b-9d8f-0b5f943692ae-a1","decisionType":"skip","snapshot":{"tokens":6583,"estimateSource":"estimator","localEstimateTokens":6583,"totalContextTokens":1000000,"maxContextTokens":995904,"effectiveContextTokens":995904,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.006610074866653814,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=undefined, model=test/old-main, orchGate=false, alreadyOrch=false, resolvedFrom=scenario
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-uH93pi/workspace::sub::b153615f-0b2b-444b-9d8f-0b5f943692ae","turnId":"b153615f-0b2b-444b-9d8f-0b5f943692ae-a1","decisionType":"skip","snapshot":{"tokens":6583,"estimateSource":"estimator","localEstimateTokens":6583,"totalContextTokens":65536,"maxContextTokens":65536,"effectiveContextTokens":65536,"maxOutputTokens":0,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1004486083984375,"source":"local","exact":false,"reservedOutputTokens":0}}
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"7c7cb4fd-0485-4f17-a064-47dfa422a045","decisionType":"skip","snapshot":{"tokens":9913,"estimateSource":"estimator","localEstimateTokens":9913,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.16134440104166667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# Subtest: native reviewer inherits actual turn model instead of child or old default
+ok 4 - native reviewer inherits actual turn model instead of child or old default
+  ---
+  duration_ms: 783.302356
+  type: 'test'
+  ...
+# [session-title] generation skipped (invalid_json): Unexpected token 'R', "Review fixture" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"ee853fe7-1b98-4f57-b64d-2a03e9d188d6","decisionType":"skip","snapshot":{"tokens":9631,"estimateSource":"estimator","localEstimateTokens":9631,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15675455729166668,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-v8zTxe/workspace::sub::27b61fb4-fc4f-4cec-b2b5-4c4ce43b906c","turnId":"27b61fb4-fc4f-4cec-b2b5-4c4ce43b906c-a1","decisionType":"skip","snapshot":{"tokens":6584,"estimateSource":"estimator","localEstimateTokens":6584,"totalContextTokens":1000000,"maxContextTokens":995904,"effectiveContextTokens":995904,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.0066110789795000326,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=undefined, model=test/old-main, orchGate=false, alreadyOrch=false, resolvedFrom=scenario
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/review-native-v8zTxe/workspace::sub::27b61fb4-fc4f-4cec-b2b5-4c4ce43b906c","turnId":"27b61fb4-fc4f-4cec-b2b5-4c4ce43b906c-a1","decisionType":"skip","snapshot":{"tokens":6584,"estimateSource":"estimator","localEstimateTokens":6584,"totalContextTokens":65536,"maxContextTokens":65536,"effectiveContextTokens":65536,"maxOutputTokens":0,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1004638671875,"source":"local","exact":false,"reservedOutputTokens":0}}
+# [context:auto-compact] policy_skip {"sessionId":"review-native","turnId":"ee853fe7-1b98-4f57-b64d-2a03e9d188d6","decisionType":"skip","snapshot":{"tokens":9914,"estimateSource":"estimator","localEstimateTokens":9914,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.16136067708333332,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# Subtest: native reviewer uses explicit selection
+ok 5 - native reviewer uses explicit selection
+  ---
+  duration_ms: 198.988186
+  type: 'test'
+  ...
+# (node:685344) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [session-title] generation skipped (invalid_json): Unexpected token 'V', "Verified native" is not valid JSON
+# [context:auto-compact] policy_skip {"sessionId":"native-integration","turnId":"ebfc9229-19e1-4c3a-ab9d-b7199fc2423d","decisionType":"skip","snapshot":{"tokens":9716,"estimateSource":"estimator","localEstimateTokens":9716,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.15813802083333334,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [token-saver] parseTier failed. Judge text: "Verified native"
+# [autoOrch] input: tier=medium, isMain=true, alreadyOrch=false, triggerTiers=complex
+# [autoOrch] tier "medium" not in triggerTiers, skipping
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-nD0EGa/workspace::sub::efca3a3c-0a47-43e9-96d6-bbbeeef73015","turnId":"efca3a3c-0a47-43e9-96d6-bbbeeef73015-a1","decisionType":"skip","snapshot":{"tokens":6562,"estimateSource":"estimator","localEstimateTokens":6562,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.10680338541666666,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-nD0EGa/workspace::sub::e9d56532-f940-4d4c-9b65-e66f691e5570","turnId":"e9d56532-f940-4d4c-9b65-e66f691e5570-a1","decisionType":"skip","snapshot":{"tokens":6561,"estimateSource":"estimator","localEstimateTokens":6561,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.106787109375,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 1): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 2): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [token-saver] parseTier failed. Judge text: "Verified native"
+# [token-saver] Judge raw content blocks (attempt 3): [{"type":"text","text":"Verified native"}] | finishReason=stop
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [token-saver] parseTier failed. Judge text: "Verified native"
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-nD0EGa/workspace::sub::efca3a3c-0a47-43e9-96d6-bbbeeef73015","turnId":"efca3a3c-0a47-43e9-96d6-bbbeeef73015-a1","decisionType":"skip","snapshot":{"tokens":6595,"estimateSource":"estimator","localEstimateTokens":6595,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.10734049479166667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-nD0EGa/workspace::sub::efca3a3c-0a47-43e9-96d6-bbbeeef73015","turnId":"efca3a3c-0a47-43e9-96d6-bbbeeef73015-a2","decisionType":"skip","snapshot":{"tokens":6708,"estimateSource":"estimator","localEstimateTokens":6708,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.1091796875,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [context:auto-compact] policy_skip {"sessionId":"/tmp/verified-native-nD0EGa/workspace::sub::efca3a3c-0a47-43e9-96d6-bbbeeef73015","turnId":"efca3a3c-0a47-43e9-96d6-bbbeeef73015-a2","decisionType":"skip","snapshot":{"tokens":6748,"estimateSource":"estimator","localEstimateTokens":6748,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.10983072916666667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=false, alreadyOrch=false, triggerTiers=complex
+# [context:auto-compact] policy_skip {"sessionId":"native-integration","turnId":"ebfc9229-19e1-4c3a-ab9d-b7199fc2423d","decisionType":"skip","snapshot":{"tokens":10108,"estimateSource":"estimator","localEstimateTokens":10108,"totalContextTokens":65536,"maxContextTokens":61440,"effectiveContextTokens":61440,"maxOutputTokens":4096,"warningRatio":0.8,"blockingRatio":0.9,"state":"ok","ratio":0.16451822916666667,"source":"local","exact":false,"reservedOutputTokens":4096}}
+# [router] decision: tier=medium, model=test/test, orchGate=true, alreadyOrch=false, resolvedFrom=tokenSaver
+# [autoOrch] input: tier=medium, isMain=true, alreadyOrch=false, triggerTiers=complex
+# [autoOrch] tier "medium" not in triggerTiers, skipping
+# Subtest: ordinary local gateway loads host checks and repairs a real file without redoing its sibling
+ok 6 - ordinary local gateway loads host checks and repairs a real file without redoing its sibling
+  ---
+  duration_ms: 4893.557656
+  type: 'test'
+  ...
+# (node:685345) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: ledger records accepted, repaired, rejected and infrastructure outcomes with exact counts
+ok 7 - ledger records accepted, repaired, rejected and infrastructure outcomes with exact counts
+  ---
+  duration_ms: 165.94228
+  type: 'test'
+  ...
+# Subtest: native list/get see the projection and MEMORY.md lists it; repeated captures keep one sameOrigin file
+ok 8 - native list/get see the projection and MEMORY.md lists it; repeated captures keep one sameOrigin file
+  ---
+  duration_ms: 144.738458
+  type: 'test'
+  ...
+# Subtest: contract fingerprint is key-order and budget insensitive but schema sensitive
+ok 9 - contract fingerprint is key-order and budget insensitive but schema sensitive
+  ---
+  duration_ms: 147.221695
+  type: 'test'
+  ...
+# Subtest: replay of the same identity and reopen of the store are idempotent
+ok 10 - replay of the same identity and reopen of the store are idempotent
+  ---
+  duration_ms: 158.620532
+  type: 'test'
+  ...
+# Subtest: 130 inserts bound the window to 128 unique records with exact denominators
+ok 11 - 130 inserts bound the window to 128 unique records with exact denominators
+  ---
+  duration_ms: 662.511296
+  type: 'test'
+  ...
+# Subtest: stored ledger and profile are sanitized: caps, redaction, no secrets, paths or control chars
+ok 12 - stored ledger and profile are sanitized: caps, redaction, no secrets, paths or control chars
+  ---
+  duration_ms: 41.405904
+  type: 'test'
+  ...
+# Subtest: corrupt or unknown-version ledger throws and is never overwritten
+ok 13 - corrupt or unknown-version ledger throws and is never overwritten
+  ---
+  duration_ms: 43.816576
+  type: 'test'
+  ...
+# Subtest: native clear removes the ledger and the next capture starts fresh without resurrection
+ok 14 - native clear removes the ledger and the next capture starts fresh without resurrection
+  ---
+  duration_ms: 54.997981
+  type: 'test'
+  ...
+# Subtest: Dream stage root swap changes memory files but keeps ledger and projection byte-for-byte
+ok 15 - Dream stage root swap changes memory files but keeps ledger and projection byte-for-byte
+  ---
+  duration_ms: 81.258936
+  type: 'test'
+  ...
+# Subtest: projection caps groups, signatures and recent records, and counts each run once per signature
+ok 16 - projection caps groups, signatures and recent records, and counts each run once per signature
+  ---
+  duration_ms: 127.280818
+  type: 'test'
+  ...
+# (node:685361) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Dream can delete the derived feedback without deleting observations; next capture rebuilds it
+ok 17 - Dream can delete the derived feedback without deleting observations; next capture rebuilds it
+  ---
+  duration_ms: 312.724447
+  type: 'test'
+  ...
+# Subtest: project isolation and metadata whitelist exclude hidden payload fields and raw schema values
+ok 18 - project isolation and metadata whitelist exclude hidden payload fields and raw schema values
+  ---
+  duration_ms: 205.104573
+  type: 'test'
+  ...
+# Subtest: deeply corrupted persisted attempts are rejected without overwriting the saved state
+ok 19 - deeply corrupted persisted attempts are rejected without overwriting the saved state
+  ---
+  duration_ms: 114.338104
+  type: 'test'
+  ...
+# Subtest: invalid SQLite JSON is corruption rather than a missing ledger
+ok 20 - invalid SQLite JSON is corruption rather than a missing ledger
+  ---
+  duration_ms: 52.926105
+  type: 'test'
+  ...
+# Subtest: identifiers and issue metadata cannot carry paths, credential-shaped strings or markup
+ok 21 - identifiers and issue metadata cannot carry paths, credential-shaped strings or markup
+  ---
+  duration_ms: 48.533107
+  type: 'test'
+  ...
+# Subtest: infrastructure failures stay in the denominator but are excluded from defect signatures
+ok 22 - infrastructure failures stay in the denominator but are excluded from defect signatures
+  ---
+  duration_ms: 47.249311
+  type: 'test'
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6009.579695

@@ -18,6 +18,6 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: npm run build
       - run: pnpm --dir ui run build
-      - run: node --import tsx --test --test-force-exit --test-timeout 60000 tests/agent/sub/acceptance/*.spec.ts tests/agent/sub/VerifiedSubagent.spec.ts tests/agent/sub/AcceptanceInvariants.spec.ts tests/agent/sub/ModelReview.spec.ts tests/agent/sub/ModelReviewInvariants.spec.ts tests/cli/model-review-native.spec.ts tests/pilot/config/acceptanceReview.spec.ts tests/tool/VerifiedAgent.spec.ts tests/gateway/VerifiedSubtaskEvents.spec.ts tests/cli/verified-artifacts-native.spec.ts
+      - run: node --import tsx --test --test-force-exit --test-timeout 60000 tests/agent/sub/acceptance/*.spec.ts tests/agent/sub/VerifiedSubagent.spec.ts tests/agent/sub/AcceptanceInvariants.spec.ts tests/agent/sub/ModelReview.spec.ts tests/agent/sub/ModelReviewInvariants.spec.ts tests/agent/sub/AcceptanceObservation.spec.ts tests/context/memory/AcceptanceMemory*.spec.ts tests/cli/acceptance-memory-native.spec.ts tests/pilot/config/acceptanceMemory.spec.ts tests/cli/model-review-native.spec.ts tests/pilot/config/acceptanceReview.spec.ts tests/tool/VerifiedAgent.spec.ts tests/gateway/VerifiedSubtaskEvents.spec.ts tests/cli/verified-artifacts-native.spec.ts
       - run: pnpm --dir ui exec vitest run server/pilotdeck-bridge.test.js server/services/acceptanceReview.test.js src/components/settings/view/agentReview/ReviewerSettings.test.tsx
       - run: node --import tsx scripts/verified-subtasks-benchmark.ts artifacts/verified-ci

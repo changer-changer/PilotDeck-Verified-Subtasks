@@ -5,6 +5,10 @@ const config = (review) => ({ schemaVersion: 1, agent: { model: 'main/model', ..
   model: { providers: { main: { protocol: 'openai', url: 'https://example.com/v1', apiKey: 'test', models: { model: {}, reviewer: {} } } } } });
 
 describe('model acceptance settings validation', () => {
+  it('validates the independent acceptance-memory opt-out', () => {
+    for (const value of [true, false]) expect(validatePilotDeckConfig({ ...config(), memory: { enabled: true, captureAcceptance: value } }).errors).toEqual([]);
+    for (const value of [null, 'false', 0, [], {}]) expect(validatePilotDeckConfig({ ...config(), memory: { enabled: true, captureAcceptance: value } }).errors.some(e => e.includes('memory.captureAcceptance'))).toBe(true);
+  });
   it('accepts inheritance, explicit reviewer and opt out', () => {
     for (const review of [undefined, {}, { enabled: false }, { model: 'main/reviewer', maxTurns: 4, timeoutMs: 60000 }]) {
       expect(validatePilotDeckConfig(config(review)).errors).toEqual([]);

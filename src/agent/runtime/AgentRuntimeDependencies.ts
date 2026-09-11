@@ -15,7 +15,7 @@ import type { TokenAccountingRuntime } from "../../context/index.js";
 import type { RouterRuntime } from "../../router/index.js";
 import type { AgentEvent, AgentEventEmitter } from "../protocol/events.js";
 import type { ModelProtocol } from "../../model/index.js";
-import type { SubtaskValidators } from "../sub/acceptance/types.js";
+import type { SubtaskValidators, SubtaskAcceptanceObserver } from "../sub/acceptance/types.js";
 import type { SubtaskReviewer } from "../sub/acceptance/modelReviewer.js";
 
 /**
@@ -132,6 +132,8 @@ export type AgentRuntimeDependencies = {
    * subtasks keep the legacy single-layer behavior.
    */
   subtaskReviewer?: SubtaskReviewer;
+  /** Optional host-owned metadata persistence after acceptance finishes. */
+  subtaskAcceptanceObserver?: SubtaskAcceptanceObserver;
   /**
    * Elicitation channel — wired into the per-tool `PilotDeckToolRuntimeContext`
    * so `ask_user_question` (B1) can drive the gateway. When omitted, the

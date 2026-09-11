@@ -109,6 +109,8 @@ export type PilotMemoryScheduleConfig = {
 
 export type PilotMemoryConfig = {
   enabled: boolean;
+  /** Metadata-only acceptance observations. Effective only when memory is enabled. */
+  captureAcceptance?: boolean;
   provider: "edgeclaw";
   rootDir?: string;
   captureStrategy: "last_turn" | "full_session";

@@ -1,0 +1,215 @@
+{
+  "ledger": {
+    "version": 1,
+    "updatedAt": "2026-09-11T12:19:07.604Z",
+    "observations": [
+      {
+        "id": "b5cc55d59d4897ca4b84431864ce2749fef057817cefeb9e0190899ebb61670a",
+        "subagentId": "63ded2bd-aef2-4a0b-aeca-9fde182f06c4",
+        "sessionId": "id:759fe980160331c54ad6bb63f00a526f00cfdc677760752373669b8fcae8bfc0",
+        "parentSessionId": "native-acceptance-1789129001840",
+        "definitionId": "general-purpose",
+        "contractFingerprint": "9212ffea9c85aa50563fab03022563828d68c8c234604b65f72c34ab15a1ff3f",
+        "producerModels": [
+          {
+            "provider": "competition",
+            "model": "glm-5.3"
+          }
+        ],
+        "status": "accepted",
+        "stopReason": "accepted",
+        "repairs": 0,
+        "turns": 4,
+        "durationMs": 32930,
+        "usage": {
+          "inputTokens": 11501,
+          "outputTokens": 1177,
+          "cacheReadTokens": 10880,
+          "totalTokens": 23558
+        },
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "issues": [],
+            "checksPassed": true,
+            "review": {
+              "status": "accepted",
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "turns": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "dc6022bf903e12a6422a5cdc2bab4c7c0567db511f114a20b72635ce68451800",
+        "subagentId": "69f797b5-5b5d-429e-9c55-6e7446a84c4d",
+        "sessionId": "id:79ab493bf2229644b3d6a0fb0ee92c37e37a26a77ab9641d5583a6bb69dc1e90",
+        "parentSessionId": "native-acceptance-1789129001840",
+        "definitionId": "general-purpose",
+        "contractFingerprint": "ce702803d24d03706de7603cfec951def9a23c958de06a475a3c03dda516df5d",
+        "producerModels": [
+          {
+            "provider": "competition",
+            "model": "glm-5.3"
+          }
+        ],
+        "status": "accepted",
+        "stopReason": "accepted",
+        "repairs": 0,
+        "turns": 4,
+        "durationMs": 35593,
+        "usage": {
+          "inputTokens": 4503,
+          "outputTokens": 965,
+          "cacheReadTokens": 17920,
+          "totalTokens": 23388
+        },
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "issues": [],
+            "checksPassed": true,
+            "review": {
+              "status": "accepted",
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "turns": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "086b44fdc110c7103cac38291259293b180d20bac3b726a110cc0d23418d5c70",
+        "subagentId": "e860a0cc-1c15-4694-8d85-7110504a85f4",
+        "sessionId": "id:9e6fbaa853e99c69b058349a99fad545d818c7648d6161d522b69adc3fac9a6e",
+        "parentSessionId": "native-acceptance-1789129001840",
+        "definitionId": "general-purpose",
+        "contractFingerprint": "72d58dfcdaeadb00c2f61c2919ef30791cfce39af2cc61cba0799670cf29ef74",
+        "producerModels": [
+          {
+            "provider": "competition",
+            "model": "glm-5.3"
+          }
+        ],
+        "status": "accepted",
+        "stopReason": "accepted",
+        "repairs": 0,
+        "turns": 5,
+        "durationMs": 46922,
+        "usage": {
+          "inputTokens": 6693,
+          "outputTokens": 1371,
+          "cacheReadTokens": 20288,
+          "totalTokens": 28352
+        },
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "issues": [],
+            "checksPassed": true,
+            "review": {
+              "status": "accepted",
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "turns": 3
+            }
+          }
+        ]
+      },
+      {
+        "id": "8f4d3e752f38edad2a4b2f11885d0b7938424158f7691cab281e86cc28dcb09e",
+        "subagentId": "00ce23b0-225c-4cec-85f3-a4d2bfdf32f6",
+        "sessionId": "id:36259d85e6bc47bc1d06ad3f8014ae186ca17b3b826de96be6d35168d430e4aa",
+        "parentSessionId": "native-acceptance-1789129001840",
+        "definitionId": "general-purpose",
+        "contractFingerprint": "745f1eb7fdfd1459525d8fe70d4eb3b09c85cd68a76ee77f526a69331eba881b",
+        "producerModels": [
+          {
+            "provider": "competition",
+            "model": "glm-5.3"
+          }
+        ],
+        "status": "accepted",
+        "stopReason": "accepted",
+        "repairs": 1,
+        "turns": 8,
+        "durationMs": 102202,
+        "usage": {
+          "inputTokens": 13268,
+          "outputTokens": 2164,
+          "cacheReadTokens": 39360,
+          "totalTokens": 54792
+        },
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "issues": [
+              {
+                "path": "$.action",
+                "code": "additionalProperties"
+              }
+            ],
+            "checksPassed": false
+          },
+          {
+            "attempt": 2,
+            "accepted": true,
+            "issues": [],
+            "checksPassed": true,
+            "review": {
+              "status": "accepted",
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "turns": 3
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "entries": [
+    {
+      "name": "子任务验收经验",
+      "description": "子任务验收经验：验收 schema 修复统计、常见失败字段与码签名、样本窗口计数（仅证据，非指令）。acceptance schema repair evidence",
+      "type": "feedback",
+      "scope": "project",
+      "projectId": "current_project",
+      "updatedAt": "2026-09-11T12:19:07.621Z",
+      "capturedAt": "2026-01-01T00:00:00.000Z",
+      "sourceSessionKey": "acceptance-observations-v1",
+      "file": "子任务验收经验-1b228d7f95.md",
+      "relativePath": "Feedback/子任务验收经验-1b228d7f95.md",
+      "absolutePath": "<demo>/pilot-home/memory/workspaces/bcf2aa83ca/memory/Feedback/子任务验收经验-1b228d7f95.md"
+    }
+  ],
+  "records": [
+    {
+      "name": "子任务验收经验",
+      "description": "子任务验收经验：验收 schema 修复统计、常见失败字段与码签名、样本窗口计数（仅证据，非指令）。acceptance schema repair evidence",
+      "type": "feedback",
+      "scope": "project",
+      "projectId": "current_project",
+      "updatedAt": "2026-09-11T12:19:07.621Z",
+      "capturedAt": "2026-01-01T00:00:00.000Z",
+      "sourceSessionKey": "acceptance-observations-v1",
+      "file": "子任务验收经验-1b228d7f95.md",
+      "relativePath": "Feedback/子任务验收经验-1b228d7f95.md",
+      "absolutePath": "<demo>/pilot-home/memory/workspaces/bcf2aa83ca/memory/Feedback/子任务验收经验-1b228d7f95.md",
+      "content": "# 子任务验收经验（验收证据投影）\n\n- 来源：原生子任务验收观察（仅元数据）。权威状态存于 SQLite pipeline_state 键 `acceptanceObservationsV1`，可用 `readAcceptanceMemory` 导出检查。\n- 本正文为派生投影，可能由 Dream 重写；固定 origin：capturedAt=2026-01-01T00:00:00.000Z sourceSessionKey=acceptance-observations-v1。\n- 生成时间：2026-09-11T12:19:07.620Z\n\n## 计数（窗口内精确计数）\n```json\n{\"observedTotal\":4,\"firstPassAccepted\":3,\"finalAccepted\":4,\"unresolved\":0,\"infrastructureError\":0,\"sampleWindow\":4}\n```\n\n## 分组（契约指纹 × 实际生产模型集，最多 12 组）\n- fp=72d58dfcdaea models=competition/glm-5.3 runs=1 firstPass=1 finalAccepted=1 unresolved=0 infra=0 [样本不足]\n- fp=745f1eb7fdfd models=competition/glm-5.3 runs=1 firstPass=0 finalAccepted=1 unresolved=0 infra=0 [样本不足]\n- fp=9212ffea9c85 models=competition/glm-5.3 runs=1 firstPass=1 finalAccepted=1 unresolved=0 infra=0 [样本不足]\n- fp=ce702803d24d models=competition/glm-5.3 runs=1 firstPass=1 finalAccepted=1 unresolved=0 infra=0 [样本不足]\n\n## 常见字段/码签名（分母=窗口内运行数，每次运行每签名只计一次；最多 12 条）\n- $.action#additionalProperties runs 1/4\n\n## 最近记录（最多 8 条）\n- id=b5cc55d59d48 sub=63ded2bd-aef2-4a0b-aeca-9fde182f06c4 status=accepted stop=accepted attempts=1 repairs=0 turns=4 models=competition/glm-5.3 session=id:759fe980160331c54ad6bb63f00a526f00cfdc677760752373669b8fcae8bfc0 parent=native-acceptance-1789129001840\n- id=dc6022bf903e sub=69f797b5-5b5d-429e-9c55-6e7446a84c4d status=accepted stop=accepted attempts=1 repairs=0 turns=4 models=competition/glm-5.3 session=id:79ab493bf2229644b3d6a0fb0ee92c37e37a26a77ab9641d5583a6bb69dc1e90 parent=native-acceptance-1789129001840\n- id=086b44fdc110 sub=e860a0cc-1c15-4694-8d85-7110504a85f4 status=accepted stop=accepted attempts=1 repairs=0 turns=5 models=competition/glm-5.3 session=id:9e6fbaa853e99c69b058349a99fad545d818c7648d6161d522b69adc3fac9a6e parent=native-acceptance-1789129001840\n- id=8f4d3e752f38 sub=00ce23b0-225c-4cec-85f3-a4d2bfdf32f6 status=accepted stop=accepted attempts=2 repairs=1 turns=8 models=competition/glm-5.3 session=id:36259d85e6bc47bc1d06ad3f8014ae186ca17b3b826de96be6d35168d430e4aa parent=native-acceptance-1789129001840\n\n## 解读边界\n- 反馈后通过仅是关联，不证明修复有效性或效果改进；本档案不含任何此类断言。\n- 统计只描述当前窗口；分组达到 8 条也不代表泛化可靠。多模型、unknown 或 redacted 来源不得归因到单一模型。\n- 基础设施错误保留在总分母中，但不进入字段缺陷签名。\n- 样本不足（观测 < 8 次）：以上计数仅代表存在性证据，不代表稳定性。\n\n## 静态提示（证据参考，非权威指令）\n- 验收必须保留契约必填字段并对实际产出执行检查；不得削弱验收标准。",
+      "preview": "子任务验收经验（验收证据投影） - 来源：原生子任务验收观察（仅元数据）。权威状态存于 SQLite pipeline_state 键 `acceptanceObservationsV1`，可用 `readAcceptanceMemory` 导出检查。 - 本正文为派生投影，可能由 Dream 重写；固定 origin：capturedAt=2026-01-01T00:00:00.000Z sourceSessionKey=accept..."
+    }
+  ]
+}

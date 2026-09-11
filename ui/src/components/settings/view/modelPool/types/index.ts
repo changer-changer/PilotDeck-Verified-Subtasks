@@ -26,6 +26,7 @@ export type PilotDeckConfig = {
   };
   memory?: {
     enabled?: boolean;
+    captureAcceptance?: boolean;
     model?: string;
     autoIndexIntervalMinutes?: number;
     autoDreamIntervalMinutes?: number;
