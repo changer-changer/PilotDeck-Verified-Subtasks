@@ -15,6 +15,8 @@
 
 轨迹回放页用于讲解或备用，现场主线是原生软件中的真实执行。
 
+[8 步现场操作](docs/verified-subtasks/QUICKSTART.zh-CN.md) · [原生演示录像（1 分 58 秒 / 9 分 47 秒）](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/demo-recording-20260911) · [本次录像的验收报告](docs/verified-subtasks/evidence/ui-recording-20260911/README.md)
+
 ## 安装与启动
 
 需要 Node.js **22.13–22.x**、pnpm **10.32.1**。

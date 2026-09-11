@@ -1,0 +1,247 @@
+[
+  {
+    "name": "agent",
+    "subagentId": null,
+    "acceptance": {
+      "status": "accepted",
+      "stopReason": "accepted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "accepted": true,
+          "checksPassed": true,
+          "issues": [],
+          "review": {
+            "model": {
+              "provider": "competition",
+              "model": "glm-5.3"
+            },
+            "evidence": [
+              "<demo>/workspace/sales.json",
+              "<demo>/workspace/sales-source.json"
+            ],
+            "turns": 3,
+            "usage": {
+              "inputTokens": 1022,
+              "outputTokens": 584,
+              "cacheReadTokens": 10240,
+              "totalTokens": 11846
+            },
+            "durationMs": 22393,
+            "rawVerdict": "{\"issues\":[],\"summary\":\"Verified sales.json contains {\\\"count\\\": 3, \\\"total\\\": 186}, exactly matching the delivery claim. Independently computed from sales-source.json: amounts = [48, 63, 75], length 3, sum 48+63+75 = 186. The report accurately reflects the source file's count and total, satisfying the final acceptance goal. No discrepancies found.\",\"verdict\":\"accepted\"}",
+            "status": "accepted",
+            "summary": "Verified sales.json contains {\"count\": 3, \"total\": 186}, exactly matching the delivery claim. Independently computed from sales-source.json: amounts = [48, 63, 75], length 3, sum 48+63+75 = 186. The report accurately reflects the source file's count and total, satisfying the final acceptance goal. No discrepancies found.",
+            "issues": []
+          }
+        }
+      ],
+      "repairs": 0,
+      "value": {
+        "artifact": "sales.json",
+        "result": {
+          "count": 3,
+          "total": 186
+        }
+      }
+    }
+  },
+  {
+    "name": "agent",
+    "subagentId": null,
+    "acceptance": {
+      "status": "accepted",
+      "stopReason": "accepted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "accepted": true,
+          "checksPassed": true,
+          "issues": [],
+          "review": {
+            "model": {
+              "provider": "competition",
+              "model": "glm-5.3"
+            },
+            "evidence": [
+              "<demo>/workspace/stock.json",
+              "<demo>/workspace/stock-source.json"
+            ],
+            "turns": 3,
+            "usage": {
+              "inputTokens": 8299,
+              "outputTokens": 1256,
+              "cacheReadTokens": 3584,
+              "totalTokens": 13139
+            },
+            "durationMs": 41489,
+            "rawVerdict": "{\"issues\":[],\"summary\":\"Verified against workspace artifacts: stock-source.json contains amounts [21, 27], giving count = 2 (array length) and total = 48 (sum). stock.json currently contains {\\\"count\\\": 2, \\\"total\\\": 48}, and the delivered claim {\\\"artifact\\\":\\\"stock.json\\\",\\\"result\\\":{\\\"count\\\":2,\\\"total\\\":48}} matches both the file content and the source-derived values, satisfying the final acceptance criterion that the report accurately reflect the source file's amount sum and count.\",\"verdict\":\"accepted\"}",
+            "status": "accepted",
+            "summary": "Verified against workspace artifacts: stock-source.json contains amounts [21, 27], giving count = 2 (array length) and total = 48 (sum). stock.json currently contains {\"count\": 2, \"total\": 48}, and the delivered claim {\"artifact\":\"stock.json\",\"result\":{\"count\":2,\"total\":48}} matches both the file content and the source-derived values, satisfying the final acceptance criterion that the report accur",
+            "issues": []
+          }
+        }
+      ],
+      "repairs": 0,
+      "value": {
+        "artifact": "stock.json",
+        "result": {
+          "count": 2,
+          "total": 48
+        }
+      }
+    }
+  },
+  {
+    "name": "agent",
+    "subagentId": null,
+    "acceptance": {
+      "status": "accepted",
+      "stopReason": "accepted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "accepted": true,
+          "checksPassed": true,
+          "issues": [],
+          "review": {
+            "model": {
+              "provider": "competition",
+              "model": "glm-5.3"
+            },
+            "evidence": [
+              "<demo>/workspace/refunds.json",
+              "<demo>/workspace/refunds-source.json"
+            ],
+            "turns": 2,
+            "usage": {
+              "inputTokens": 4015,
+              "outputTokens": 730,
+              "cacheReadTokens": 3520,
+              "totalTokens": 8265
+            },
+            "durationMs": 17648,
+            "rawVerdict": "{\"issues\":[],\"summary\":\"Verified against workspace artifacts: refunds.json contains {\\\"count\\\": 2, \\\"total\\\": 12}, matching the delivery claim, and refunds-source.json contains amounts [5, 7] whose length (2) and sum (12) exactly match the report. The final acceptance criterion — the report accurately reflecting the source file's count and total — is satisfied.\",\"verdict\":\"accepted\"}",
+            "status": "accepted",
+            "summary": "Verified against workspace artifacts: refunds.json contains {\"count\": 2, \"total\": 12}, matching the delivery claim, and refunds-source.json contains amounts [5, 7] whose length (2) and sum (12) exactly match the report. The final acceptance criterion — the report accurately reflecting the source file's count and total — is satisfied.",
+            "issues": []
+          }
+        }
+      ],
+      "repairs": 0,
+      "value": {
+        "artifact": "refunds.json",
+        "result": {
+          "count": 2,
+          "total": 12
+        }
+      }
+    }
+  },
+  {
+    "name": "agent",
+    "subagentId": null,
+    "acceptance": {
+      "status": "accepted",
+      "stopReason": "accepted",
+      "attempts": [
+        {
+          "attempt": 1,
+          "accepted": false,
+          "checksPassed": true,
+          "issues": [
+            {
+              "path": "briefing.json",
+              "code": "risk-contradicts-source-data",
+              "message": "briefing.json 的 summary 写\"供应稳定，下周可正常发货\"、risk 写\"无\"，与 briefing-source.json 直接矛盾：源数据显示供应商\"远帆\"延期 7 天（delayDays=7）、影响 18 个订单（affectedOrders=18）。简报必须如实写明延期天数（7 天）和受影响订单数（18 个）。"
+            },
+            {
+              "path": "briefing.json",
+              "code": "action-missing-required-elements",
+              "message": "action 字段为\"无需跟进\"，缺少任务强制要求的三要素：负责人（源数据为\"采购负责人\"）、截止时间（源数据为\"下周一12:00\"）、以及确认备选供应商交期的行动。需根据源数据改写为可执行行动。"
+            },
+            {
+              "path": "briefing.json",
+              "code": "content-not-based-on-source",
+              "message": "briefing.json 未基于 briefing-source.json 撰写，内容与源数据完全脱节；需重新生成 summary/risk/action 三个中文字段，真实反映远帆供应商延期 7 天、影响 18 单的供应风险。"
+            }
+          ],
+          "review": {
+            "model": {
+              "provider": "competition",
+              "model": "glm-5.3"
+            },
+            "evidence": [
+              "<demo>/workspace/briefing.json",
+              "<demo>/workspace/briefing-source.json"
+            ],
+            "turns": 2,
+            "usage": {
+              "inputTokens": 3071,
+              "outputTokens": 2942,
+              "cacheReadTokens": 5760,
+              "totalTokens": 11773
+            },
+            "durationMs": 57190,
+            "rawVerdict": "{\"issues\":[{\"code\":\"risk-contradicts-source-data\",\"message\":\"briefing.json 的 summary 写\\\"供应稳定，下周可正常发货\\\"、risk 写\\\"无\\\"，与 briefing-source.json 直接矛盾：源数据显示供应商\\\"远帆\\\"延期 7 天（delayDays=7）、影响 18 个订单（affectedOrders=18）。简报必须如实写明延期天数（7 天）和受影响订单数（18 个）。\",\"path\":\"briefing.json\"},{\"code\":\"action-missing-required-elements\",\"message\":\"action 字段为\\\"无需跟进\\\"，缺少任务强制要求的三要素：负责人（源数据为\\\"采购负责人\\\"）、截止时间（源数据为\\\"下周一12:00\\\"）、以及确认备选供应商交期的行动。需根据源数据改写为可执行行动。\",\"path\":\"briefing.json\"},{\"code\":\"content-not-based-on-source\",\"message\":\"briefing.json 未基于 briefing-source.json 撰写，内容与源数据完全脱节；需重新生成 summary/risk/action 三个中文字段，真实反映远帆供应商延期 7 天、影响 18 单的供应风险。\",\"path\":\"briefing.json\"}],\"summary\":\"交付声明如实反映了 briefing.json 当前内容（summary=供应稳定/risk=无/action=无需跟进），但该内容不满足最终业务验收标准：briefing-source.json 显示供应商\\\"远帆\\\"延期 7 天、影响 18 个订单，而简报声称供应稳定、无风险，未提及延期天数与受影响订单数；action 缺少负责人（采购负责人）、截止时间（下周一12:00）和确认备选供应商交期。此拒绝即为模型复核反馈：应读取 briefing-source.json 并修复 briefing.json 的业务内容。\",\"verdict\":\"rejected\"}",
+            "status": "rejected",
+            "summary": "交付声明如实反映了 briefing.json 当前内容（summary=供应稳定/risk=无/action=无需跟进），但该内容不满足最终业务验收标准：briefing-source.json 显示供应商\"远帆\"延期 7 天、影响 18 个订单，而简报声称供应稳定、无风险，未提及延期天数与受影响订单数；action 缺少负责人（采购负责人）、截止时间（下周一12:00）和确认备选供应商交期。此拒绝即为模型复核反馈：应读取 briefing-source.json 并修复 briefing.json 的业务内容。",
+            "issues": [
+              {
+                "path": "briefing.json",
+                "code": "risk-contradicts-source-data",
+                "message": "briefing.json 的 summary 写\"供应稳定，下周可正常发货\"、risk 写\"无\"，与 briefing-source.json 直接矛盾：源数据显示供应商\"远帆\"延期 7 天（delayDays=7）、影响 18 个订单（affectedOrders=18）。简报必须如实写明延期天数（7 天）和受影响订单数（18 个）。"
+              },
+              {
+                "path": "briefing.json",
+                "code": "action-missing-required-elements",
+                "message": "action 字段为\"无需跟进\"，缺少任务强制要求的三要素：负责人（源数据为\"采购负责人\"）、截止时间（源数据为\"下周一12:00\"）、以及确认备选供应商交期的行动。需根据源数据改写为可执行行动。"
+              },
+              {
+                "path": "briefing.json",
+                "code": "content-not-based-on-source",
+                "message": "briefing.json 未基于 briefing-source.json 撰写，内容与源数据完全脱节；需重新生成 summary/risk/action 三个中文字段，真实反映远帆供应商延期 7 天、影响 18 单的供应风险。"
+              }
+            ]
+          }
+        },
+        {
+          "attempt": 2,
+          "accepted": true,
+          "checksPassed": true,
+          "issues": [],
+          "review": {
+            "model": {
+              "provider": "competition",
+              "model": "glm-5.3"
+            },
+            "evidence": [
+              "<demo>/workspace/briefing.json",
+              "<demo>/workspace/briefing-source.json"
+            ],
+            "turns": 2,
+            "usage": {
+              "inputTokens": 1606,
+              "outputTokens": 773,
+              "cacheReadTokens": 7360,
+              "totalTokens": 9739
+            },
+            "durationMs": 16767,
+            "rawVerdict": "{\"issues\":[],\"summary\":\"已独立核验实际工作区文件。briefing.json 真实存在且包含三个非空中文字段 summary/risk/action，与交付声明一致。对照 briefing-source.json（supplier=远帆, delayDays=7, affectedOrders=18, deadline=下周一12:00, responsible=采购负责人, action=确认备选供应商交期）逐项验证：summary 与 risk 如实写明远帆延期 7 天、影响 18 个订单；action 明确负责人（采购负责人）、截止时间（下周一12:00前）并包含确认备选供应商交期的行动，同时同步 18 个受影响订单的调整方案。所有数据与源数据吻合，无矛盾、无缺失要素，符合最终验收标准。\",\"verdict\":\"accepted\"}",
+            "status": "accepted",
+            "summary": "已独立核验实际工作区文件。briefing.json 真实存在且包含三个非空中文字段 summary/risk/action，与交付声明一致。对照 briefing-source.json（supplier=远帆, delayDays=7, affectedOrders=18, deadline=下周一12:00, responsible=采购负责人, action=确认备选供应商交期）逐项验证：summary 与 risk 如实写明远帆延期 7 天、影响 18 个订单；action 明确负责人（采购负责人）、截止时间（下周一12:00前）并包含确认备选供应商交期的行动，同时同步 18 个受影响订单的调整方案。所有数据与源数据吻合，无矛盾、无缺失要素，符合最终验收标准。",
+            "issues": []
+          }
+        }
+      ],
+      "repairs": 1,
+      "value": {
+        "artifact": "briefing.json",
+        "result": {
+          "action": "由采购负责人在下周一12:00前确认备选供应商交期，并同步受影响 18 个订单的调整交付方案。",
+          "risk": "供应商远帆延期 7 天，直接影响 18 个订单的交付进度，存在订单延误和客户交付违约风险。",
+          "summary": "供应商远帆发生供货延期，延期 7 天，受影响订单共 18 个，供应风险已确认，需立即启动应对措施。"
+        }
+      }
+    }
+  }
+]

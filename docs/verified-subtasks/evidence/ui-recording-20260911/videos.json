@@ -1,0 +1,14 @@
+{
+  "pilotdeck-demo-118s.mp4": {
+    "sha256": "f8171b6b77190277d351d1911a43abb23e0c33a4e1d814f03ac70731f5613cda",
+    "bytes": 3808095,
+    "durationSeconds": 117.734,
+    "audio": false
+  },
+  "pilotdeck-demo-full.mp4": {
+    "sha256": "e5c7f473532966e622a5d5b14719baaa4a05817525c89fa686d445e1938d1122",
+    "bytes": 37870732,
+    "durationSeconds": 586.999,
+    "audio": false
+  }
+}

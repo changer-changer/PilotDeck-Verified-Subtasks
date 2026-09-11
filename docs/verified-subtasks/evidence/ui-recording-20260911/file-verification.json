@@ -1,0 +1,14 @@
+{
+  "sales.json": {
+    "contentUnchanged": true,
+    "mtimeUnchanged": true
+  },
+  "stock.json": {
+    "contentUnchanged": true,
+    "mtimeUnchanged": true
+  },
+  "refunds.json": {
+    "contentUnchanged": true,
+    "mtimeUnchanged": true
+  }
+}
