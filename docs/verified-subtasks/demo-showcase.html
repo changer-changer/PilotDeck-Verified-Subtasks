@@ -415,6 +415,26 @@ footer{border-top:1px solid var(--line);padding:96px 0 60px;text-align:center}
   .tl-node::before{top:14px}
 }
 </style>
+<style>
+.brow{margin:0 0 22px}
+.brow-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.brow-h b{font-size:14.5px;font-weight:700;color:var(--ink)}
+.brow-h span{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:5px}
+.bar-l{font-family:var(--mono);font-size:10.5px;color:var(--dim);width:88px;flex:none;letter-spacing:.04em}
+.bar-t{flex:1;height:16px;background:rgba(255,255,255,.035);border:1px solid var(--line);position:relative}
+.bar-f{height:100%;display:flex;align-items:center}
+.bar-f.a{background:rgba(255,255,255,.16)}
+.bar-f.b{background:linear-gradient(90deg,rgba(255,107,53,.55),var(--acc));box-shadow:0 0 12px rgba(255,107,53,.25)}
+.bar-v{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex:none;width:236px;line-height:1.5}
+.bar-v .l2{display:block;font-size:10.5px;color:var(--faint)}
+.bar-v .mul{color:var(--acc-hi);font-weight:700}
+.bar-v .ns{color:var(--faint)}
+.chiprow{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.chip{border:1px solid var(--line2);background:var(--panel);padding:12px 18px;flex:1;min-width:200px}
+.chip b{display:block;font-family:var(--mono);font-size:17px;color:var(--acc-hi);margin-bottom:4px}
+.chip span{font-size:12px;color:var(--dim);line-height:1.7}
+</style>
 </head>
 <body>
 
@@ -471,6 +491,7 @@ footer{border-top:1px solid var(--line);padding:96px 0 60px;text-align:center}
     <div class="stat-strip hero-el" style="--d:.45s">
       <div class="stat"><div class="stat-n"><span class="cnt" data-count="2">2</span></div><div class="stat-l">层验收 · 程序 + 独立评审</div></div>
       <div class="stat"><div class="stat-n"><span class="cnt" data-count="3">3</span></div><div class="stat-l">条真实演练证据</div></div>
+      <div class="stat"><div class="stat-n"><span class="cnt" data-count="1450" data-comma>1,450</span></div><div class="stat-l">大样本配对实验 · 4 模型 × 5 臂</div></div>
       <div class="stat"><div class="stat-n g"><span class="cnt" data-count="28">28</span><span class="suf">+</span></div><div class="stat-l">项测试全绿</div></div>
       <div class="stat"><div class="stat-n"><span class="pre">~</span><span class="cnt" data-count="1100" data-comma>1,100</span></div><div class="stat-l">行核心代码</div></div>
       <div class="stat"><div class="stat-n g"><span class="cnt" data-count="0">0</span></div><div class="stat-l">类型错误</div></div>
@@ -886,11 +907,67 @@ verify preset → PASS / PARTIAL / FAIL</div>
   </div>
 </section>
 
-<!-- ================= 08 GATES & NEXT ================= -->
-<section id="s7">
+<!-- ================= 08 STATS TRIALS ================= -->
+<section id="s7c">
   <div class="wrap">
     <header class="sec-head" data-reveal>
       <span class="sec-no">08</span>
+      <div><h2>大样本配对对照实验</h2><p class="sec-en">PAIRED CONTROLLED TRIALS · 4 EDGE MODELS · 5 ARMS · N = 1,450</p></div>
+    </header>
+    <div class="sec-rule" data-reveal></div>
+
+    <p class="lead" data-reveal style="max-width:900px">同一份提交代码（<span class="mono">5c9dc81</span>，即公开提交），确定性任务生成器 + ground truth 外部判分，逐实例配对。<b>五个实验臂</b>：A 基线贪心单次（验收只判不修）· B 本方法（验收+有界修复，首答逐字回放 A——提升只能来自修复循环）· C 盲目 best-of-3 多数投票 · D 单次采样部署 · E 验收门控选择（事后对照）。本地 Ollama · RTX 4060 Laptop。</p>
+
+    <div data-reveal style="margin-top:34px">
+      <div class="brow">
+        <div class="brow-h"><b>Llama 3.2 3B</b><span>n = 450 配对 · McNemar 精确检验</span></div>
+        <div class="bar"><span class="bar-l">A 基线贪心</span><div class="bar-t"><div class="bar-f a" style="width:6.3%"></div></div><span class="bar-v">3.8% <span class="ns">[2.4–6.0]</span></span></div>
+        <div class="bar"><span class="bar-l">B 验收+修复</span><div class="bar-t"><div class="bar-f b" style="width:59.7%"></div></div><span class="bar-v">35.8% <span class="ns">[31.5–40.3]</span><span class="l2"><span class="mul">9.4×</span> · McNemar p=9×10⁻⁴⁴</span></span></div>
+      </div>
+      <div class="brow">
+        <div class="brow-h"><b>Qwen2.5-Coder 7B</b><span>n = 300 配对</span></div>
+        <div class="bar"><span class="bar-l">A 基线贪心</span><div class="bar-t"><div class="bar-f a" style="width:35.0%"></div></div><span class="bar-v">21.0% <span class="ns">[16.8–26.0]</span></span></div>
+        <div class="bar"><span class="bar-l">B 验收+修复</span><div class="bar-t"><div class="bar-f b" style="width:64.5%"></div></div><span class="bar-v">38.7% <span class="ns">[33.3–44.3]</span><span class="l2"><span class="mul">1.8×</span> · McNemar p=2.2×10⁻¹⁶</span></span></div>
+      </div>
+      <div class="brow">
+        <div class="brow-h"><b>MiniCPM5-1B (Q4)</b><span>n = 400 配对 · 诚实阴性结果</span></div>
+        <div class="bar"><span class="bar-l">A 基线贪心</span><div class="bar-t"><div class="bar-f a" style="width:20.0%"></div></div><span class="bar-v">12.0% <span class="ns">[9.2–15.6]</span></span></div>
+        <div class="bar"><span class="bar-l">B 验收+修复</span><div class="bar-t"><div class="bar-f b" style="width:20.5%;opacity:.55"></div></div><span class="bar-v">12.3%<span class="l2">p=1.0 · 无救（诚实阴性）</span></span></div>
+      </div>
+      <div class="brow">
+        <div class="brow-h"><b>Qwen2.5 1.5B</b><span>n = 300 配对 · 诚实阴性结果</span></div>
+        <div class="bar"><span class="bar-l">A 基线贪心</span><div class="bar-t"><div class="bar-f a" style="width:2.2%"></div></div><span class="bar-v">1.3% <span class="ns">[0.5–3.4]</span></span></div>
+        <div class="bar"><span class="bar-l">B 验收+修复</span><div class="bar-t"><div class="bar-f b" style="width:2.8%;opacity:.55"></div></div><span class="bar-v">1.7%<span class="l2">p=1.0 · 无救（诚实阴性）</span></span></div>
+      </div>
+      <p style="font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:6px">柱宽按 60% 满刻度 · [ ] 为 Wilson 95% 置信区间 · 零例倒退（A 败 B 过 144 / A 过 B 败 0，Llama）</p>
+    </div>
+
+    <div class="chiprow" data-reveal>
+      <div class="chip"><b>56.0% vs 44.3%</b><span>验收门控选择（E）vs 盲目投票（C），同一批样本，p=5.8×10⁻¹¹，且平均 2.17 请求 vs 恒定 3.00——<b>验收器比投票更准还更便宜</b>，四个模型全部成立</span></div>
+      <div class="chip"><b>能力甜点</b><span>差一点的模型收益巨大（3B：9.4 倍）；差太多的任何采样都救不回——验收修复扩展的是「差一点」模型的下限，不是无中生有</span></div>
+      <div class="chip"><b>成本自适应</b><span>B 平均请求随难度浮动：首答全对 1.00 · 7B 2.47 · 3B 2.91；C 恒定烧 3.00——验收器知道「何时停」</span></div>
+    </div>
+
+    <div class="chiprow" data-reveal>
+      <div class="chip"><b>修什么错</b><span>Llama 算术滑步救回 48%、规则误解 26%；7B 相反——重采样修复随机错误，修不了概念错误（分段计价 0.7%→61.3%）</span></div>
+      <div class="chip"><b>贪心修复=复读机</b><span>temp 0 + 固定 seed 下弱模型 16/16 逐字复读旧答案——修复轮必须重采样（机制细节已披露）</span></div>
+      <div class="chip"><b>锚定效应双向</b><span>3B：同会话修复 B(35.8%) &lt; 无上下文 E(56.0%)；7B 相反 (38.7% &gt; 25.3%)——修复策略应可配置，列为未来工作</span></div>
+    </div>
+
+    <div class="fault" data-reveal style="margin-top:28px;border-color:rgba(255,107,53,.4);background:rgba(255,107,53,.05)">
+      <span class="fault-tag" style="color:var(--acc-hi)">不宣称</span>
+      <span>不宣称任意任务/任意模型普适（样本：3 任务族 × 4 本地端侧模型）；不宣称 token 成本精确节省（报告请求与 token 均值，回放成本已计入）；任务族为「基线落可测区间」校准选择，校准过程全部披露。逐实例数据 <b>runs/</b> · 评测集 <b>evalset/</b>（种子 20260911）· 难度校准 <b>校准记录/</b>，可复现。</span>
+    </div>
+
+    <p class="term-caption" data-reveal style="text-align:center;margin-top:40px">采样解决「多试几次」，验收解决<span class="hl">「知道哪次是对的」</span>——后者才是可靠性的来源。</p>
+  </div>
+</section>
+
+<!-- ================= 09 GATES & NEXT ================= -->
+<section id="s7">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <span class="sec-no">09</span>
       <div><h2>质量门与下一步</h2><p class="sec-en">QUALITY GATES &amp; WHAT'S NEXT</p></div>
     </header>
     <div class="sec-rule" data-reveal></div>
@@ -930,11 +1007,11 @@ verify preset → PASS / PARTIAL / FAIL</div>
 </main>
 
 <!-- ================= FOOTER ================= -->
-<!-- ================= 09 RUN & LIMITS ================= -->
+<!-- ================= 10 RUN & LIMITS ================= -->
 <section id="s9">
   <div class="wrap">
     <header class="sec-head" data-reveal>
-      <span class="sec-no">09</span>
+      <span class="sec-no">10</span>
       <div><h2>运行方式与诚实边界</h2><p class="sec-en">RUN IT YOURSELF · BEFORE / AFTER · KNOWN LIMITS</p></div>
     </header>
     <div class="sec-rule" data-reveal></div>
