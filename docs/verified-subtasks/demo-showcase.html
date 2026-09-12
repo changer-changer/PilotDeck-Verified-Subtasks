@@ -60,7 +60,7 @@ body::after{
 .wrap{max-width:1240px;margin:0 auto;padding:0 36px}
 .hl{color:var(--acc)}
 .ok-t{color:var(--grn-hi)}
-section{padding:118px 0 96px;position:relative}
+section{scroll-margin-top:64px;padding:118px 0 96px;position:relative}
 section + section{border-top:1px solid var(--line)}
 
 /* ============ topbar ============ */
@@ -926,16 +926,27 @@ footer{border-top:1px solid var(--line);padding:96px 0 60px;text-align:center}
     <p class="lead" data-reveal style="max-width:900px">评委最想问的问题：<b>这个机制真有用吗，还是演示挑出来的效果？</b>我们为此做了配对对照实验——<b>1,450 个任务实例 × 4 个端侧模型 × 5 个对照组</b>，全部跑在本地 Ollama（RTX 4060 Laptop），同一份提交代码（即公开仓库的 <span class="mono">5c9dc81</span>）。任务由确定性生成器出题并判分：<b>标准答案从不由模型产生</b>。</p>
 
     <div class="tblwrap" data-reveal style="margin-top:24px">
-      <table>
-        <thead><tr><th style="width:15%">组别</th><th>是什么</th><th style="width:34%">回答什么质疑</th></tr></thead>
+      <table style="table-layout:fixed">
+        <thead><tr><th style="width:11%">组别</th><th style="width:47%">是什么</th><th style="width:15%">成本（请求/题）</th><th style="width:27%">存在的意义</th></tr></thead>
         <tbody>
-          <tr><td><b>A</b> 基线</td><td>单次贪心作答，验收器只判分不修复——等价于「装了仪表但不装安全气囊」</td><td>不装机制，裸跑多差？</td></tr>
-          <tr><td class="col-ours"><b>B</b> 本方法</td><td class="col-ours">验收 + 打回重修。关键设计：B 的<b>第一次作答与 A 逐字相同</b>，之后才开修复——差距只能来自修复机制，不来自运气</td><td class="col-ours">我们的方法到底提升多少？</td></tr>
-          <tr><td><b>C</b> 盲目三连</td><td>不装验收，同一题独立采 3 次投票选答案——「多买几次采样」的对照</td><td>是不是只靠多试几次？</td></tr>
-          <tr><td><b>D</b> 单次采样</td><td>不装验收，单次随机采样——「正常部署但不验收」的对照</td><td>没人用贪心部署，公平吗？</td></tr>
-          <tr><td><b>E</b> 验收选择</td><td>事后分析：同一批采样，按「验收器挑」vs「投票挑」分别取结果</td><td>验收器和投票，谁更会挑？</td></tr>
+          <tr><td><b>A</b> 基线</td><td>单次贪心作答，验收器只判分、不修复——等价于「装了仪表但不装安全气囊」</td><td class="mono">1.00</td><td>不装机制裸跑多差？</td></tr>
+          <tr><td class="col-ours"><b>B</b> 本方法</td><td class="col-ours">验收 + 打回重修。关键设计：B 的<b>第一次作答与 A 逐字相同</b>，之后才开修复——差距只能来自修复机制，不来自运气</td><td class="col-ours mono">2.47–2.91<br><span style="font-size:10.5px">按难度自适应</span></td><td class="col-ours">我们的方法提升多少？</td></tr>
+          <tr><td><b>C</b> 盲目三连</td><td>不装验收，同一题独立采 3 次投票选答案——「多买几次采样」的对照</td><td class="mono">3.00 恒定</td><td>是不是只靠多试几次？</td></tr>
+          <tr><td><b>D</b> 单次采样</td><td>不装验收，单次随机采样——「正常部署但不验收」的对照</td><td class="mono">1.00</td><td>没人用贪心部署，公平吗？</td></tr>
+          <tr><td><b>E</b> 验收选择</td><td>事后分析：同一批采样，按「验收器挑」vs「投票挑」分别取结果</td><td class="mono">2.17–2.98</td><td>验收器和投票谁更会挑？</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <div data-reveal style="margin-top:30px;border:1px solid var(--line2);background:var(--panel);padding:20px 26px">
+      <p style="font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--acc-hi);font-weight:700;margin-bottom:14px">实验内容 · 任务簇（确定性生成，种子 20260911）</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div><b style="color:var(--ink);font-size:14px">分段计价 tiered-pricing</b><p style="font-size:12.5px;color:var(--dim);line-height:1.75;margin:6px 0 0">「商店买 19 件：前 10 件每件 8 元，接下来 5 件每件 12 元，超出 15 件的部分每件 5 元——返回总价与占用档位数。」考<b style="color:var(--ink)">多步算术</b>：一步算错全盘错（算术滑步类）。</p></div>
+        <div><b style="color:var(--ink);font-size:14px">多条件筛选 multi-filter</b><p style="font-size:12.5px;color:var(--dim);line-height:1.75;margin:6px 0 0">在订单/库存数据上按多个条件组合筛选并汇总。考<b style="color:var(--ink)">规则理解</b>：条件漏用或误解（系统性错误类）。</p></div>
+        <div><b style="color:var(--ink);font-size:14px">订单汇总 paid-orders / refunds</b><p style="font-size:12.5px;color:var(--dim);line-height:1.75;margin:6px 0 0">按状态口径汇总已支付金额、计算退款。考<b style="color:var(--ink)">条件执行</b>与口径纪律。</p></div>
+      </div>
+      <p style="font-size:12.5px;color:var(--dim);line-height:1.8;margin:14px 0 0">每题必须返回 <span class="mono" style="color:var(--acc-hi)">{"count":number,"total":number}</span> 的结构化 JSON——正是验收契约的形态；每题自带规则重述（feedbackHint）供修复轮注入；难度按模型逐簇校准（太简单/太难都测不出差异，校准矩阵全部留档），同一难度跨组一致。判分 = 与生成器算出的标准答案<b style="color:var(--ink)">完全相等</b>——标准答案从不由模型产生。</p>
+      <p style="font-family:var(--mono);font-size:11px;color:var(--faint);margin:12px 0 0">实验结构：任务生成器 → 5 组并行执行 → ground truth 外部判分 → McNemar 配对检验（n=300–450/模型）</p>
     </div>
 
     <div data-reveal style="margin-top:34px">
