@@ -1,14 +1,14 @@
-# 现场答辩 Q&A
+# 项目问答中心
 
-[打开交互版](defense-qa.html)：搜关键词 → 点问题 → 大字投屏。
+[打开项目问答](defense-qa.html)：搜索感兴趣的问题，查看结论、图表与公开证据。
 
-## 1. 用一句话说，你们做了什么？
+## 1. 这个项目做了什么？
 
-让每次交付，都有验收依据。我们给 PilotDeck 的子任务加上两层检查：程序核对格式与规则，独立 AI 核对任务与实物；发现可修复的问题，就在原子任务里限次修好，再返回验收结果。
+让每次交付，都有验收依据。我们给 PilotDeck 的子任务加上两层检查：程序核对格式与规则，独立 AI 核对任务与实物；发现可修复的问题，就在原来的子任务里限次修好，再返回验收结果。
 
-**30 秒口述**：Agent 会说“完成了”，但用户还得自己查字段、对文件、核数值。我们把这些交付检查接进 PilotDeck 的执行过程，连同失败原因、修复次数和观察记录一起交给用户。完成状态由检查支撑，出错也能说明白。
+**从完成声明到验收依据**：Agent 会说“完成了”，但用户还得自己查字段、对文件、核数值。我们把这些交付检查接进 PilotDeck 的执行过程，连同失败原因、修复次数和观察记录一起交给用户。完成状态由检查支撑，出错也能说明白。
 
-**对使用者的价值**：开发者定义交付标准；操作者看到哪里没过；评委能沿着证据查看为什么通过。只对配置了验收契约的子任务生效。
+**对使用者的价值**：开发者定义交付标准，操作者看到哪里没过，查看结果的人能沿着证据了解通过原因。只对配置了验收契约的子任务生效。
 
 证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md)
 
@@ -42,23 +42,23 @@ PilotDeck 已有主子代理、模型池、原生任务界面和白盒记忆。�
 
 证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [子任务修复状态机](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/SubAgentSession.ts) · [验收观察实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/context/memory/AcceptanceMemory.ts)
 
-## 5. 和三家比，我们具体强在哪里？
+## 5. 与 Claude Code、Codex、OpenCode 相比，有什么不同？
 
 在“子任务如何交付”这个环节，我们给出了一套面向 PilotDeck 的现成方案：契约、两层检查、同会话修复、预算、原生状态和记忆回写可以一起工作。用户可以沿同一条记录理解一次交付。
 
-**比较结论**：三家都已有强大的审查或扩展能力。我们的差异是围绕业务交付做了集中集成；目前没有在同一测试集上测量三家，因此不宣称整体性能胜过它们。
+**集成的价值**：在 PilotDeck 内，一份验收契约可以连接检查、修复、预算、原生状态和观察记录。开发者配置交付标准，使用者能查到判定依据与处理过程。
 
-**现场怎么说更有力**：“大厂证明了验收方向值得做；我们把它落实成 PilotDeck 用户能直接配置、能看过程、能追结果的交付能力。”这是一项具体的产品价值判断。
+**比较范围**：三家都已有审查或扩展能力，也可构建相近工作流。本页比较的是本项目已实现的集成方式；尚无三家同条件性能实验，不能据此得出整体性能排名。
 
 证据：[Claude Code · 模型 Hooks](https://code.claude.com/docs/en/hooks-guide#agent-based-hooks) · [Codex · SubagentStop](https://developers.openai.com/codex/hooks#subagentstop) · [OpenCode · 子代理配置](https://opencode.ai/docs/agents/) · [公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里)
 
 ## 6. Claude Code 已经做了什么？
 
-Claude Code 已有 prompt / agent Hooks，可以让模型判断完成条件；agent hook 还能读文件、搜索并核验。它也有项目指令和自动记忆。我们的优势应当讲验收流程的集成深度。
+Claude Code 已有 prompt / agent Hooks，可以让模型判断完成条件；agent hook 还能读文件、搜索并核验。它也有项目指令和自动记忆。本项目的侧重点，是将验收与局部修复完整接入 PilotDeck 的交付流程。
 
 **官方可确认的能力**：Stop / SubagentStop 可将不满足条件的理由反馈给执行者，让任务继续。agent hooks 当前文档标注为实验性；prompt hooks 可配置模型。
 
-**我们的落点**：PilotDeck 的验收契约、结构化问题、共享预算、同子任务修复、原生卡片和验收观察存储已经接通。Claude Code 也能用扩展搭建相近工作流，不能把“可搭建”写成“没有”。
+**本项目的侧重点**：验收契约、结构化问题、共享预算、同子任务修复、原生卡片和验收观察存储已经接通。Claude Code 也可通过扩展搭建相近流程；这里体现的是面向 PilotDeck 的具体集成价值。
 
 证据：[Claude Code · 模型 Hooks](https://code.claude.com/docs/en/hooks-guide#agent-based-hooks) · [Claude Code · 记忆](https://code.claude.com/docs/en/memory) · [公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里)
 
@@ -68,7 +68,7 @@ Codex 已有可配置的审查子代理、只读权限和结构化审查输出�
 
 **官方可确认的能力**：官方子代理示例包含独立模型与 read-only reviewer；官方 Cookbook 用输出 schema 组织审查结果；Hooks 文档明确给出阻止子代理停止、继续工作的方式。
 
-**避免比错对象**：代码审查、结构化输出和业务产物验收有交集，但关注对象不同。我们的现场证据是报表与供应简报的实际交付核对，不能据此说 Codex 无法完成这些任务。
+**交付验收的关注对象**：代码审查、结构化输出和业务产物验收有交集。本项目以报表与供应简报为例，核对任务、交付声明和实际文件；这不代表 Codex 无法完成相同任务。
 
 证据：[Codex · SubagentStop](https://developers.openai.com/codex/hooks#subagentstop) · [Codex · 审查子代理](https://developers.openai.com/codex/subagents) · [Codex · 结构化审查](https://developers.openai.com/cookbook/examples/codex/build_code_review_with_codex_sdk) · [公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里)
 
@@ -78,23 +78,23 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 **可扩展基础**：官方 Agent 配置能指定模型、工具权限和 steps；插件有 tool.execute.before / after 及 session.idle 等事件。这些是建设审查工作流的可用基础。
 
-**我们已经替用户完成什么**：在本项目里，验收状态、修复终止原因和观察记录有统一格式，并进入原生界面与存储。比较的是已实现的具体工作流，不把对方插件生态的未知范围判成“没有”。
+**本项目提供的现成流程**：验收状态、修复终止原因和观察记录有统一格式，并进入 PilotDeck 原生界面与存储。开发者可以在这些已接通的环节上配置业务标准；OpenCode 的插件体系也提供了建设相近流程的基础。
 
 证据：[OpenCode · 子代理配置](https://opencode.ai/docs/agents/) · [OpenCode · 插件事件](https://opencode.ai/docs/plugins/) · [公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里)
 
 ## 9. 这是新方向吗？谁先做出来的？
 
-这是已有实践验证值得投入的方向。我们的参赛重点是把它在 PilotDeck 中完整实现并验证。本页按 2026 年 9 月 12 日可查的官方能力比较；具体首次发布日期，需要逐条 release 证据才能判断。
+验收、反馈修复和审查代理已有实践。本项目的新增价值，是把这些能力在 PilotDeck 内完整接通并提供验证证据。本页依据 2026 年 9 月 12 日核对的官方能力比较，不作为功能首发时间的排名。
 
 **时间口径**：本项目已有 9 月 11 日真实演示与实验记录。竞品页面持续更新，只能支持当前能力，不自动支持某功能的首发日期。
 
-**为什么仍有参赛价值**：赛道三考察对原框架的实际改进。完整的运行时接合、故障路径和验证结果，是项目可被评审的工作量。
+**本项目的新增贡献**：完整的运行时接合、故障处理、可视化状态与验收观察，使原框架增加了可检查的子任务交付流程。代码、真实运行记录和统计数据分别说明实现范围与验证结果。
 
 证据：[Claude Code · 模型 Hooks](https://code.claude.com/docs/en/hooks-guide#agent-based-hooks) · [Codex · SubagentStop](https://developers.openai.com/codex/hooks#subagentstop) · [OpenCode · 子代理配置](https://opencode.ai/docs/agents/) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md)
 
 ## 10. 两层验收怎样串起来？
 
-先确认“交付是否符合约定”，再确认“内容是否真的完成任务”。结构或规则失败，反馈到原子任务修复；模型发现明确内容问题也可修复；证据不足或评审异常则明确拒绝。
+先确认“交付是否符合约定”，再确认“内容是否真的完成任务”。结构或规则失败，反馈到原来的子任务修复；模型发现明确内容问题也可修复；证据不足或评审异常则明确拒绝。
 
 **第一层**：有限 JSON Schema、宿主注册的业务规则，以及配置的产物检查。错误会归一化为包含路径、错误码和说明的问题项。
 
@@ -108,7 +108,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 **两层的分工**：能够写成确定性规则的检查优先交给程序；开放的语义要求交给模型复核。模型评审增加判断能力，也增加用量和误判风险。
 
-**现场证据**：已录制演示中，问题简报第一层通过，第二层读取实际文件后拒绝，原子任务修复一次后通过。该过程证明这个故障路径跑通。
+**现场证据**：已录制演示中，问题简报第一层通过，第二层读取实际文件后拒绝，原来的子任务修复一次后通过。该过程证明这个故障路径跑通。
 
 证据：[真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts)
 
@@ -116,7 +116,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 已录制演示使用 competition/glm-5.3 评审，和生产者同型号、不同会话。设置页可单独选评审模型；未指定时跟随实际派发任务的主对话模型，便于使用已配置可用的模型入口。
 
-**现场配置入口**：原生设置 → Agent → 交付评审，可启停第二层、指定模型、调评审轮次和超时。端点与密钥由模型池管理。
+**配置入口**：原生设置 → Agent → 交付评审，可启停第二层、指定模型、调评审轮次和超时。端点与密钥由模型池管理。
 
 **独立的准确含义**：独立指评审会话、指令职责和只读工具权限；同型号仍可能有相关错误。跟随模型配置不保证端点永远可用，异常会进入失败路径。
 
@@ -158,17 +158,17 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 **代码约束**：只读工具白名单、禁止交互申请权限、内部评审禁用再次评审。文件任务的通过判断还需要实际读取证据。
 
-**仍需如实说明**：原任务、声明和轨迹是在同一评审输入中分区标注，不是物理隔离。提示注入防护和语义误判没有被证明完全解决。
+**防护边界**：原任务、声明和轨迹是在同一评审输入中分区标注，不是物理隔离。提示注入防护和语义误判没有被证明完全解决。
 
 证据：[只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts)
 
 ## 17. 失败内容会污染主代理上下文吗？
 
-修复过程留在子任务会话里，主代理收到带验收状态、问题和用量的结果。结果中仍可能包含交付正文，所以我们强调“状态明确、过程隔离”。
+修复过程留在子任务会话里，主代理收到带验收状态、问题和用量的结果。这样主代理可以依据明确的通过或失败状态继续决策；返回结果仍可能包含交付正文。
 
 **为什么有帮助**：主代理不用亲自主持每一轮修复，能看到通过或拒绝以及原因。失败作为真实工具失败返回，便于后续决策。
 
-**避免过度承诺**：当前工具返回会包含 report.markdown；不能说主代理从不接触原始交付，也不能保证错误正文绝不影响后续推理。
+**返回内容的范围**：当前工具返回会包含 report.markdown，因此主代理仍会接触交付内容。过程隔离和明确状态有助于判断失败，但不能保证错误正文不会影响后续推理。
 
 证据：[原生 agent 工具接合](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/tool/builtin/agent.ts) · [子任务修复状态机](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/SubAgentSession.ts)
 
@@ -192,7 +192,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [原生 agent 工具接合](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/tool/builtin/agent.ts)
 
-## 20. 最有说服力的数据是什么？
+## 20. 验收修复带来了多大提升？
 
 在 Llama 3.2 3B 的 450 组配对合成任务上，最终正确交付从 17 份增加到 161 份：3.8% → 35.8%，提升 32 个百分点。这组结果验证了第一层确定性验收与有界修复的收益。
 
@@ -214,9 +214,9 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 ## 22. 是不是多采样带来的？这个比较公平吗？
 
-A/B 的第一次回答完全相同，所以起点可核对；后续收益来自整个修复方案，包含额外采样和反馈。我们补充 C/D 对照，并公开其中对我们不利的结果。
+A/B 的第一次回答完全相同，所以起点可核对；后续收益来自整个修复方案，包含额外采样和反馈。C/D 对照进一步展示了不同策略的表现，报告保留了修复不占优的结果。
 
-**配对的好处**：逐实例比较相同起点，减少首答运气差异。B 的逻辑请求与 token 计入回放的首答，不把已经花过的成本藏掉。
+**配对的好处**：逐实例比较相同起点，减少首答运气差异。B 的逻辑请求与 token 计入回放的首答，成本口径包含完整尝试过程。
 
 **不能隔离的因素**：B 与 C/D 还在温度、上下文、反馈和结构化输出通道上有差异。现有数据不能把提升单独归因于某个反馈技巧。任务难度经过校准，也限制了外推范围。
 
@@ -248,7 +248,7 @@ A/B 的第一次回答完全相同，所以起点可核对；后续收益来自�
 
 **已有成本口径**：A 单次请求，C 固定三次；B 四模型平均每题 2.47–2.97 次逻辑请求，包含首答回放。首答过关可早停，但启用第二层仍需支付评审用量。
 
-**不能据此推出什么**：请求更少未必金额更低，因为上下文和输出长度不同；没有旗舰替代实验，也没有生产工时对照。因此不承诺任意业务降本百分比。
+**从请求次数到实际成本**：请求更少未必金额更低，因为上下文和输出长度不同；没有旗舰替代实验，也没有生产工时对照。因此不承诺任意业务降本百分比。
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912) · [只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts)
 
@@ -258,17 +258,17 @@ A/B 的第一次回答完全相同，所以起点可核对；后续收益来自�
 
 **对用户的选型价值**：先用实际任务检验模型是否能在反馈后生成正确答案，再决定是否投入修复预算。公开弱结果，能帮助用户避免把预算投在收益很小的组合上。
 
-**保持判断精度**：当前数据不能证明某个参数规模天然无效，也不能证明这些模型在任何采样策略下都做不好。只描述所测模型、量化、任务和配置。
+**结论的适用范围**：结果对应所测模型、量化、任务和配置，尚不足以判断某个参数规模天然无效，也不能代表这些模型在其他策略或场景下的表现。
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
-## 27. p 值很小，是否就证明很厉害？
+## 27. 如何理解统计显著性与实际价值？
 
-p 值回答的是统计差异问题；实用价值还要看多交付了多少正确结果、花了多少请求，以及任务是否接近用户场景。因此我们先讲提升 32 个百分点，再给检验与边界。
+Llama 3B 的正确交付增加了 144 份，即提升 32 个百分点，配对检验也显示显著差异。统计差异是一个维度；实际价值还要结合请求开销、模型能力和业务任务的相似程度判断。
 
 **检验方法**：A/B 是配对二元结果，使用 McNemar 精确检验；成功率给 Wilson 95% 区间。p 值是在零假设与检验假设成立时，出现当前或更极端结果的概率，不是零假设为真的概率。
 
-**零倒退的解释**：B 直接保留 A 已通过的首答，所以 A 过/B 败为零受到设计保证。不能把它宣传为任何生产场景都没有回归风险。多组对照 p 值未做多重比较校正，作为探索性证据解释。
+**零倒退的解释**：B 直接保留 A 已通过的首答，所以 A 过/B 败为零受到设计保障；这一结果不能外推为生产环境中的零回归。多组对照 p 值未做多重比较校正，作为探索性证据解释。
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
@@ -278,7 +278,7 @@ p 值回答的是统计差异问题；实用价值还要看多交付了多少正
 
 **检查覆盖的故障路径**：契约预检、修复次数与总轮次上限、中断、检查器异常、评审失败、兄弟任务与生命周期，以及 UI 状态展示。
 
-**证据怎么摆**：测试证明被覆盖行为符合断言；真实录像证明该故障闭环实际执行；L1 统计用于估计所选任务上的收益。三者不能互相替代。
+**三类证据分别说明什么**：测试证明被覆盖行为符合断言；真实录像证明该故障闭环实际执行；L1 统计用于估计所选任务上的收益。三者不能互相替代。
 
 证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [修订版统计报告](statistics-report.html)
 
@@ -292,32 +292,32 @@ p 值回答的是统计差异问题；实用价值还要看多交付了多少正
 
 证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [修订版统计报告](statistics-report.html) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md)
 
-## 30. 现场先演什么，最容易让评委看懂？
+## 30. 如何查看完整的验收与修复过程？
 
-先给评委看一份“格式正确、内容错误”的简报，再打开拒绝理由和读文件证据。随后展示同一子任务修复通过、其他三张报表保持原样，最后打开白盒记忆里的验收观察。
+跟随一份“格式正确、内容错误”的简报，就能看到完整过程：模型读取源材料并拒绝，原来的子任务修复后通过，其他三张报表保持原样，验收观察进入白盒记忆。下方提供录像、报告和运行说明。
 
-**按这个顺序讲**：① 任务与源数据：延期 7 天、18 单受影响。② 第一层通过、第二层拒绝：它查了哪个文件。③ 简报修复一次通过。④ 三张报表指纹未变。⑤ Memory 的四条观察。
+**录像中的五个观察点**：① 源数据：延期 7 天、18 单受影响。② 第一层通过，第二层读取实际材料后拒绝。③ 简报修复一次通过。④ 三张报表指纹未变。⑤ Memory 留下四条验收观察。
 
-**时间与备用**：真实运行预留 5–7 分钟。已录视频中 UI 主任务耗时 5 分 58 秒；播放版约 1 分 58 秒、含标明的加速，完整实录约 9 分 47 秒。模型或网络异常时可播放已录视频，清楚说明是预演记录。
+**选择观看或亲自运行**：快速观看版约 1 分 58 秒，包含标明的加速；完整实录约 9 分 47 秒。录像中 UI 主任务耗时 5 分 58 秒。希望亲自运行时，可按“8 步真实演示”操作，预留 5–7 分钟；实际耗时受模型和网络影响。
 
 证据：[8 步真实演示](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/QUICKSTART.zh-CN.md) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [1 分 58 秒 / 完整实录](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/demo-recording-20260911)
 
-## 31. 怎么证明不是写死的演示？
+## 31. 演示中的评审和修复是真实执行的吗？
 
 演示预置了错误，但评审和修复真实调用模型。公开材料包含任务产物、验收判决、读取证据与文件指纹，录像可以对照过程。这证明受控故障的闭环跑通。
 
 **控制了什么**：错误简报是刻意构造的，用来稳定展示“结构合规却语义错误”的路径。评审要读取任务相关材料，修复由执行子任务完成。
 
-**没有冒充什么**：它不是自然错误发生率或平均性能实验。大样本部分也是合成任务，只测第一层验收与修复；两类证据在页面上分开标注。
+**这份证据能说明什么**：录像与产物记录证明了受控故障的实际处理过程，不代表自然错误发生率或平均性能。大样本部分也属于合成任务，只测第一层验收与修复；页面分别标注两类证据。
 
 证据：[真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [1 分 58 秒 / 完整实录](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/demo-recording-20260911) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
-## 32. 如何让评委看到全部工作量？
+## 32. 项目具体改进了哪些模块？
 
-围绕一份错误交付，展示五个落点：派发契约、运行时验收与修复、独立模型读文件、原生卡片状态、白盒观察。再用代码模块图和统计报告回答“做了多深、验证多严”。
+本项目跨越五个环节：任务派发的验收契约、运行时的验收与局部修复、独立模型读文件核查、原生卡片状态、白盒观察回写。它们共同构成一条可运行、可解释、可核对的子任务交付流程。
 
-**对齐方向三**：实用性：错误能被发现并在局部处理；技术深度：状态机、预算、失败语义与原生系统接合；创意性：把验收证据和白盒观察连入交付体验。
+**对方向三的实际贡献**：实用性：错误能被发现并在局部处理；技术深度：状态机、预算、失败语义与原生系统接合；新增价值：把验收证据和白盒观察连入交付体验。
 
-**最后一句话**：“我们交付的是一条能运行、能解释、能核对的子任务验收链。评委看到的不只是一份答案，还有它通过验收的依据。”
+**如何核查实现**：公开仓库 README 提供模块说明和运行方式；验收报告记录实际判定与文件证据；统计报告给出适用任务上的结果。可以从任一问题沿链接追溯到相应材料。
 
 证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [修订版统计报告](statistics-report.html)

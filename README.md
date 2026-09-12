@@ -17,7 +17,7 @@
 
 [8 步现场操作](docs/verified-subtasks/QUICKSTART.zh-CN.md) · [原生演示录像（1 分 58 秒 / 9 分 47 秒）](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/demo-recording-20260911) · [本次录像的验收报告](docs/verified-subtasks/evidence/ui-recording-20260911/README.md)
 
-[现场答辩 Q&A：32 题、图表、搜索与大字投屏](https://changer-changer.github.io/PilotDeck-Verified-Subtasks/verified-subtasks/defense-qa.html) · [Q&A 离线文件](docs/verified-subtasks/defense-qa.html) · [四模型统计报告](docs/verified-subtasks/STATISTICS.zh-CN.md) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
+[项目问答中心：搜索问题，查看结论、图表与证据](https://changer-changer.github.io/PilotDeck-Verified-Subtasks/verified-subtasks/defense-qa.html) · [Q&A 离线文件](docs/verified-subtasks/defense-qa.html) · [四模型统计报告](docs/verified-subtasks/STATISTICS.zh-CN.md) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
 已有 L1 实验中，Llama 3.2 3B 在 450 组配对合成任务上从 17/450 提升至 161/450（3.8% → 35.8%，增加 32 个百分点）；四模型 A/B 合计 1,450 对。收益依赖模型与任务，MiniCPM 1B、Qwen 1.5B 未显著提升。统计未启用 L2，不作为双层评审整体收益或竞品性能排名。
 
