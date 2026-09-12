@@ -489,12 +489,11 @@ footer{border-top:1px solid var(--line);padding:96px 0 60px;text-align:center}
       </div>
     </div>
     <div class="stat-strip hero-el" style="--d:.45s">
-      <div class="stat"><div class="stat-n"><span class="cnt" data-count="2">2</span></div><div class="stat-l">层验收 · 程序 + 独立评审</div></div>
-      <div class="stat"><div class="stat-n"><span class="cnt" data-count="3">3</span></div><div class="stat-l">条真实演练证据</div></div>
+      <div class="stat"><div class="stat-n"><span class="cnt" data-count="9.4" data-dec="1">9.4</span><span class="suf">×</span></div><div class="stat-l">端侧交付成功率提升 · p=9×10⁻⁴⁴</div></div>
       <div class="stat"><div class="stat-n"><span class="cnt" data-count="1450" data-comma>1,450</span></div><div class="stat-l">大样本配对实验 · 4 模型 × 5 臂</div></div>
-      <div class="stat"><div class="stat-n g"><span class="cnt" data-count="28">28</span><span class="suf">+</span></div><div class="stat-l">项测试全绿</div></div>
-      <div class="stat"><div class="stat-n"><span class="pre">~</span><span class="cnt" data-count="1100" data-comma>1,100</span></div><div class="stat-l">行核心代码</div></div>
-      <div class="stat"><div class="stat-n g"><span class="cnt" data-count="0">0</span></div><div class="stat-l">类型错误</div></div>
+      <div class="stat"><div class="stat-n"><span class="cnt" data-count="5">5</span></div><div class="stat-l">轮真实模型闭环 · 4 过 1 败均留档</div></div>
+      <div class="stat"><div class="stat-n g"><span class="cnt" data-count="163">163</span></div><div class="stat-l">项定向检查全绿（100 后端 + 63 UI）</div></div>
+      <div class="stat"><div class="stat-n g"><span class="cnt" data-count="0">0</span></div><div class="stat-l">类型错误 · CI 全绿</div></div>
     </div>
   </div>
 </header>
@@ -748,7 +747,7 @@ verify preset → PASS / PARTIAL / FAIL</div>
     <div class="sec-rule" data-reveal></div>
 
     <div class="cmap-head" data-reveal>
-      <span class="sum">核心三件套 Σ <b>1,011</b> 行</span>
+      <span class="sum">核心四件套 Σ <b>1,548</b> 行</span>
       <span class="sum" style="border-color:rgba(34,197,94,.4)">全部新增 · src/agent/sub/acceptance/</span>
     </div>
     <div class="fgrid">
@@ -766,6 +765,11 @@ verify preset → PASS / PARTIAL / FAIL</div>
         <span class="fpath">src/agent/sub/acceptance/</span>
         <div class="fname">artifactRegistry.ts<span class="fbadge">+372 行</span></div>
         <p>交付物地面真值：文件存在性 / 清单一致性。</p>
+      </article>
+      <article class="fcard" data-reveal style="--d:.35s">
+        <span class="fpath">src/context/memory/</span>
+        <div class="fname">AcceptanceMemory.ts<span class="fbadge" style="border-color:rgba(34,197,94,.45);color:var(--grn-hi)">+537 行 · 已交付</span></div>
+        <p>验收观察写入原生白盒记忆：≤128 条终态元数据入项目 SQLite，投影为「子任务验收经验」。</p>
       </article>
     </div>
     <div class="igrid">
@@ -973,9 +977,9 @@ verify preset → PASS / PARTIAL / FAIL</div>
     <div class="sec-rule" data-reveal></div>
 
     <div class="gates" data-reveal>
-      <div class="gate"><span class="ck">✓</span><p><b>28/28</b> 测试 + invariants 全绿</p></div>
-      <div class="gate"><span class="ck">✓</span><p><b>tsc 0</b> 错误</p></div>
-      <div class="gate"><span class="ck">✓</span><p><b>3 条</b> live 证据：真实模型 · 真实网关 · 文件哈希</p></div>
+      <div class="gate"><span class="ck">✓</span><p><b>100 + 63</b> 项定向检查全绿（后端 + UI，公开副本同 100/100）</p></div>
+      <div class="gate"><span class="ck">✓</span><p><b>tsc 0</b> 错误 · CI 全绿 · 验收记忆 4 条观察已入白盒记忆</p></div>
+      <div class="gate"><span class="ck">✓</span><p><b>5 轮</b> 真实模型闭环（4 过 1 败均留档）· 真实网关 · 文件哈希前后比对</p></div>
       <div class="gate"><span class="ck">✓</span><p>预检失败 / 修复上限 / 轮数上限 / abort / 兄弟隔离 / 生命周期——逐项测试覆盖</p></div>
     </div>
 
@@ -986,8 +990,8 @@ verify preset → PASS / PARTIAL / FAIL</div>
     <div class="ngrid">
       <article class="ncard" data-reveal style="--d:.05s">
         <span class="n-no">NEXT·1</span>
-        <h4>验收数据回写白盒记忆</h4>
-        <p>哪类任务在哪个字段失败，越用越准。</p>
+        <h4>验收数据回写白盒记忆 <span style="color:var(--grn-hi);font-size:12px">✓ 已交付</span></h4>
+        <p>哪类任务在哪个字段失败——4 条观察已入库演示（3 first-pass / 4 final accepted）。不宣称学习收益（无对照实验）。</p>
         <p class="fnote">CC 无记忆可写</p>
       </article>
       <article class="ncard" data-reveal style="--d:.15s">
@@ -1048,9 +1052,9 @@ verify preset → PASS / PARTIAL / FAIL</div>
       <ul style="margin:0;padding-left:20px;font-size:13.5px;line-height:2.05;color:var(--dim)">
         <li>评审<b style="color:var(--ink)">增强</b>可信度，不保证发现所有错误；证据不足返回 inconclusive，<b style="color:var(--ink)">不计通过</b>（fail-closed）。</li>
         <li>故障注入演练是<b style="color:var(--ink)">受控单例</b>：证明机制能抓住并修复该类错误，不宣称自然任务成功率统计。</li>
-        <li>浏览器自动验收曾被管理员策略拦截——<b style="color:var(--ink)">上台前需在演示电脑人工跑通一次</b>（手册已含步骤）。</li>
+        <li>浏览器自动验收曾受策略拦截，<b style="color:var(--ink)">09-11 晚已实机点击跑通并全程录像</b>（117s 播放版公开）；上台前仍建议按手册排练一次。</li>
         <li>预算默认保守：修复上限 2 次、总轮数 20（评审共享），均可按契约调高（≤5 / ≤100）。</li>
-        <li>验收观察只存终态元数据（结果/错误码/模型来源/修复次数），<b style="color:var(--ink)">不存任务正文与自由文本评语</b>。</li>
+        <li>验收观察只存终态元数据（结果/错误码/模型来源/修复次数），<b style="color:var(--ink)">不存任务正文与自由文本评语</b>；<b style="color:var(--ink)">不证明跨任务学习收益</b>（无对照实验）。</li>
       </ul>
     </div>
 
@@ -1058,7 +1062,8 @@ verify preset → PASS / PARTIAL / FAIL</div>
       <span style="font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--faint)">提交物 →</span>
       <a href="https://github.com/changer-changer/PilotDeck-Verified-Subtasks" style="font-family:var(--mono);font-size:13px;color:var(--acc-hi);border:1px solid rgba(255,107,53,.45);padding:8px 16px;text-decoration:none">GitHub 公开仓 ↗</a>
       <a href="https://github.com/changer-changer/PilotDeck-Verified-Subtasks/actions/runs/34598985598" style="font-family:var(--mono);font-size:13px;color:var(--acc-hi);border:1px solid rgba(255,107,53,.45);padding:8px 16px;text-decoration:none">CI 全绿记录 ↗</a>
-      <span style="font-family:var(--mono);font-size:12px;color:var(--dim)">交付包 zip + SHA256 · 演示视频 · 海报 · FIELD-GUIDE 手册 → pilotdeck-hackathon/verified-subtasks/</span>
+      <a href="https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/demo-recording-20260911" style="font-family:var(--mono);font-size:13px;color:var(--acc-hi);border:1px solid rgba(255,107,53,.45);padding:8px 16px;text-decoration:none">演示视频 Release ↗</a>
+      <span style="font-family:var(--mono);font-size:12px;color:var(--dim)">117s 播放版 / 587s 完整实录 · 交付包 zip + SHA256 · 海报 · FIELD-GUIDE → pilotdeck-hackathon/verified-subtasks/</span>
     </div>
   </div>
 </section>
@@ -1082,19 +1087,20 @@ root.classList.add('js');
 var reduced=false;
 try{reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
 
-function fmt(n,comma){return comma?Math.round(n).toLocaleString('en-US'):String(Math.round(n));}
+function fmt(n,comma,dec){var s=(dec>0)?n.toFixed(dec):String(Math.round(n));return comma?Number(s).toLocaleString('en-US'):s;}
 
 function runCounter(el){
   var target=parseFloat(el.getAttribute('data-count'))||0;
   var comma=el.hasAttribute('data-comma');
-  if(reduced){el.textContent=fmt(target,comma);return;}
+  var dec=parseInt(el.getAttribute('data-dec')||'0',10)||0;
+  if(reduced){el.textContent=fmt(target,comma,dec);return;}
   var dur=1300,t0=null;
   function frame(t){
     if(t0===null)t0=t;
     var p=Math.min(1,(t-t0)/dur);
     var e=1-Math.pow(1-p,3);
-    el.textContent=fmt(target*e,comma);
-    if(p<1){requestAnimationFrame(frame);}else{el.textContent=fmt(target,comma);}
+    el.textContent=fmt(target*e,comma,dec);
+    if(p<1){requestAnimationFrame(frame);}else{el.textContent=fmt(target,comma,dec);}
   }
   requestAnimationFrame(frame);
 }
