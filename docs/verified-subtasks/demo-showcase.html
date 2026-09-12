@@ -441,7 +441,14 @@ footer{border-top:1px solid var(--line);padding:96px 0 60px;text-align:center}
 <nav class="topbar">
   <div class="wrap">
     <span class="brand"><span class="mk"></span>PILOTDECK</span>
-    <span class="top-meta"><a href="https://github.com/changer-changer/PilotDeck-Verified-Subtasks" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,107,53,.5)">GitHub ↗</a> · VERIFIED SUBTASKS · 2026-09-11</span>
+    <span class="top-meta" style="display:flex;gap:18px;align-items:center">
+      <a href="#s2" style="color:var(--dim);text-decoration:none;font-size:11.5px">机制</a>
+      <a href="#s4" style="color:var(--dim);text-decoration:none;font-size:11.5px">回放</a>
+      <a href="#s7c" style="color:var(--dim);text-decoration:none;font-size:11.5px">实验</a>
+      <a href="#s6" style="color:var(--dim);text-decoration:none;font-size:11.5px">对比</a>
+      <a href="#s9" style="color:var(--dim);text-decoration:none;font-size:11.5px">运行</a>
+      <a href="https://github.com/changer-changer/PilotDeck-Verified-Subtasks" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,107,53,.5)">GitHub ↗</a>
+    </span>
   </div>
 </nav>
 
@@ -499,39 +506,35 @@ footer{border-top:1px solid var(--line);padding:96px 0 60px;text-align:center}
 </header>
 
 <main>
-<!-- ================= 01 IOU ================= -->
+<!-- ================= 01 PROBLEM ================= -->
 <section id="s1">
   <div class="wrap">
     <header class="sec-head" data-reveal>
       <span class="sec-no">01</span>
-      <div><h2>2025 年的白条</h2><p class="sec-en">THE UNCASHED IOU</p></div>
+      <div><h2>问题：小模型的三种翻车方式</h2><p class="sec-en">WHY AI DELIVERIES CANNOT BE TRUSTED</p></div>
     </header>
     <div class="sec-rule" data-reveal></div>
+
+    <p class="sec-lead" data-reveal style="max-width:860px">端侧小模型便宜、快、能落地——但把任务交给它，交付经常在三个地方翻车。每一种我们都留着真实记录：</p>
+
     <div class="iou-grid">
       <div data-reveal>
-        <p class="sec-lead" style="margin-bottom:0">PilotDeck 从 <b>2025 年</b>起，就在子代理提示词里写着：</p>
-        <div class="legacy-code"><span class="cm">// 子代理 system prompt · 2025 年起</span>
-<span class="kw">"Output format (mandatory; missing any field fails the run)"</span>
-<span class="cm">// —— 缺任何字段即判定失败</span>
-verify preset → PASS / PARTIAL / FAIL</div>
-        <p class="but"><b>但是：全仓库没有任何一行代码执行它。</b>判决输出后无人解析，"fails the run" 是一张空头支票——判决词 <span class="mono" style="color:var(--red-hi)">PARTIAL</span> 在 src/ 全仓库，机器消费者 0 个。</p>
-        <span class="grep-line"><span class="pr">$</span> grep -r "PARTIAL" src/ → 机器消费者 <b>0</b> 个</span>
-        <p class="punch">这张白条挂了一年多。<br><span class="date">2026-09-11</span>，我们把它兑付成代码。</p>
+        <div style="display:grid;gap:16px;margin-top:6px">
+          <div style="border:1px solid var(--line2);background:var(--panel);padding:16px 20px">
+            <b style="color:var(--ink)">① 格式翻车</b><span style="display:block;font-size:13px;color:var(--dim);margin-top:6px;line-height:1.7">JSON 写坏、字段漏写、输出跑飞。<span class="mono" style="color:var(--acc-hi)">实测：本地 MiniCPM 1B 连试 9 次，0 次工具调用，0 交付。</span></span>
+          </div>
+          <div style="border:1px solid var(--line2);background:var(--panel);padding:16px 20px">
+            <b style="color:var(--ink)">② 说谎翻车</b><span style="display:block;font-size:13px;color:var(--dim);margin-top:6px;line-height:1.7">回答「我做完了」，实际文件根本不存在，或与清单不符——下游拿到的是空气。</span>
+          </div>
+          <div style="border:1px solid var(--line2);background:var(--panel);padding:16px 20px">
+            <b style="color:var(--ink)">③ 内容翻车</b><span style="display:block;font-size:13px;color:var(--dim);margin-top:6px;line-height:1.7">格式完美、内容说谎：源数据显示延期 7 天影响 18 单，简报却写「供应稳定」。<span class="mono" style="color:var(--acc-hi)">第 04 节现场抓到的就是这种。</span></span>
+          </div>
+        </div>
       </div>
       <div data-reveal style="--d:.15s">
-        <div class="iou" id="iou" data-fire="iou">
-          <div class="iou-head"><span class="iou-tag">欠条 · IOU</span><span class="iou-year">SINCE 2025 · OVERDUE</span></div>
-          <div class="legacy-code" style="margin:0"><span class="cm">// 承诺内容</span>
-每个字段缺失 → fails the run
-每份交付 → 给出 PASS / PARTIAL / FAIL</div>
-          <div class="iou-chips">
-            <span class="chip">PASS</span>
-            <span class="chip chip-hot">PARTIAL<i>0 机器消费者</i></span>
-            <span class="chip">FAIL</span>
-          </div>
-          <div class="iou-foot">承兑方式：承诺即执行 · 兑付状态：<b>无人解析，挂账一年多</b></div>
-          <div class="stamp stamp-void"><b>空头支票</b><i>NOT EXECUTED · 0 CONSUMER</i></div>
-          <div class="stamp stamp-paid"><b>已兑付</b><i>CASHED · 2026-09-11</i></div>
+        <div class="keycall" style="margin-top:0">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.8-3.2 7.8-7 10-3.8-2.2-7-5.2-7-10V6z"/><path d="M9 12l2 2 4-4.5"/></svg>
+          <p><b>我们的答案：给每份交付设两道关卡。</b><br>第一道是<b>程序</b>：毫秒级检查格式和文件，零模型成本——管住 ①②。<br>第二道是<b>独立 AI 评审</b>：亲眼读原始数据再判内容——管住 ③。<br>不合格，当场打回同一个子任务重修；过关，才交主代理。</p>
         </div>
       </div>
     </div>
@@ -754,7 +757,7 @@ verify preset → PASS / PARTIAL / FAIL</div>
       <article class="fcard" data-reveal style="--d:.05s">
         <span class="fpath">src/agent/sub/acceptance/</span>
         <div class="fname">evaluate.ts<span class="fbadge">+191 行</span></div>
-        <p>受限 schema 方言 + 可满足性预检 + 逐字段校验 + 修复提示生成。</p>
+        <p>契约体检 + 判卷器：写得不自洽的契约派发前直接拒绝；交付逐字段校验，错误精确到字段并自动转成修复指令。</p>
       </article>
       <article class="fcard" data-reveal style="--d:.15s">
         <span class="fpath">src/agent/sub/acceptance/</span>
@@ -776,7 +779,7 @@ verify preset → PASS / PARTIAL / FAIL</div>
       <article class="icard" data-reveal style="--d:.05s">
         <span class="itag">接线 · REPAIR LOOP</span>
         <h4>SubAgentSession.ts</h4>
-        <p>同 sidechain 修复回路 + 共享轮数预算 + 类型化信封。</p>
+        <p>打回重修在同一会话内续跑：上下文不丢、兄弟任务不重跑；修复与执行共享轮数上限，绝不无限重试。</p>
       </article>
       <article class="icard" data-reveal style="--d:.15s">
         <span class="itag">接线 · CONTRACT</span>
@@ -920,7 +923,20 @@ verify preset → PASS / PARTIAL / FAIL</div>
     </header>
     <div class="sec-rule" data-reveal></div>
 
-    <p class="lead" data-reveal style="max-width:900px">同一份提交代码（<span class="mono">5c9dc81</span>，即公开提交），确定性任务生成器 + ground truth 外部判分，逐实例配对。<b>五个实验臂</b>：A 基线贪心单次（验收只判不修）· B 本方法（验收+有界修复，首答逐字回放 A——提升只能来自修复循环）· C 盲目 best-of-3 多数投票 · D 单次采样部署 · E 验收门控选择（事后对照）。本地 Ollama · RTX 4060 Laptop。</p>
+    <p class="lead" data-reveal style="max-width:900px">评委最想问的问题：<b>这个机制真有用吗，还是演示挑出来的效果？</b>我们为此做了配对对照实验——<b>1,450 个任务实例 × 4 个端侧模型 × 5 个对照组</b>，全部跑在本地 Ollama（RTX 4060 Laptop），同一份提交代码（即公开仓库的 <span class="mono">5c9dc81</span>）。任务由确定性生成器出题并判分：<b>标准答案从不由模型产生</b>。</p>
+
+    <div class="tblwrap" data-reveal style="margin-top:24px">
+      <table>
+        <thead><tr><th style="width:15%">组别</th><th>是什么</th><th style="width:34%">回答什么质疑</th></tr></thead>
+        <tbody>
+          <tr><td><b>A</b> 基线</td><td>单次贪心作答，验收器只判分不修复——等价于「装了仪表但不装安全气囊」</td><td>不装机制，裸跑多差？</td></tr>
+          <tr><td class="col-ours"><b>B</b> 本方法</td><td class="col-ours">验收 + 打回重修。关键设计：B 的<b>第一次作答与 A 逐字相同</b>，之后才开修复——差距只能来自修复机制，不来自运气</td><td class="col-ours">我们的方法到底提升多少？</td></tr>
+          <tr><td><b>C</b> 盲目三连</td><td>不装验收，同一题独立采 3 次投票选答案——「多买几次采样」的对照</td><td>是不是只靠多试几次？</td></tr>
+          <tr><td><b>D</b> 单次采样</td><td>不装验收，单次随机采样——「正常部署但不验收」的对照</td><td>没人用贪心部署，公平吗？</td></tr>
+          <tr><td><b>E</b> 验收选择</td><td>事后分析：同一批采样，按「验收器挑」vs「投票挑」分别取结果</td><td>验收器和投票，谁更会挑？</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <div data-reveal style="margin-top:34px">
       <div class="brow">
