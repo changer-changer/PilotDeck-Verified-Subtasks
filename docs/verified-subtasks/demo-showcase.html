@@ -985,6 +985,52 @@ footer{border-top:1px solid var(--line);padding:96px 0 60px;text-align:center}
       <div class="chip"><b>锚定效应双向</b><span>3B：同会话修复 B(35.8%) &lt; 无上下文 E(56.0%)；7B 相反 (38.7% &gt; 25.3%)——修复策略应可配置，列为未来工作</span></div>
     </div>
 
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px" data-reveal>
+      <div>
+        <h3 style="font-size:16px;margin-bottom:10px;color:var(--ink)">错误分类：什么错救得回，什么错救不回</h3>
+        <div class="tblwrap" style="margin-top:0">
+          <table style="table-layout:fixed">
+            <thead><tr><th>错误类型</th><th style="width:22%">Llama 3B</th><th style="width:22%">Qwen-Coder 7B</th><th style="width:22%">MiniCPM 1B</th></tr></thead>
+            <tbody>
+              <tr><td><b>算术滑步</b><span style="display:block;font-size:11px;color:var(--faint)">多步计算中随机算错一步（可重试类）</span></td><td class="col-ours mono">救回 48%</td><td class="col-ours mono">救回 1%</td><td class="mono">≈0%</td></tr>
+              <tr><td><b>规则误解</b><span style="display:block;font-size:11px;color:var(--faint)">条件理解系统性偏差（概念类）</span></td><td class="col-ours mono">救回 26%</td><td class="col-ours mono">救回 31%</td><td class="mono">≈0%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:12.5px;color:var(--dim);line-height:1.75;margin-top:10px">结论：<b style="color:var(--ink)">重采样修复随机错误，修不了概念错误</b>——且两个模型恰好互补（Llama 输在算术、7B 输在规则），说明错误画像因模型而异，修复策略应可配置。分类依据被拒提交值重放分析（probe 臂，taxonomy.json 留档）。</p>
+      </div>
+      <div>
+        <h3 style="font-size:16px;margin-bottom:10px;color:var(--ink)">任务簇明细：提升集中在哪里</h3>
+        <div class="tblwrap" style="margin-top:0">
+          <table style="table-layout:fixed">
+            <thead><tr><th>任务簇</th><th style="width:26%">Llama 3B（A→B）</th><th style="width:26%">Qwen-Coder 7B（A→B）</th></tr></thead>
+            <tbody>
+              <tr><td>分段计价（算术密集）</td><td class="col-ours mono">0.7% → <b>61.3%</b></td><td class="col-ours mono">—</td></tr>
+              <tr><td>多条件筛选（规则密集）</td><td class="col-ours mono">4.7% → 17.3%</td><td class="col-ours mono">3% → <b>46%</b></td></tr>
+              <tr><td>订单汇总 / 退款</td><td class="col-ours mono">6.0% → 28.7%</td><td class="col-ours mono">30% → 35%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:12.5px;color:var(--dim);line-height:1.75;margin-top:10px">规律：<b style="color:var(--ink)">每个模型都有自己「差一点」的簇</b>——Llama 差在算术密集簇（拉 92 倍），7B 差在规则簇（拉 15 倍）。1B/1.5B 所有簇持平（p=1.0）。</p>
+      </div>
+    </div>
+
+    <div style="margin-top:26px" data-reveal>
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--ink)">验收选择 vs 盲目投票：四个模型全部验收选择占优或持平，且更便宜</h3>
+      <div class="tblwrap" style="margin-top:0">
+        <table style="table-layout:fixed">
+          <thead><tr><th style="width:24%">模型</th><th style="width:20%">E 验收选择</th><th style="width:20%">C 多数投票</th><th style="width:18%">McNemar p</th><th>平均请求 E vs C</th></tr></thead>
+          <tbody>
+            <tr><td>Llama 3.2 3B</td><td class="col-ours mono"><b>56.0%</b></td><td class="mono">44.3%</td><td class="mono">5.8×10⁻¹¹</td><td class="mono">2.17 vs 3.00</td></tr>
+            <tr><td>Qwen-Coder 7B</td><td class="col-ours mono"><b>25.3%</b></td><td class="mono">16.7%</td><td class="mono">0.0002</td><td class="mono">2.65 vs 3.00</td></tr>
+            <tr><td>MiniCPM 1B</td><td class="col-ours mono"><b>15.5%</b></td><td class="mono">11.3%</td><td class="mono">1.5×10⁻⁵</td><td class="mono">2.77 vs 3.00</td></tr>
+            <tr><td>Qwen 1.5B</td><td class="col-ours mono">2.7%</td><td class="mono">0.7%</td><td class="mono">0.25（不显著）</td><td class="mono">2.98 vs 3.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12.5px;color:var(--dim);line-height:1.75;margin-top:10px">同一批采样、同一判分标准下的直接对比：<b style="color:var(--ink)">4/4 方向一致、3/4 统计显著，且 E 每行都更便宜</b>——结论跨模型稳定。</p>
+    </div>
+
     <div class="fault" data-reveal style="margin-top:28px;border-color:rgba(255,107,53,.4);background:rgba(255,107,53,.05)">
       <span class="fault-tag" style="color:var(--acc-hi)">不宣称</span>
       <span>不宣称任意任务/任意模型普适（样本：3 任务族 × 4 本地端侧模型）；不宣称 token 成本精确节省（报告请求与 token 均值，回放成本已计入）；任务族为「基线落可测区间」校准选择，校准过程全部披露。逐实例数据 <b>runs/</b> · 评测集 <b>evalset/</b>（种子 20260911）· 难度校准 <b>校准记录/</b>，可复现。</span>
