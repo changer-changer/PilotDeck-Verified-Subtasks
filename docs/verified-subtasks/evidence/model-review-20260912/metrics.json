@@ -1,0 +1,223 @@
+{
+  "sampleSize": 12,
+  "taskRuns": 48,
+  "model": "competition/glm-5.3",
+  "summary": [
+    {
+      "arm": "original",
+      "label": "原流程 · 无验收",
+      "n": 12,
+      "natural": {
+        "n": 4,
+        "usable": 4,
+        "accepted": 0,
+        "errors": 0,
+        "requests": 13,
+        "meanSeconds": 65.0,
+        "tokens": 44530
+      },
+      "bad": {
+        "n": 4,
+        "usable": 0,
+        "accepted": 0,
+        "errors": 0,
+        "requests": 0,
+        "meanSeconds": 0.0,
+        "tokens": 0
+      },
+      "good": {
+        "n": 4,
+        "usable": 4,
+        "accepted": 0,
+        "errors": 0,
+        "requests": 0,
+        "meanSeconds": 0.0,
+        "tokens": 0
+      },
+      "firstReview": {
+        "bad": [
+          "not-run",
+          "not-run",
+          "not-run",
+          "not-run"
+        ],
+        "good": [
+          "not-run",
+          "not-run",
+          "not-run",
+          "not-run"
+        ],
+        "natural": [
+          "not-run",
+          "not-run",
+          "not-run",
+          "not-run"
+        ]
+      },
+      "repairs": 0,
+      "errors": 0
+    },
+    {
+      "arm": "l1-only",
+      "label": "仅 L1 · 修复上限 2",
+      "n": 12,
+      "natural": {
+        "n": 4,
+        "usable": 4,
+        "accepted": 4,
+        "errors": 0,
+        "requests": 12,
+        "meanSeconds": 47.0,
+        "tokens": 36865
+      },
+      "bad": {
+        "n": 4,
+        "usable": 0,
+        "accepted": 4,
+        "errors": 0,
+        "requests": 0,
+        "meanSeconds": 0.0,
+        "tokens": 0
+      },
+      "good": {
+        "n": 4,
+        "usable": 4,
+        "accepted": 4,
+        "errors": 0,
+        "requests": 0,
+        "meanSeconds": 0.0,
+        "tokens": 0
+      },
+      "firstReview": {
+        "bad": [
+          "not-run",
+          "not-run",
+          "not-run",
+          "not-run"
+        ],
+        "good": [
+          "not-run",
+          "not-run",
+          "not-run",
+          "not-run"
+        ],
+        "natural": [
+          "not-run",
+          "not-run",
+          "not-run",
+          "not-run"
+        ]
+      },
+      "repairs": 0,
+      "errors": 0
+    },
+    {
+      "arm": "model-r0",
+      "label": "L1 + 模型验收 · 修复 0",
+      "n": 12,
+      "natural": {
+        "n": 4,
+        "usable": 4,
+        "accepted": 4,
+        "errors": 0,
+        "requests": 23,
+        "meanSeconds": 82.5,
+        "tokens": 76949
+      },
+      "bad": {
+        "n": 4,
+        "usable": 0,
+        "accepted": 0,
+        "errors": 0,
+        "requests": 9,
+        "meanSeconds": 39.0,
+        "tokens": 33416
+      },
+      "good": {
+        "n": 4,
+        "usable": 4,
+        "accepted": 4,
+        "errors": 0,
+        "requests": 8,
+        "meanSeconds": 24.5,
+        "tokens": 26392
+      },
+      "firstReview": {
+        "bad": [
+          "rejected",
+          "rejected",
+          "rejected",
+          "rejected"
+        ],
+        "good": [
+          "accepted",
+          "accepted",
+          "accepted",
+          "accepted"
+        ],
+        "natural": [
+          "accepted",
+          "accepted",
+          "accepted",
+          "accepted"
+        ]
+      },
+      "repairs": 0,
+      "errors": 0
+    },
+    {
+      "arm": "model-r2",
+      "label": "L1 + 模型验收 · 修复 2",
+      "n": 12,
+      "natural": {
+        "n": 4,
+        "usable": 4,
+        "accepted": 4,
+        "errors": 0,
+        "requests": 27,
+        "meanSeconds": 87.1,
+        "tokens": 89591
+      },
+      "bad": {
+        "n": 4,
+        "usable": 4,
+        "accepted": 4,
+        "errors": 0,
+        "requests": 32,
+        "meanSeconds": 100.0,
+        "tokens": 110114
+      },
+      "good": {
+        "n": 4,
+        "usable": 4,
+        "accepted": 4,
+        "errors": 0,
+        "requests": 8,
+        "meanSeconds": 26.6,
+        "tokens": 25531
+      },
+      "firstReview": {
+        "bad": [
+          "rejected",
+          "rejected",
+          "rejected",
+          "rejected"
+        ],
+        "good": [
+          "accepted",
+          "accepted",
+          "accepted",
+          "accepted"
+        ],
+        "natural": [
+          "accepted",
+          "accepted",
+          "accepted",
+          "rejected"
+        ]
+      },
+      "repairs": 5,
+      "errors": 0
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+[
+  {
+    "caseId": "refund-code-natural",
+    "arm": "original",
+    "passed": 24,
+    "total": 24,
+    "quality": "pass",
+    "errors": []
+  },
+  {
+    "caseId": "refund-code-natural",
+    "arm": "l1-only",
+    "passed": 24,
+    "total": 24,
+    "quality": "pass",
+    "errors": []
+  },
+  {
+    "caseId": "refund-code-natural",
+    "arm": "model-r0",
+    "passed": 24,
+    "total": 24,
+    "quality": "pass",
+    "errors": []
+  },
+  {
+    "caseId": "refund-code-natural",
+    "arm": "model-r2",
+    "passed": 24,
+    "total": 24,
+    "quality": "pass",
+    "errors": []
+  },
+  {
+    "caseId": "refund-code-bad",
+    "arm": "original",
+    "passed": 1,
+    "total": 24,
+    "quality": "fail",
+    "errors": [
+      {
+        "test": 1,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 1,\n+   total: 70\n-   count: 0,\n-   total: 0\n  }\n"
+      },
+      {
+        "test": 2,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    count: 1,\n+   total: 99\n-   total: 12\n  }\n"
+      },
+      {
+        "test": 3,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 4,\n+   total: 109\n-   count: 3,\n-   total: 39\n  }\n"
+      },
+      {
+        "test": 4,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 84\n-   count: 2,\n-   total: 35\n  }\n"
+      },
+      {
+        "test": 5,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 65\n-   count: 1,\n-   total: 22\n  }\n"
+      },
+      {
+        "test": 6,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 111\n-   count: 2,\n-   total: 53\n  }\n"
+      },
+      {
+        "test": 7,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 93\n-   count: 2,\n-   total: 41\n  }\n"
+      },
+      {
+        "test": 8,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 71\n-   count: 1,\n-   total: 25\n  }\n"
+      },
+      {
+        "test": 9,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 120\n-   count: 2,\n-   total: 59\n  }\n"
+      },
+      {
+        "test": 10,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 102\n-   count: 2,\n-   total: 47\n  }\n"
+      },
+      {
+        "test": 11,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 77\n-   count: 1,\n-   total: 28\n  }\n"
+      },
+      {
+        "test": 12,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 129\n-   count: 2,\n-   total: 65\n  }\n"
+      },
+      {
+        "test": 13,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 111\n-   count: 2,\n-   total: 53\n  }\n"
+      },
+      {
+        "test": 14,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 83\n-   count: 1,\n-   total: 31\n  }\n"
+      },
+      {
+        "test": 15,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 138\n-   count: 2,\n-   total: 71\n  }\n"
+      },
+      {
+        "test": 16,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 120\n-   count: 2,\n-   total: 59\n  }\n"
+      },
+      {
+        "test": 17,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 89\n-   count: 1,\n-   total: 34\n  }\n"
+      },
+      {
+        "test": 18,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 147\n-   count: 2,\n-   total: 77\n  }\n"
+      },
+      {
+        "test": 19,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 129\n-   count: 2,\n-   total: 65\n  }\n"
+      },
+      {
+        "test": 20,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 95\n-   count: 1,\n-   total: 37\n  }\n"
+      },
+      {
+        "test": 21,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 156\n-   count: 2,\n-   total: 83\n  }\n"
+      },
+      {
+        "test": 22,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 138\n-   count: 2,\n-   total: 71\n  }\n"
+      },
+      {
+        "test": 23,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 101\n-   count: 1,\n-   total: 40\n  }\n"
+      }
+    ]
+  },
+  {
+    "caseId": "refund-code-bad",
+    "arm": "l1-only",
+    "passed": 1,
+    "total": 24,
+    "quality": "fail",
+    "errors": [
+      {
+        "test": 1,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 1,\n+   total: 70\n-   count: 0,\n-   total: 0\n  }\n"
+      },
+      {
+        "test": 2,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    count: 1,\n+   total: 99\n-   total: 12\n  }\n"
+      },
+      {
+        "test": 3,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 4,\n+   total: 109\n-   count: 3,\n-   total: 39\n  }\n"
+      },
+      {
+        "test": 4,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 84\n-   count: 2,\n-   total: 35\n  }\n"
+      },
+      {
+        "test": 5,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 65\n-   count: 1,\n-   total: 22\n  }\n"
+      },
+      {
+        "test": 6,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 111\n-   count: 2,\n-   total: 53\n  }\n"
+      },
+      {
+        "test": 7,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 93\n-   count: 2,\n-   total: 41\n  }\n"
+      },
+      {
+        "test": 8,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 71\n-   count: 1,\n-   total: 25\n  }\n"
+      },
+      {
+        "test": 9,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 120\n-   count: 2,\n-   total: 59\n  }\n"
+      },
+      {
+        "test": 10,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 102\n-   count: 2,\n-   total: 47\n  }\n"
+      },
+      {
+        "test": 11,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 77\n-   count: 1,\n-   total: 28\n  }\n"
+      },
+      {
+        "test": 12,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 129\n-   count: 2,\n-   total: 65\n  }\n"
+      },
+      {
+        "test": 13,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 111\n-   count: 2,\n-   total: 53\n  }\n"
+      },
+      {
+        "test": 14,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 83\n-   count: 1,\n-   total: 31\n  }\n"
+      },
+      {
+        "test": 15,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 138\n-   count: 2,\n-   total: 71\n  }\n"
+      },
+      {
+        "test": 16,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 120\n-   count: 2,\n-   total: 59\n  }\n"
+      },
+      {
+        "test": 17,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 89\n-   count: 1,\n-   total: 34\n  }\n"
+      },
+      {
+        "test": 18,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 147\n-   count: 2,\n-   total: 77\n  }\n"
+      },
+      {
+        "test": 19,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 129\n-   count: 2,\n-   total: 65\n  }\n"
+      },
+      {
+        "test": 20,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 95\n-   count: 1,\n-   total: 37\n  }\n"
+      },
+      {
+        "test": 21,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 156\n-   count: 2,\n-   total: 83\n  }\n"
+      },
+      {
+        "test": 22,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 138\n-   count: 2,\n-   total: 71\n  }\n"
+      },
+      {
+        "test": 23,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 101\n-   count: 1,\n-   total: 40\n  }\n"
+      }
+    ]
+  },
+  {
+    "caseId": "refund-code-bad",
+    "arm": "model-r0",
+    "passed": 1,
+    "total": 24,
+    "quality": "fail",
+    "errors": [
+      {
+        "test": 1,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 1,\n+   total: 70\n-   count: 0,\n-   total: 0\n  }\n"
+      },
+      {
+        "test": 2,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    count: 1,\n+   total: 99\n-   total: 12\n  }\n"
+      },
+      {
+        "test": 3,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 4,\n+   total: 109\n-   count: 3,\n-   total: 39\n  }\n"
+      },
+      {
+        "test": 4,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 84\n-   count: 2,\n-   total: 35\n  }\n"
+      },
+      {
+        "test": 5,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 65\n-   count: 1,\n-   total: 22\n  }\n"
+      },
+      {
+        "test": 6,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 111\n-   count: 2,\n-   total: 53\n  }\n"
+      },
+      {
+        "test": 7,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 93\n-   count: 2,\n-   total: 41\n  }\n"
+      },
+      {
+        "test": 8,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 71\n-   count: 1,\n-   total: 25\n  }\n"
+      },
+      {
+        "test": 9,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 120\n-   count: 2,\n-   total: 59\n  }\n"
+      },
+      {
+        "test": 10,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 102\n-   count: 2,\n-   total: 47\n  }\n"
+      },
+      {
+        "test": 11,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 77\n-   count: 1,\n-   total: 28\n  }\n"
+      },
+      {
+        "test": 12,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 129\n-   count: 2,\n-   total: 65\n  }\n"
+      },
+      {
+        "test": 13,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 111\n-   count: 2,\n-   total: 53\n  }\n"
+      },
+      {
+        "test": 14,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 83\n-   count: 1,\n-   total: 31\n  }\n"
+      },
+      {
+        "test": 15,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 138\n-   count: 2,\n-   total: 71\n  }\n"
+      },
+      {
+        "test": 16,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 120\n-   count: 2,\n-   total: 59\n  }\n"
+      },
+      {
+        "test": 17,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 89\n-   count: 1,\n-   total: 34\n  }\n"
+      },
+      {
+        "test": 18,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 147\n-   count: 2,\n-   total: 77\n  }\n"
+      },
+      {
+        "test": 19,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 129\n-   count: 2,\n-   total: 65\n  }\n"
+      },
+      {
+        "test": 20,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 95\n-   count: 1,\n-   total: 37\n  }\n"
+      },
+      {
+        "test": 21,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 156\n-   count: 2,\n-   total: 83\n  }\n"
+      },
+      {
+        "test": 22,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 3,\n+   total: 138\n-   count: 2,\n-   total: 71\n  }\n"
+      },
+      {
+        "test": 23,
+        "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n+   count: 2,\n+   total: 101\n-   count: 1,\n-   total: 40\n  }\n"
+      }
+    ]
+  },
+  {
+    "caseId": "refund-code-bad",
+    "arm": "model-r2",
+    "passed": 24,
+    "total": 24,
+    "quality": "pass",
+    "errors": []
+  },
+  {
+    "caseId": "refund-code-good",
+    "arm": "original",
+    "passed": 24,
+    "total": 24,
+    "quality": "pass",
+    "errors": []
+  },
+  {
+    "caseId": "refund-code-good",
+    "arm": "l1-only",
+    "passed": 24,
+    "total": 24,
+    "quality": "pass",
+    "errors": []
+  },
+  {
+    "caseId": "refund-code-good",
+    "arm": "model-r0",
+    "passed": 24,
+    "total": 24,
+    "quality": "pass",
+    "errors": []
+  },
+  {
+    "caseId": "refund-code-good",
+    "arm": "model-r2",
+    "passed": 24,
+    "total": 24,
+    "quality": "pass",
+    "errors": []
+  }
+]

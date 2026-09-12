@@ -110,9 +110,19 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 **现场证据**：已录制演示中，问题简报第一层通过，第二层读取实际文件后拒绝，原来的子任务修复一次后通过。该过程证明这个故障路径跑通。
 
-证据：[真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts)
+证据：[真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts) · [GLM-5.3 模型验收工程对照](model-review-report.html)
 
-## 12. 目前是谁在审？能换模型吗？
+## 12. 没有标准答案，模型怎样验收一份工作？
+
+不需要预先写一份唯一正确的答案。评审模型对照原任务、交付声明和实际文件，检查要求有没有落实、结论是否有依据、该交的东西是否真的存在。代码、简报和操作说明可以有多种合格写法。
+
+**模型在验收什么**：检查的是这份工作有没有完成、完成得是否满足要求。例如简报是否遗漏供应风险、操作说明是否编造按钮、代码是否把业务逻辑写反。结构检查负责格式；语义验收由模型结合实际证据完成。
+
+**如何知道评审有效**：新增工程对照没有给运行时评审标准答案或业务检查器。实验结束后，Codex 另对照任务和文件逐项核查，代码额外运行 24 个用例。该复核与模型自己的通过判决分开记录，属于小样本工程证据。
+
+证据：[只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts) · [GLM-5.3 模型验收工程对照](model-review-report.html) · [48 次运行与独立核查记录](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/tree/main/docs/verified-subtasks/evidence/model-review-20260912)
+
+## 13. 目前是谁在审？能换模型吗？
 
 已录制演示使用 competition/glm-5.3 评审，和生产者同型号、不同会话。设置页可单独选评审模型；未指定时跟随实际派发任务的主对话模型，便于使用已配置可用的模型入口。
 
@@ -122,7 +132,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts)
 
-## 13. “局部修复”到底局部在哪里？
+## 14. “局部修复”到底局部在哪里？
 
 被拒的交付回到原来的子任务、会话和权限里继续处理。其他已通过的兄弟任务保留。这样一次失败的处理边界清楚，用户也能查到具体修了哪份交付。
 
@@ -132,7 +142,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [子任务修复状态机](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/SubAgentSession.ts)
 
-## 14. 会不会无限重试、烧钱？
+## 15. 会不会无限重试、烧钱？
 
 修复次数和总模型轮次都有上限，生产、修复和评审共享总轮次预算。到上限就返回明确的失败原因，让调用方决定下一步。
 
@@ -142,7 +152,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[子任务修复状态机](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/SubAgentSession.ts) · [只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts)
 
-## 15. 评审超时、出错、证据不足怎么办？
+## 16. 评审超时、出错、证据不足怎么办？
 
 这些状态不会被当作验收通过。系统明确返回错误或证据不足，停止这条验收流程；只有具体、可修复的交付问题才进入有界修复。
 
@@ -152,7 +162,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts) · [子任务修复状态机](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/SubAgentSession.ts)
 
-## 16. 生产者能骗评审，或通过提示注入改文件吗？
+## 17. 生产者能骗评审，或通过提示注入改文件吗？
 
 我们限制评审只能读取和提交判决，不能写文件、执行 shell 或递归派发任务；同时把生产者内容标成不可信数据。这降低了攻击面，但不能保证模型不受恶意文本影响。
 
@@ -162,7 +172,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts)
 
-## 17. 失败内容会污染主代理上下文吗？
+## 18. 失败内容会污染主代理上下文吗？
 
 修复过程留在子任务会话里，主代理收到带验收状态、问题和用量的结果。这样主代理可以依据明确的通过或失败状态继续决策；返回结果仍可能包含交付正文。
 
@@ -172,7 +182,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[原生 agent 工具接合](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/tool/builtin/agent.ts) · [子任务修复状态机](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/SubAgentSession.ts)
 
-## 18. 验收写进白盒记忆，有什么用？
+## 19. 验收写进白盒记忆，有什么用？
 
 让重复出现的问题留下可检查的记录。我们保存结果、错误码、模型来源与修复次数，按模型和契约分组，让用户能观察哪类交付经常出错，并为之后改契约提供依据。
 
@@ -182,7 +192,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[验收观察实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/context/memory/AcceptanceMemory.ts) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md)
 
-## 19. 开发者要改多少？怎么接自己的业务？
+## 20. 开发者要改多少？怎么接自己的业务？
 
 对需要保护的子任务配置 acceptance：声明输出结构，选择宿主已经注册的检查器，设置修复与轮次预算。规则可确定时先用程序检查，需要语义核对时再启用模型评审。
 
@@ -192,7 +202,19 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [原生 agent 工具接合](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/tool/builtin/agent.ts)
 
-## 20. 验收修复带来了多大提升？
+## 21. 开启模型验收、修复 0 次和 2 次，实际有什么区别？
+
+四份预置不合格交付，模型验收全部识别并拒绝；允许最多两次局部修复后，四份均在一次修复后变为可用。四份预置合格交付均正常放行。自然生成组四种策略最终均为 4/4 可用，其中模型修复组实际发现并修正了一次自然产生的措辞违约。
+
+**四路真实对照**：GLM-5.3，12 个样例、48 次任务运行：原流程、仅 L1、开启模型验收且修复上限 0 或 2。覆盖供应简报、退款代码、销售分析和用户说明。使用真实 SubAgentSession 与只读评审器。原流程指同源码未启用 acceptance 的既有路径。
+
+**发现问题与修好问题分开计数**：修复上限 0 的模型组首次拒绝 4/4 份预置不合格交付；修复上限 2 的组最终 4/4 可用。代码预置错误版仅通过 1/24 项独立测试，修复后通过 24/24 项。两组对预置合格交付的首次放行分别为 4/4 与 4/4。
+
+**自然任务与成本**：从零生成的 4 个任务，各组最终可用数依次为 [4, 4, 4, 4]。强模型已能完成的任务不应宣称凭空提升。预置错误组只说明发现与修复能力，不能当作自然任务的成功率；报告保留全部结果和追加请求、耗时。
+
+证据：[GLM-5.3 模型验收工程对照](model-review-report.html) · [48 次运行与独立核查记录](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/tree/main/docs/verified-subtasks/evidence/model-review-20260912) · [子任务修复状态机](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/SubAgentSession.ts)
+
+## 22. 此前 L1 大样本实验验证了什么？
 
 在 Llama 3.2 3B 的 450 组配对合成任务上，最终正确交付从 17 份增加到 161 份：3.8% → 35.8%，提升 32 个百分点。这组结果验证了第一层确定性验收与有界修复的收益。
 
@@ -202,7 +224,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
-## 21. 1,450 是怎么算的？实验怎样设计？
+## 23. 1,450 是怎么算的？实验怎样设计？
 
 1,450 是四个模型合计的 A/B 配对任务数：450 + 400 + 300 + 300。C、D 各有 1,000 条记录；E 是从 C 的候选里事后计算的选择结果。
 
@@ -212,7 +234,7 @@ OpenCode 已有主代理与子代理、独立模型配置、权限控制和步�
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
-## 22. 是不是多采样带来的？这个比较公平吗？
+## 24. 是不是多采样带来的？这个比较公平吗？
 
 A/B 的第一次回答完全相同，所以起点可核对；后续收益来自整个修复方案，包含额外采样和反馈。C/D 对照进一步展示了不同策略的表现，报告保留了修复不占优的结果。
 
@@ -222,7 +244,7 @@ A/B 的第一次回答完全相同，所以起点可核对；后续收益来自�
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
-## 23. 验收修复一定比三次投票好吗？
+## 25. 验收修复一定比三次投票好吗？
 
 不一定。Llama 的配对子集上，三次投票 44.3% 高于同会话修复的 35.0%；Qwen Coder 7B 上，修复是 40.7%，投票是 16.7%。可靠的方案需要按模型和任务选择。
 
@@ -232,7 +254,7 @@ A/B 的第一次回答完全相同，所以起点可核对；后续收益来自�
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
-## 24. 56% 对 44.3%，能证明什么？
+## 26. 56% 对 44.3%，能证明什么？
 
 它说明在这批已生成的 Llama 候选中，若拥有正确答案来选择，能找到更多正确结果。56% 是事后使用标准答案得到的参考值，不能当作模型评审的实测通过率。
 
@@ -242,7 +264,7 @@ A/B 的第一次回答完全相同，所以起点可核对；后续收益来自�
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
-## 25. 能省多少钱？为什么值得付出开销？
+## 27. 能省多少钱？为什么值得付出开销？
 
 当前可以准确报告请求次数，尚不能给出通用省钱比例。第一层程序检查不新增模型请求；第二层复核会增加模型用量。用户付出的开销，换来交付检查、明确反馈与可追踪记录。
 
@@ -252,7 +274,7 @@ A/B 的第一次回答完全相同，所以起点可核对；后续收益来自�
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912) · [只读评审实现](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/src/agent/sub/acceptance/modelReviewer.ts)
 
-## 26. 为什么小模型有的几乎没提升？
+## 28. 为什么小模型有的几乎没提升？
 
 验收可以发现错误，修复能利用模型已有能力，但不能凭空补齐能力。MiniCPM5 1B 和 Qwen2.5 1.5B 在这批任务上没有显著提升，这给了我们明确的适用边界。
 
@@ -262,7 +284,7 @@ A/B 的第一次回答完全相同，所以起点可核对；后续收益来自�
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
-## 27. 如何理解统计显著性与实际价值？
+## 29. 如何理解统计显著性与实际价值？
 
 Llama 3B 的正确交付增加了 144 份，即提升 32 个百分点，配对检验也显示显著差异。统计差异是一个维度；实际价值还要结合请求开销、模型能力和业务任务的相似程度判断。
 
@@ -272,7 +294,7 @@ Llama 3B 的正确交付增加了 144 份，即提升 32 个百分点，配对�
 
 证据：[修订版统计报告](statistics-report.html) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
-## 28. 除了演示，还验证了哪些东西？
+## 30. 除了演示，还验证了哪些东西？
 
 现有代码审查跑通 100 项后端定向检查、63 项 UI 检查和项目构建；另有真实模型录像、验收报告与文件指纹核对。机制测试、真实链路和统计数据各自回答不同的问题。
 
@@ -280,19 +302,21 @@ Llama 3B 的正确交付增加了 144 份，即提升 32 个百分点，配对�
 
 **三类证据分别说明什么**：测试证明被覆盖行为符合断言；真实录像证明该故障闭环实际执行；L1 统计用于估计所选任务上的收益。三者不能互相替代。
 
-证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [修订版统计报告](statistics-report.html)
+**新增模型验收对照**：另有 GLM-5.3 的 12 个样例、48 次运行；覆盖自然生成、预置错误和预置合格，结果与原 L1 实验分别呈现。
 
-## 29. 还有哪些限制？能直接上生产吗？
+证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [修订版统计报告](statistics-report.html) · [GLM-5.3 模型验收工程对照](model-review-report.html)
+
+## 31. 还有哪些限制？能直接上生产吗？
 
 比赛主流程已有可运行实现和验证证据；生产使用仍要按业务检查器、模型、权限与并发场景做评估。最关键的限制是评审可能误判，任务标准需要人定义，修复不是事务回滚。
 
 **已知技术边界**：JSON Schema 为有限子集；共享文件并发写入可能冲突；没有通用跨进程恢复与事务隔离保证；模型端点可用性和评审开销仍需监控。
 
-**已知证据边界**：没有双层验收的大样本收益试验，没有白盒记忆带来的跨任务学习收益验证，也没有同条件竞品性能对照。本项目的成熟度以公开实现、演示和具体测试为准。
+**已知证据边界**：已有小样本模型验收工程对照，但没有双层验收的大样本收益试验，没有白盒记忆带来的跨任务学习收益验证，也没有同条件竞品性能对照。本项目的成熟度以公开实现、演示和具体测试为准。
 
 证据：[公开实现与模块说明](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/README.md#改了哪里) · [修订版统计报告](statistics-report.html) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md)
 
-## 30. 如何查看完整的验收与修复过程？
+## 32. 如何查看完整的验收与修复过程？
 
 跟随一份“格式正确、内容错误”的简报，就能看到完整过程：模型读取源材料并拒绝，原来的子任务修复后通过，其他三张报表保持原样，验收观察进入白盒记忆。下方提供录像、报告和运行说明。
 
@@ -302,7 +326,7 @@ Llama 3B 的正确交付增加了 144 份，即提升 32 个百分点，配对�
 
 证据：[8 步真实演示](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/QUICKSTART.zh-CN.md) · [真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [1 分 58 秒 / 完整实录](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/demo-recording-20260911)
 
-## 31. 演示中的评审和修复是真实执行的吗？
+## 33. 演示中的评审和修复是真实执行的吗？
 
 演示预置了错误，但评审和修复真实调用模型。公开材料包含任务产物、验收判决、读取证据与文件指纹，录像可以对照过程。这证明受控故障的闭环跑通。
 
@@ -312,7 +336,7 @@ Llama 3B 的正确交付增加了 144 份，即提升 32 个百分点，配对�
 
 证据：[真实录像与验收报告](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/blob/main/docs/verified-subtasks/evidence/ui-recording-20260911/README.md) · [1 分 58 秒 / 完整实录](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/demo-recording-20260911) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
-## 32. 项目具体改进了哪些模块？
+## 34. 项目具体改进了哪些模块？
 
 本项目跨越五个环节：任务派发的验收契约、运行时的验收与局部修复、独立模型读文件核查、原生卡片状态、白盒观察回写。它们共同构成一条可运行、可解释、可核对的子任务交付流程。
 

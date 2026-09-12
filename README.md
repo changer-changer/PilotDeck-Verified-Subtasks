@@ -19,6 +19,8 @@
 
 [项目问答中心：搜索问题，查看结论、图表与证据](https://changer-changer.github.io/PilotDeck-Verified-Subtasks/verified-subtasks/defense-qa.html) · [Q&A 离线文件](docs/verified-subtasks/defense-qa.html) · [四模型统计报告](docs/verified-subtasks/STATISTICS.zh-CN.md) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
 
+新增 **GLM-5.3 模型验收工程对照**：四份预置不合格交付，模型验收全部识别并拒绝；允许最多两次局部修复后，四份均在一次修复后变为可用。四份预置合格交付均正常放行。自然生成组四种策略最终均为 4/4 可用，其中模型修复组实际发现并修正了一次自然产生的措辞违约。 [查看四路对照、成本和全部 48 次结果](docs/verified-subtasks/model-review-report.html)。
+
 已有 L1 实验中，Llama 3.2 3B 在 450 组配对合成任务上从 17/450 提升至 161/450（3.8% → 35.8%，增加 32 个百分点）；四模型 A/B 合计 1,450 对。收益依赖模型与任务，MiniCPM 1B、Qwen 1.5B 未显著提升。统计未启用 L2，不作为双层评审整体收益或竞品性能排名。
 
 Claude Code、Codex 与 OpenCode 都已有审查或扩展能力。本项目的差异是把验收契约、同会话局部修复、共享预算、原生状态和白盒观察接入 PilotDeck 的交付流程。详见 [竞品问答与官方依据](docs/verified-subtasks/DEFENSE-QA.zh-CN.md)；[数据复核与复跑说明](docs/verified-subtasks/STATISTICS-REPRO.zh-CN.md) 提供可解析版本与文件指纹映射。

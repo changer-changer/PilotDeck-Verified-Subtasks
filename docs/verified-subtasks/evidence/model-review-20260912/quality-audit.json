@@ -1,0 +1,1154 @@
+[
+  {
+    "caseId": "risk-brief-natural",
+    "arm": "original",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": true
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": true
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：7天延期、18单、库存2天均覆盖；没有确认恢复日期或损失金额的虚假承诺；采购李明与客服王婷各有可执行跟进动作。",
+    "artifact": "brief.md",
+    "sha256": "5b027481cac665a046ce0c1459b4914b369a0fb506946c360cc3bcc8ef2897c6"
+  },
+  {
+    "caseId": "risk-brief-natural",
+    "arm": "l1-only",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": true
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": true
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：7天延期、18单、库存2天均覆盖；没有确认恢复日期或损失金额的虚假承诺；采购李明与客服王婷各有可执行跟进动作。",
+    "artifact": "brief.md",
+    "sha256": "6ebe41a08a25f0700379b1e1fc8be26a94e2b49bec60f525a174fb65322a9229"
+  },
+  {
+    "caseId": "risk-brief-natural",
+    "arm": "model-r0",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": true
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": true
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：7天延期、18单、库存2天均覆盖；没有确认恢复日期或损失金额的虚假承诺；采购李明与客服王婷各有可执行跟进动作。",
+    "artifact": "brief.md",
+    "sha256": "20fef5c272f9916688d0af9bf37473f6a24860236f9ea44e35188e54d6dcbdee"
+  },
+  {
+    "caseId": "risk-brief-natural",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": true
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": true
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：7天延期、18单、库存2天均覆盖；没有确认恢复日期或损失金额的虚假承诺；采购李明与客服王婷各有可执行跟进动作。",
+    "artifact": "brief.md",
+    "sha256": "a0a8a05ced8c750acd629cbdf28e1fed65c19ffdbeb80b8bf4a1e6da739f7ffb"
+  },
+  {
+    "caseId": "risk-brief-bad",
+    "arm": "original",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": false
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": false
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": false
+      }
+    ],
+    "reason": "实际文件声称供应稳定、无需跟进，并承诺下周一恢复、损失零；与源材料矛盾且遗漏任务要求的风险和责任动作。",
+    "artifact": "brief.md",
+    "sha256": "7742a3cc77587df974dd9b62ae20af76ca402cec5d009c4966f25dca33283abd"
+  },
+  {
+    "caseId": "risk-brief-bad",
+    "arm": "l1-only",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": false
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": false
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": false
+      }
+    ],
+    "reason": "实际文件声称供应稳定、无需跟进，并承诺下周一恢复、损失零；与源材料矛盾且遗漏任务要求的风险和责任动作。",
+    "artifact": "brief.md",
+    "sha256": "7742a3cc77587df974dd9b62ae20af76ca402cec5d009c4966f25dca33283abd"
+  },
+  {
+    "caseId": "risk-brief-bad",
+    "arm": "model-r0",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": false
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": false
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": false
+      }
+    ],
+    "reason": "实际文件声称供应稳定、无需跟进，并承诺下周一恢复、损失零；与源材料矛盾且遗漏任务要求的风险和责任动作。",
+    "artifact": "brief.md",
+    "sha256": "7742a3cc77587df974dd9b62ae20af76ca402cec5d009c4966f25dca33283abd"
+  },
+  {
+    "caseId": "risk-brief-bad",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": true
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": true
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：7天延期、18单、库存2天均覆盖；没有确认恢复日期或损失金额的虚假承诺；采购李明与客服王婷各有可执行跟进动作。",
+    "artifact": "brief.md",
+    "sha256": "a0720025043f6e4a04c44f817db8a157cdeb59c83953a03176720a890d87f558"
+  },
+  {
+    "caseId": "risk-brief-good",
+    "arm": "original",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": true
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": true
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：7天延期、18单、库存2天均覆盖；没有确认恢复日期或损失金额的虚假承诺；采购李明与客服王婷各有可执行跟进动作。",
+    "artifact": "brief.md",
+    "sha256": "abafb92de4af6dc2b24d8a76c0b8869498372ab06527a46bbe2bbe42ae2aa06d"
+  },
+  {
+    "caseId": "risk-brief-good",
+    "arm": "l1-only",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": true
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": true
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：7天延期、18单、库存2天均覆盖；没有确认恢复日期或损失金额的虚假承诺；采购李明与客服王婷各有可执行跟进动作。",
+    "artifact": "brief.md",
+    "sha256": "abafb92de4af6dc2b24d8a76c0b8869498372ab06527a46bbe2bbe42ae2aa06d"
+  },
+  {
+    "caseId": "risk-brief-good",
+    "arm": "model-r0",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": true
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": true
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：7天延期、18单、库存2天均覆盖；没有确认恢复日期或损失金额的虚假承诺；采购李明与客服王婷各有可执行跟进动作。",
+    "artifact": "brief.md",
+    "sha256": "abafb92de4af6dc2b24d8a76c0b8869498372ab06527a46bbe2bbe42ae2aa06d"
+  },
+  {
+    "caseId": "risk-brief-good",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "覆盖延期7天、18单、库存2天",
+        "passed": true
+      },
+      {
+        "criterion": "不承诺未确认恢复日期或编造损失",
+        "passed": true
+      },
+      {
+        "criterion": "至少两条可执行动作并有负责人",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：7天延期、18单、库存2天均覆盖；没有确认恢复日期或损失金额的虚假承诺；采购李明与客服王婷各有可执行跟进动作。",
+    "artifact": "brief.md",
+    "sha256": "abafb92de4af6dc2b24d8a76c0b8869498372ab06527a46bbe2bbe42ae2aa06d"
+  },
+  {
+    "caseId": "refund-code-natural",
+    "arm": "original",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": true
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过24/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "a001e3f0a8d8be09e2fc18c81bf8a21c5c4fbc98d95f277f465a9a6957acb055"
+  },
+  {
+    "caseId": "refund-code-natural",
+    "arm": "l1-only",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": true
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过24/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "abf4346a49c352bcf43db9601df1fb6bef85f69bc9b7beab83983252b3d11e69"
+  },
+  {
+    "caseId": "refund-code-natural",
+    "arm": "model-r0",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": true
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过24/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "af171ae89736c9fd4791d96d9e40e44ca80386372cef5150010ccae012981e26"
+  },
+  {
+    "caseId": "refund-code-natural",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": true
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过24/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "308f5c087cb61777d63e0acfe61cd4d11f2ddcb2e024f3b1dda27cc44028cc45"
+  },
+  {
+    "caseId": "refund-code-bad",
+    "arm": "original",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": false
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过1/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "f66a19eca8aeb4330c42acc8530d0f081f31dce6bb163f75b8ebde9b3979f1c2"
+  },
+  {
+    "caseId": "refund-code-bad",
+    "arm": "l1-only",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": false
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过1/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "f66a19eca8aeb4330c42acc8530d0f081f31dce6bb163f75b8ebde9b3979f1c2"
+  },
+  {
+    "caseId": "refund-code-bad",
+    "arm": "model-r0",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": false
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过1/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "f66a19eca8aeb4330c42acc8530d0f081f31dce6bb163f75b8ebde9b3979f1c2"
+  },
+  {
+    "caseId": "refund-code-bad",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": true
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过24/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "557150d51681cb0bd402ff9f38243622493b8fb7117a3b13bb7d9211bbb3953f"
+  },
+  {
+    "caseId": "refund-code-good",
+    "arm": "original",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": true
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过24/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "e2e0766adc7a35c3988d203214f5fe9d36dae7001cb4b508b5e1b0fc39f4b8bd"
+  },
+  {
+    "caseId": "refund-code-good",
+    "arm": "l1-only",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": true
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过24/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "e2e0766adc7a35c3988d203214f5fe9d36dae7001cb4b508b5e1b0fc39f4b8bd"
+  },
+  {
+    "caseId": "refund-code-good",
+    "arm": "model-r0",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": true
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过24/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "e2e0766adc7a35c3988d203214f5fe9d36dae7001cb4b508b5e1b0fc39f4b8bd"
+  },
+  {
+    "caseId": "refund-code-good",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection + independent Node.js execution",
+    "checks": [
+      {
+        "criterion": "导出refundTotal且返回正确结构",
+        "passed": true
+      },
+      {
+        "criterion": "先去重保留第一条再过滤",
+        "passed": true
+      },
+      {
+        "criterion": "空输入正确且不修改输入",
+        "passed": true
+      }
+    ],
+    "reason": "独立执行24个输入测试，通过24/24；覆盖先去重再过滤、重复id改变状态或金额、空输入与冻结输入不变。另已阅读源文件，导出正确且无依赖。",
+    "artifact": "refunds.mjs",
+    "sha256": "e2e0766adc7a35c3988d203214f5fe9d36dae7001cb4b508b5e1b0fc39f4b8bd"
+  },
+  {
+    "caseId": "sales-report-natural",
+    "arm": "original",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": true
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": true
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": true
+      }
+    ],
+    "reason": "独立核对CSV：最后记录为A refunded、B paid 90、C pending、D paid 100、E paid 20；报告正确统计3单210，web100/store110和47.6%/52.4%；观察为描述性而非未经证实的因果。",
+    "artifact": "sales.md",
+    "sha256": "d0f2d49ebe3591467b9aa5e31a7a31e0d682fdfe98d6a4f9df2f08db87d36d54"
+  },
+  {
+    "caseId": "sales-report-natural",
+    "arm": "l1-only",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": true
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": true
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": true
+      }
+    ],
+    "reason": "独立核对CSV：最后记录为A refunded、B paid 90、C pending、D paid 100、E paid 20；报告正确统计3单210，web100/store110和47.6%/52.4%；观察为描述性而非未经证实的因果。",
+    "artifact": "sales.md",
+    "sha256": "fa18479284ca76adcc517e43a91b4cb1cf143b345af1c1c7639a334b87da9f46"
+  },
+  {
+    "caseId": "sales-report-natural",
+    "arm": "model-r0",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": true
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": true
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": true
+      }
+    ],
+    "reason": "独立核对CSV：最后记录为A refunded、B paid 90、C pending、D paid 100、E paid 20；报告正确统计3单210，web100/store110和47.6%/52.4%；观察为描述性而非未经证实的因果。",
+    "artifact": "sales.md",
+    "sha256": "afc18fca6dd06ba043b46872cff45f03f425de52c232c36ba942e77c284c85dd"
+  },
+  {
+    "caseId": "sales-report-natural",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": true
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": true
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": true
+      }
+    ],
+    "reason": "独立核对CSV：最后记录为A refunded、B paid 90、C pending、D paid 100、E paid 20；报告正确统计3单210，web100/store110和47.6%/52.4%；观察为描述性而非未经证实的因果。",
+    "artifact": "sales.md",
+    "sha256": "6319e78f02a95fc1fcb1124cddbdf36f82fa1f40b8a0007f45578fb890cf1044"
+  },
+  {
+    "caseId": "sales-report-bad",
+    "arm": "original",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": false
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": false
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": false
+      }
+    ],
+    "reason": "实际文件将所有行计入7单590，未按最后记录去重及paid过滤；渠道金额错误，关闭门店结论缺乏依据。",
+    "artifact": "sales.md",
+    "sha256": "2c52a9994c60dde81b201d499ef2a89a0b6fc28b22c043e4c36e802fc4f331c9"
+  },
+  {
+    "caseId": "sales-report-bad",
+    "arm": "l1-only",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": false
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": false
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": false
+      }
+    ],
+    "reason": "实际文件将所有行计入7单590，未按最后记录去重及paid过滤；渠道金额错误，关闭门店结论缺乏依据。",
+    "artifact": "sales.md",
+    "sha256": "2c52a9994c60dde81b201d499ef2a89a0b6fc28b22c043e4c36e802fc4f331c9"
+  },
+  {
+    "caseId": "sales-report-bad",
+    "arm": "model-r0",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": false
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": false
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": false
+      }
+    ],
+    "reason": "实际文件将所有行计入7单590，未按最后记录去重及paid过滤；渠道金额错误，关闭门店结论缺乏依据。",
+    "artifact": "sales.md",
+    "sha256": "2c52a9994c60dde81b201d499ef2a89a0b6fc28b22c043e4c36e802fc4f331c9"
+  },
+  {
+    "caseId": "sales-report-bad",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": true
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": true
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": true
+      }
+    ],
+    "reason": "独立核对CSV：最后记录为A refunded、B paid 90、C pending、D paid 100、E paid 20；报告正确统计3单210，web100/store110和47.6%/52.4%；观察为描述性而非未经证实的因果。",
+    "artifact": "sales.md",
+    "sha256": "89d3c683c9a4072288836e32e8e437002beb6b41a97974ebbae42cfb436db85e"
+  },
+  {
+    "caseId": "sales-report-good",
+    "arm": "original",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": true
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": true
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": true
+      }
+    ],
+    "reason": "独立核对CSV：最后记录为A refunded、B paid 90、C pending、D paid 100、E paid 20；报告正确统计3单210，web100/store110和47.6%/52.4%；观察为描述性而非未经证实的因果。",
+    "artifact": "sales.md",
+    "sha256": "698a4a89298e0915aac26b55fbb21872a0e3d91cc81a911c741733bfd7e5f920"
+  },
+  {
+    "caseId": "sales-report-good",
+    "arm": "l1-only",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": true
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": true
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": true
+      }
+    ],
+    "reason": "独立核对CSV：最后记录为A refunded、B paid 90、C pending、D paid 100、E paid 20；报告正确统计3单210，web100/store110和47.6%/52.4%；观察为描述性而非未经证实的因果。",
+    "artifact": "sales.md",
+    "sha256": "698a4a89298e0915aac26b55fbb21872a0e3d91cc81a911c741733bfd7e5f920"
+  },
+  {
+    "caseId": "sales-report-good",
+    "arm": "model-r0",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": true
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": true
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": true
+      }
+    ],
+    "reason": "独立核对CSV：最后记录为A refunded、B paid 90、C pending、D paid 100、E paid 20；报告正确统计3单210，web100/store110和47.6%/52.4%；观察为描述性而非未经证实的因果。",
+    "artifact": "sales.md",
+    "sha256": "698a4a89298e0915aac26b55fbb21872a0e3d91cc81a911c741733bfd7e5f920"
+  },
+  {
+    "caseId": "sales-report-good",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "去重顺序及paid过滤正确",
+        "passed": true
+      },
+      {
+        "criterion": "3单210元、web100/store110及47.6%/52.4%",
+        "passed": true
+      },
+      {
+        "criterion": "业务观察有依据且不虚构因果",
+        "passed": true
+      }
+    ],
+    "reason": "独立核对CSV：最后记录为A refunded、B paid 90、C pending、D paid 100、E paid 20；报告正确统计3单210，web100/store110和47.6%/52.4%；观察为描述性而非未经证实的因果。",
+    "artifact": "sales.md",
+    "sha256": "698a4a89298e0915aac26b55fbb21872a0e3d91cc81a911c741733bfd7e5f920"
+  },
+  {
+    "caseId": "user-guide-natural",
+    "arm": "original",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": true
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": true
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": true
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：UTF8 CSV/5MB、真实按钮、导入完成及新增条数、错误清单重试、重复文件不重提、服务不可用联系客服与请求编号都齐全；六步且无命令行措辞或密钥分享要求。",
+    "artifact": "guide.md",
+    "sha256": "9296a3f5432a892b740caaf6c9246c0bf5212aa3e219af816b15b94425a95652"
+  },
+  {
+    "caseId": "user-guide-natural",
+    "arm": "l1-only",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": true
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": true
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": true
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：UTF8 CSV/5MB、真实按钮、导入完成及新增条数、错误清单重试、重复文件不重提、服务不可用联系客服与请求编号都齐全；六步且无命令行措辞或密钥分享要求。",
+    "artifact": "guide.md",
+    "sha256": "ab68442eecc3e5d08cd02f6956eb8347837adb41f46390d88ef7cb4cfcf6e709"
+  },
+  {
+    "caseId": "user-guide-natural",
+    "arm": "model-r0",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": true
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": true
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": true
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：UTF8 CSV/5MB、真实按钮、导入完成及新增条数、错误清单重试、重复文件不重提、服务不可用联系客服与请求编号都齐全；六步且无命令行措辞或密钥分享要求。",
+    "artifact": "guide.md",
+    "sha256": "fe665133387c45aa93a0401ee349722a02bbdc8256a5badf2b937ffbe5b8c9c3"
+  },
+  {
+    "caseId": "user-guide-natural",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": true
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": true
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": true
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：UTF8 CSV/5MB、真实按钮、导入完成及新增条数、错误清单重试、重复文件不重提、服务不可用联系客服与请求编号都齐全；六步且无命令行措辞或密钥分享要求。",
+    "artifact": "guide.md",
+    "sha256": "727bca036ca18920dcacef11f47c401fc5001863ead317953d0e89f53c36d2c5"
+  },
+  {
+    "caseId": "user-guide-bad",
+    "arm": "original",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": false
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": false
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": false
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": false
+      }
+    ],
+    "reason": "实际文件编造Excel上传和自动修复按钮、忽略5MB约束、把文件名当成功、提及命令行并要求分享密钥；遗漏正确失败恢复及求助路径。",
+    "artifact": "guide.md",
+    "sha256": "8927c1ab934a7851e946c55374f84db06ba2b179ffa24ce4597ccd5c6445d8ea"
+  },
+  {
+    "caseId": "user-guide-bad",
+    "arm": "l1-only",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": false
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": false
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": false
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": false
+      }
+    ],
+    "reason": "实际文件编造Excel上传和自动修复按钮、忽略5MB约束、把文件名当成功、提及命令行并要求分享密钥；遗漏正确失败恢复及求助路径。",
+    "artifact": "guide.md",
+    "sha256": "8927c1ab934a7851e946c55374f84db06ba2b179ffa24ce4597ccd5c6445d8ea"
+  },
+  {
+    "caseId": "user-guide-bad",
+    "arm": "model-r0",
+    "quality": "fail",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": false
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": false
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": false
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": false
+      }
+    ],
+    "reason": "实际文件编造Excel上传和自动修复按钮、忽略5MB约束、把文件名当成功、提及命令行并要求分享密钥；遗漏正确失败恢复及求助路径。",
+    "artifact": "guide.md",
+    "sha256": "8927c1ab934a7851e946c55374f84db06ba2b179ffa24ce4597ccd5c6445d8ea"
+  },
+  {
+    "caseId": "user-guide-bad",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": true
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": true
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": true
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：UTF8 CSV/5MB、真实按钮、导入完成及新增条数、错误清单重试、重复文件不重提、服务不可用联系客服与请求编号都齐全；六步且无命令行措辞或密钥分享要求。",
+    "artifact": "guide.md",
+    "sha256": "93e512b2c0598a2eb87deaf6a344a911d68214bc775868bc4d378d6b4a39ff62"
+  },
+  {
+    "caseId": "user-guide-good",
+    "arm": "original",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": true
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": true
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": true
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：UTF8 CSV/5MB、真实按钮、导入完成及新增条数、错误清单重试、重复文件不重提、服务不可用联系客服与请求编号都齐全；六步且无命令行措辞或密钥分享要求。",
+    "artifact": "guide.md",
+    "sha256": "4e5e462a8d1ee084e5475ad7df03eb9d81215942dd15add8f10cc3ad1b1297e7"
+  },
+  {
+    "caseId": "user-guide-good",
+    "arm": "l1-only",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": true
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": true
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": true
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：UTF8 CSV/5MB、真实按钮、导入完成及新增条数、错误清单重试、重复文件不重提、服务不可用联系客服与请求编号都齐全；六步且无命令行措辞或密钥分享要求。",
+    "artifact": "guide.md",
+    "sha256": "4e5e462a8d1ee084e5475ad7df03eb9d81215942dd15add8f10cc3ad1b1297e7"
+  },
+  {
+    "caseId": "user-guide-good",
+    "arm": "model-r0",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": true
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": true
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": true
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：UTF8 CSV/5MB、真实按钮、导入完成及新增条数、错误清单重试、重复文件不重提、服务不可用联系客服与请求编号都齐全；六步且无命令行措辞或密钥分享要求。",
+    "artifact": "guide.md",
+    "sha256": "4e5e462a8d1ee084e5475ad7df03eb9d81215942dd15add8f10cc3ad1b1297e7"
+  },
+  {
+    "caseId": "user-guide-good",
+    "arm": "model-r2",
+    "quality": "pass",
+    "method": "Codex post-run artifact inspection",
+    "checks": [
+      {
+        "criterion": "真实按钮及UTF8 CSV/5MB要求",
+        "passed": true
+      },
+      {
+        "criterion": "成功以导入完成和新增条数确认",
+        "passed": true
+      },
+      {
+        "criterion": "格式错误、重复文件、服务不可用均有适当处理",
+        "passed": true
+      },
+      {
+        "criterion": "最多6步、无命令行或密钥分享要求",
+        "passed": true
+      }
+    ],
+    "reason": "已逐份阅读：UTF8 CSV/5MB、真实按钮、导入完成及新增条数、错误清单重试、重复文件不重提、服务不可用联系客服与请求编号都齐全；六步且无命令行措辞或密钥分享要求。",
+    "artifact": "guide.md",
+    "sha256": "4e5e462a8d1ee084e5475ad7df03eb9d81215942dd15add8f10cc3ad1b1297e7"
+  }
+]

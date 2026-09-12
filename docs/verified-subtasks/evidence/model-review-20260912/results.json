@@ -1,0 +1,2827 @@
+[
+  {
+    "caseId": "refund-code-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 0,
+    "report": {
+      "subagentId": "refund-code-bad-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.mjs\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 0,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "refunds.mjs",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "export function refundTotal(rows){const selected=[...new Map(rows.filter(r=>r.approved).map(r=>[r.id,r])).values()];return {count:selected.length,total:selected.reduce((s,r)=>s+r.amount,0)}}"
+    }
+  },
+  {
+    "caseId": "refund-code-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 3,
+    "replayedInitial": true,
+    "durationMs": 65640,
+    "report": {
+      "subagentId": "refund-code-bad-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.mjs\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 2877,
+        "outputTokens": 3114,
+        "cacheReadTokens": 7040,
+        "totalTokens": 13031
+      },
+      "turns": 4,
+      "durationMs": 65639,
+      "acceptance": {
+        "status": "rejected",
+        "stopReason": "repair_limit",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "checksPassed": true,
+            "issues": [
+              {
+                "path": "refunds.mjs",
+                "code": "dedupe-order-and-keep-first",
+                "message": "Spec requires deduping by id first (keeping the FIRST occurrence), then filtering approved===true. The implementation filters approved first and then uses new Map([[id,rec],...]) which keeps the LAST occurrence per id. Counterexamples: [{id:1,approved:true,amount:10},{id:1,approved:true,amount:20}] returns total 20 instead of 10; [{id:1,approved:false,amount:10},{id:1,approved:true,amount:20}] ret"
+              },
+              {
+                "path": "refunds.mjs",
+                "code": "approved-truthiness-instead-of-strict-true",
+                "message": "Spec requires approved===true (strict equality). Implementation uses truthiness `r.approved`, so records like {approved:1}, {approved:\"yes\"}, or {approved:[]} are wrongly counted as approved. Fix: use r.approved === true."
+              }
+            ],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/refund-code-bad/model-r0/workspace/refunds.mjs"
+              ],
+              "turns": 3,
+              "usage": {
+                "inputTokens": 2877,
+                "outputTokens": 3114,
+                "cacheReadTokens": 7040,
+                "totalTokens": 13031
+              },
+              "durationMs": 65638,
+              "rawVerdict": "{\"issues\":[{\"code\":\"dedupe-order-and-keep-first\",\"message\":\"Spec requires deduping by id first (keeping the FIRST occurrence), then filtering approved===true. The implementation filters approved first and then uses new Map([[id,rec],...]) which keeps the LAST occurrence per id. Counterexamples: [{id:1,approved:true,amount:10},{id:1,approved:true,amount:20}] returns total 20 instead of 10; [{id:1,approved:false,amount:10},{id:1,approved:true,amount:20}] returns {count:1,total:20} instead of {count:0,total:0}. Fix: dedupe first (e.g. iterate rows, skip ids already seen, keep first record), then check approved===true on the kept records.\",\"path\":\"refunds.mjs\"},{\"code\":\"approved-truthiness-instead-of-strict-true\",\"message\":\"Spec requires approved===true (strict equality). Implementation uses truthiness `r.approved`, so records like {approved:1}, {approved:\\\"yes\\\"}, or {approved:[]} are wrongly counted as approved. Fix: use r.approved === true.\",\"path\":\"refunds.mjs\"}],\"summary\":\"refunds.mjs exists and exports refundTotal(rows) returning {count,total}, handles empty arrays, mutates nothing, and has no dependencies. However, the core algorithm contradicts the spec: it filters approved BEFORE deduping and its Map-based dedup keeps the LAST occurrence per id instead of the FIRST (spec: dedupe by id keeping first occurrence, then filter approved===true), and it uses truthiness (r.approved) instead of approved===true. Concrete failure: [{id:1,approved:true,amount:10},{id:1,approved:true,amount:20}] returns total 20 instead of 10; [{id:1,approved:false,amount:10},{id:1,approved:true,amount:20}] returns {count:1,total:20} instead of {count:0,total:0}.\",\"verdict\":\"rejected\"}",
+              "status": "rejected",
+              "summary": "refunds.mjs exists and exports refundTotal(rows) returning {count,total}, handles empty arrays, mutates nothing, and has no dependencies. However, the core algorithm contradicts the spec: it filters approved BEFORE deduping and its Map-based dedup keeps the LAST occurrence per id instead of the FIRST (spec: dedupe by id keeping first occurrence, then filter approved===true), and it uses truthiness",
+              "issues": [
+                {
+                  "path": "refunds.mjs",
+                  "code": "dedupe-order-and-keep-first",
+                  "message": "Spec requires deduping by id first (keeping the FIRST occurrence), then filtering approved===true. The implementation filters approved first and then uses new Map([[id,rec],...]) which keeps the LAST occurrence per id. Counterexamples: [{id:1,approved:true,amount:10},{id:1,approved:true,amount:20}] returns total 20 instead of 10; [{id:1,approved:false,amount:10},{id:1,approved:true,amount:20}] ret"
+                },
+                {
+                  "path": "refunds.mjs",
+                  "code": "approved-truthiness-instead-of-strict-true",
+                  "message": "Spec requires approved===true (strict equality). Implementation uses truthiness `r.approved`, so records like {approved:1}, {approved:\"yes\"}, or {approved:[]} are wrongly counted as approved. Fix: use r.approved === true."
+                }
+              ]
+            }
+          }
+        ],
+        "repairs": 0
+      }
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "export function refundTotal(rows){const selected=[...new Map(rows.filter(r=>r.approved).map(r=>[r.id,r])).values()];return {count:selected.length,total:selected.reduce((s,r)=>s+r.amount,0)}}"
+    }
+  },
+  {
+    "caseId": "refund-code-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 8,
+    "replayedInitial": true,
+    "durationMs": 128945,
+    "report": {
+      "subagentId": "refund-code-bad-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.mjs\",\"summary\":\"已重写 refunds.mjs：先用 Set 按 id 去重（保留首次出现），再严格筛选 approved===true，累计数值型 amount，返回 {count,total}；空/非数组输入返回 {count:0,total:0}，不修改输入、无依赖。修复了此前先过滤后去重、Map 保留最后一次出现、以及 approved 真值判断而非严格相等的三处缺陷。\"}",
+      "usage": {
+        "inputTokens": 5431,
+        "outputTokens": 5777,
+        "cacheReadTokens": 17792,
+        "totalTokens": 29000
+      },
+      "turns": 9,
+      "durationMs": 128945,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "checksPassed": true,
+            "issues": [
+              {
+                "path": "refunds.mjs",
+                "code": "WRONG_DEDUP_ORDER",
+                "message": "Task requires dedup by id (keep first occurrence) BEFORE selecting approved===true; implementation filters r.approved first and dedupes after, changing results when duplicate ids have differing approved flags (e.g. [{id:1,approved:false,amount:10},{id:1,approved:true,amount:20}] yields {count:1,total:20} instead of {count:0,total:0})."
+              },
+              {
+                "path": "refunds.mjs",
+                "code": "KEEPS_LAST_NOT_FIRST",
+                "message": "new Map(rows.filter(...).map(r=>[r.id,r])) overwrites duplicate keys, retaining the LAST occurrence per id; task explicitly requires keeping the FIRST occurrence (e.g. [{id:1,approved:true,amount:10},{id:1,approved:true,amount:20}] should total 10, code returns 20)."
+              },
+              {
+                "path": "refunds.mjs",
+                "code": "NOT_STRICT_APPROVED",
+                "message": "Uses truthy check r.approved instead of the required strict approved===true, so records with truthy non-boolean values (e.g. approved:1 or approved:'yes') are incorrectly counted."
+              }
+            ],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/refund-code-bad/model-r2/workspace/refunds.mjs"
+              ],
+              "turns": 3,
+              "usage": {
+                "inputTokens": 2558,
+                "outputTokens": 3008,
+                "cacheReadTokens": 7296,
+                "totalTokens": 12862
+              },
+              "durationMs": 62703,
+              "rawVerdict": "{\"verdict\":\"rejected\",\"summary\":\"Verified the actual artifact refunds.mjs: it does export refundTotal(rows) returning {count,total}, handles empty input ({count:0,total:0}), mutates nothing, and adds no dependencies. However, it deviates from the explicit algorithm: (1) it filters approved BEFORE dedup instead of deduplicating by id first and keeping the first occurrence, then filtering approved===true; (2) the Map-based dedup overwrites duplicate keys so it keeps the LAST occurrence per id, not the first; (3) it uses a truthy check (r.approved) instead of strict approved===true. These produce wrong results for reasonable inputs, e.g. [{id:1,approved:false,amount:10},{id:1,approved:true,amount:20}] returns {count:1,total:20} instead of the required {count:0,total:0}, and [{id:1,approved:true,amount:10},{id:1,approved:true,amount:20}] returns total 20 instead of 10.\",\"issues\":[{\"path\":\"refunds.mjs\",\"code\":\"WRONG_DEDUP_ORDER\",\"message\":\"Task requires dedup by id (keep first occurrence) BEFORE selecting approved===true; implementation filters r.approved first and dedupes after, changing results when duplicate ids have differing approved flags (e.g. [{id:1,approved:false,amount:10},{id:1,approved:true,amount:20}] yields {count:1,total:20} instead of {count:0,total:0}).\"},{\"path\":\"refunds.mjs\",\"code\":\"KEEPS_LAST_NOT_FIRST\",\"message\":\"new Map(rows.filter(...).map(r=>[r.id,r])) overwrites duplicate keys, retaining the LAST occurrence per id; task explicitly requires keeping the FIRST occurrence (e.g. [{id:1,approved:true,amount:10},{id:1,approved:true,amount:20}] should total 10, code returns 20).\"},{\"path\":\"refunds.mjs\",\"code\":\"NOT_STRICT_APPROVED\",\"message\":\"Uses truthy check r.approved instead of the required strict approved===true, so records with truthy non-boolean values (e.g. approved:1 or approved:'yes') are incorrectly counted.\"}]}",
+              "status": "rejected",
+              "summary": "Verified the actual artifact refunds.mjs: it does export refundTotal(rows) returning {count,total}, handles empty input ({count:0,total:0}), mutates nothing, and adds no dependencies. However, it deviates from the explicit algorithm: (1) it filters approved BEFORE dedup instead of deduplicating by id first and keeping the first occurrence, then filtering approved===true; (2) the Map-based dedup ov",
+              "issues": [
+                {
+                  "path": "refunds.mjs",
+                  "code": "WRONG_DEDUP_ORDER",
+                  "message": "Task requires dedup by id (keep first occurrence) BEFORE selecting approved===true; implementation filters r.approved first and dedupes after, changing results when duplicate ids have differing approved flags (e.g. [{id:1,approved:false,amount:10},{id:1,approved:true,amount:20}] yields {count:1,total:20} instead of {count:0,total:0})."
+                },
+                {
+                  "path": "refunds.mjs",
+                  "code": "KEEPS_LAST_NOT_FIRST",
+                  "message": "new Map(rows.filter(...).map(r=>[r.id,r])) overwrites duplicate keys, retaining the LAST occurrence per id; task explicitly requires keeping the FIRST occurrence (e.g. [{id:1,approved:true,amount:10},{id:1,approved:true,amount:20}] should total 10, code returns 20)."
+                },
+                {
+                  "path": "refunds.mjs",
+                  "code": "NOT_STRICT_APPROVED",
+                  "message": "Uses truthy check r.approved instead of the required strict approved===true, so records with truthy non-boolean values (e.g. approved:1 or approved:'yes') are incorrectly counted."
+                }
+              ]
+            }
+          },
+          {
+            "attempt": 2,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/refund-code-bad/model-r2/workspace/refunds.mjs"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 1159,
+                "outputTokens": 1895,
+                "cacheReadTokens": 4928,
+                "totalTokens": 7982
+              },
+              "durationMs": 45070,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"Verified refunds.mjs in the workspace: it exports refundTotal(rows) returning {count,total}; it dedupes by id with a Set keeping the first occurrence before applying the strict approved===true filter (reproduces the expected {count:0,total:0} for the rejected differing-flags case and total 10 for duplicate-true case), returns {count:0,total:0} for empty input, only reads (never mutates) rows and records, and has no imports or dependencies. All three previously reported defects are fixed in the actual artifact.\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "Verified refunds.mjs in the workspace: it exports refundTotal(rows) returning {count,total}; it dedupes by id with a Set keeping the first occurrence before applying the strict approved===true filter (reproduces the expected {count:0,total:0} for the rejected differing-flags case and total 10 for duplicate-true case), returns {count:0,total:0} for empty input, only reads (never mutates) rows and r",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 1,
+        "value": {
+          "artifact": "refunds.mjs",
+          "summary": "已重写 refunds.mjs：先用 Set 按 id 去重（保留首次出现），再严格筛选 approved===true，累计数值型 amount，返回 {count,total}；空/非数组输入返回 {count:0,total:0}，不修改输入、无依赖。修复了此前先过滤后去重、Map 保留最后一次出现、以及 approved 真值判断而非严格相等的三处缺陷。"
+        }
+      }
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "export function refundTotal(rows) {\n  if (!Array.isArray(rows)) return { count: 0, total: 0 };\n  const seen = new Set();\n  const selected = [];\n  for (const r of rows) {\n    if (seen.has(r.id)) continue;\n    seen.add(r.id);\n    if (r.approved === true) selected.push(r);\n  }\n  let total = 0;\n  for (const r of selected) {\n    if (typeof r.amount === 'number') total += r.amount;\n  }\n  return { count: selected.length, total };\n}\n"
+    }
+  },
+  {
+    "caseId": "refund-code-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "refund-code-bad-original",
+      "definitionId": "general-purpose",
+      "markdown": "",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 1
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "export function refundTotal(rows){const selected=[...new Map(rows.filter(r=>r.approved).map(r=>[r.id,r])).values()];return {count:selected.length,total:selected.reduce((s,r)=>s+r.amount,0)}}"
+    }
+  },
+  {
+    "caseId": "refund-code-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "refund-code-good-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.mjs\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 0,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "refunds.mjs",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "export function refundTotal(rows){const seen=new Set();let count=0,total=0;for(const r of rows){if(seen.has(r.id))continue;seen.add(r.id);if(r.approved===true){count++;total+=r.amount;}}return {count,total};}"
+    }
+  },
+  {
+    "caseId": "refund-code-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 31990,
+    "report": {
+      "subagentId": "refund-code-good-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.mjs\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 575,
+        "outputTokens": 1317,
+        "cacheReadTokens": 4544,
+        "totalTokens": 6436
+      },
+      "turns": 3,
+      "durationMs": 31989,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/refund-code-good/model-r0/workspace/refunds.mjs"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 575,
+                "outputTokens": 1317,
+                "cacheReadTokens": 4544,
+                "totalTokens": 6436
+              },
+              "durationMs": 31988,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"Verified /refunds.mjs by reading the actual file. It exports `refundTotal(rows)` which: (1) dedupes records by `id` keeping the first occurrence via a `seen` Set (later duplicates are skipped regardless of their approved flag, matching the required dedupe-then-filter order); (2) selects records with `r.approved === true` (strict comparison); (3) accumulates `count` and `total += r.amount`, returning `{count, total}`; (4) returns `{count:0,total:0}` for an empty array since the loop body never executes; (5) mutates neither the input array nor its records (only reads properties); (6) imports nothing and uses only built-in `Set`. The delivery satisfies all stated task requirements.\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "Verified /refunds.mjs by reading the actual file. It exports `refundTotal(rows)` which: (1) dedupes records by `id` keeping the first occurrence via a `seen` Set (later duplicates are skipped regardless of their approved flag, matching the required dedupe-then-filter order); (2) selects records with `r.approved === true` (strict comparison); (3) accumulates `count` and `total += r.amount`, returni",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "refunds.mjs",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "export function refundTotal(rows){const seen=new Set();let count=0,total=0;for(const r of rows){if(seen.has(r.id))continue;seen.add(r.id);if(r.approved===true){count++;total+=r.amount;}}return {count,total};}"
+    }
+  },
+  {
+    "caseId": "refund-code-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 36482,
+    "report": {
+      "subagentId": "refund-code-good-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.mjs\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 345,
+        "outputTokens": 1165,
+        "cacheReadTokens": 4800,
+        "totalTokens": 6310
+      },
+      "turns": 3,
+      "durationMs": 36480,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/refund-code-good/model-r2/workspace/refunds.mjs"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 345,
+                "outputTokens": 1165,
+                "cacheReadTokens": 4800,
+                "totalTokens": 6310
+              },
+              "durationMs": 36480,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"已读取工作区实际文件 refunds.mjs 并验证实现。文件导出函数 refundTotal(rows)，返回 {count,total}。逐条核对任务要求：(1) 先按 id 去重并保留第一次出现——代码在处理每条记录前先用 Set(seen) 检查 r.id，重复记录直接 continue，首次出现的 id 才加入 seen；(2) 再筛选 approved===true 的记录——去重之后才检查 r.approved===true（严格等于），符合“先去重再筛选”的顺序；(3) 累计 amount 并计数——approved 记录 count++ 且 total+=r.amount；(4) 空输入返回零——空数组时循环不执行，返回 {count:0,total:0}；(5) 不修改输入——仅读取属性，无任何赋值或变异操作；(6) 不引入依赖——无 import/require，纯原生 JS，单文件 ES module。语法有效，export 声明与任务要求的函数签名一致。交付与任务要求相符。\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "已读取工作区实际文件 refunds.mjs 并验证实现。文件导出函数 refundTotal(rows)，返回 {count,total}。逐条核对任务要求：(1) 先按 id 去重并保留第一次出现——代码在处理每条记录前先用 Set(seen) 检查 r.id，重复记录直接 continue，首次出现的 id 才加入 seen；(2) 再筛选 approved===true 的记录——去重之后才检查 r.approved===true（严格等于），符合“先去重再筛选”的顺序；(3) 累计 amount 并计数——approved 记录 count++ 且 total+=r.amount；(4) 空输入返回零——空数组时循环不执行，返回 {count:0,total:0}；(5) 不修改输入——仅读取属性，无任何赋值或变异操作；(6) 不引入依赖——无 import/require，纯原",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "refunds.mjs",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "export function refundTotal(rows){const seen=new Set();let count=0,total=0;for(const r of rows){if(seen.has(r.id))continue;seen.add(r.id);if(r.approved===true){count++;total+=r.amount;}}return {count,total};}"
+    }
+  },
+  {
+    "caseId": "refund-code-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "refund-code-good-original",
+      "definitionId": "general-purpose",
+      "markdown": "",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 1
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "export function refundTotal(rows){const seen=new Set();let count=0,total=0;for(const r of rows){if(seen.has(r.id))continue;seen.add(r.id);if(r.approved===true){count++;total+=r.amount;}}return {count,total};}"
+    }
+  },
+  {
+    "caseId": "refund-code-natural",
+    "kind": "natural-production",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 3,
+    "replayedInitial": false,
+    "durationMs": 88909,
+    "report": {
+      "subagentId": "refund-code-natural-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.mjs\",\"summary\":\"实现 refunds.mjs：导出 refundTotal(rows)，先按 id 用 Set 去重（保留第一次出现），再严格筛选 approved===true 的记录，count 计数、total 累计 amount（非有限数值按 0 处理）；空数组或非数组输入返回 {count:0,total:0}。全程只读输入，不修改数组或记录，零依赖。\"}",
+      "usage": {
+        "inputTokens": 2004,
+        "outputTokens": 5847,
+        "cacheReadTokens": 4992,
+        "totalTokens": 12843
+      },
+      "turns": 2,
+      "durationMs": 88908,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "refunds.mjs",
+          "summary": "实现 refunds.mjs：导出 refundTotal(rows)，先按 id 用 Set 去重（保留第一次出现），再严格筛选 approved===true 的记录，count 计数、total 累计 amount（非有限数值按 0 处理）；空数组或非数组输入返回 {count:0,total:0}。全程只读输入，不修改数组或记录，零依赖。"
+        }
+      }
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "// refunds.mjs\n// refundTotal(rows) -> { count, total }\n// 1) Deduplicate rows by `id`, keeping the first occurrence (in original order).\n// 2) Among the deduplicated rows, keep only those with approved === true.\n// 3) `count` = number of such rows; `total` = sum of their `amount` values.\n// Empty / non-array input returns { count: 0, total: 0 }.\n// The input array and its records are never mutated. No dependencies.\n\nexport function refundTotal(rows) {\n  const result = { count: 0, total: 0 };\n\n  if (!Array.isArray(rows)) {\n    return result;\n  }\n\n  const seenIds = new Set();\n\n  for (const row of rows) {\n    if (row === null || typeof row !== \"object\") {\n      continue;\n    }\n\n    const id = row.id;\n\n    // Dedupe by id (SameValueZero), keep first occurrence only.\n    if (seenIds.has(id)) {\n      continue;\n    }\n    seenIds.add(id);\n\n    // After dedupe, require approved === true (strict).\n    if (row.approved !== true) {\n      continue;\n    }\n\n    result.count += 1;\n\n    const amount = Number(row.amount);\n    if (Number.isFinite(amount)) {\n      result.total += amount;\n    }\n  }\n\n  return result;\n}\n\nexport default refundTotal;\n"
+    }
+  },
+  {
+    "caseId": "refund-code-natural",
+    "kind": "natural-production",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 8,
+    "replayedInitial": false,
+    "durationMs": 151441,
+    "report": {
+      "subagentId": "refund-code-natural-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.mjs\",\"summary\":\"Implemented refunds.mjs exporting refundTotal(rows) which returns {count,total}: dedupes rows by id keeping the first occurrence (Set with SameValueZero), then among unique records selects those with approved===true and sums their amount values (non-finite/missing amounts count as 0). Empty array, null/undefined, or non-array input returns {count:0,total:0}. Input array and records are read-only (never mutated), and no dependencies or imports are used.\"}",
+      "usage": {
+        "inputTokens": 6988,
+        "outputTokens": 7357,
+        "cacheReadTokens": 14976,
+        "totalTokens": 29321
+      },
+      "turns": 7,
+      "durationMs": 151440,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/refund-code-natural/model-r0/workspace/refunds.mjs"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 1902,
+                "outputTokens": 1287,
+                "cacheReadTokens": 4032,
+                "totalTokens": 7221
+              },
+              "durationMs": 30437,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"Verified refunds.mjs in the workspace. It exports refundTotal(rows) (named export, plus an equivalent default export) returning {count, total}. Deduplication by id happens first via a Set (SameValueZero) with first-occurrence-wins, then only records with approved === true are selected, and their amount values are accumulated (missing/non-finite amounts contribute 0). Empty arrays and null/undefined/non-array inputs return {count: 0, total: 0}. The code only reads from rows and records (no mutation of the input array or its objects) and contains no imports or dependencies. All task requirements are satisfied by the actual artifact.\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "Verified refunds.mjs in the workspace. It exports refundTotal(rows) (named export, plus an equivalent default export) returning {count, total}. Deduplication by id happens first via a Set (SameValueZero) with first-occurrence-wins, then only records with approved === true are selected, and their amount values are accumulated (missing/non-finite amounts contribute 0). Empty arrays and null/undefine",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "refunds.mjs",
+          "summary": "Implemented refunds.mjs exporting refundTotal(rows) which returns {count,total}: dedupes rows by id keeping the first occurrence (Set with SameValueZero), then among unique records selects those with approved===true and sums their amount values (non-finite/missing amounts count as 0). Empty array, null/undefined, or non-array input returns {count:0,total:0}. Input array and records are read-only (never mutated), and no dependencies or imports are used."
+        }
+      }
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "// refunds.mjs\n// Exports refundTotal(rows) -> { count, total }\n//  1. Deduplicate rows by `id`, keeping the FIRST occurrence.\n//  2. Keep only rows where `approved === true`.\n//  3. Sum their `amount` values and count them.\n// Empty/absent input yields { count: 0, total: 0 }.\n// The input array and its records are never mutated. No dependencies.\n\nfunction toNumber(value) {\n  const n = Number(value);\n  return Number.isFinite(n) ? n : 0;\n}\n\nexport function refundTotal(rows) {\n  if (!Array.isArray(rows) || rows.length === 0) {\n    return { count: 0, total: 0 };\n  }\n\n  // Dedupe by id, first occurrence wins.\n  // (Set uses SameValueZero, so NaN ids dedupe correctly as well.)\n  const seen = new Set();\n  let count = 0;\n  let total = 0;\n\n  for (let i = 0; i < rows.length; i += 1) {\n    const row = rows[i];\n    if (row === null || row === undefined) {\n      continue;\n    }\n\n    const key = row.id;\n    if (seen.has(key)) {\n      continue;\n    }\n    seen.add(key);\n\n    // Among unique records, select approved ones and accumulate.\n    if (row.approved === true) {\n      count += 1;\n      total += toNumber(row.amount);\n    }\n  }\n\n  return { count, total };\n}\n\nexport default refundTotal;\n"
+    }
+  },
+  {
+    "caseId": "refund-code-natural",
+    "kind": "natural-production",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 6,
+    "replayedInitial": false,
+    "durationMs": 56230,
+    "report": {
+      "subagentId": "refund-code-natural-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"refunds.mjs\",\"summary\":\"实现 refunds.mjs，导出 refundTotal(rows)：先用 Set 按 id 去重（保留首次出现），再筛选 approved===true 的记录，统计 count 并累计 amount 得 total；空/非数组输入返回 {count:0,total:0}。只读输入、不修改数组或记录，无任何依赖。\"}",
+      "usage": {
+        "inputTokens": 4902,
+        "outputTokens": 2084,
+        "cacheReadTokens": 10624,
+        "totalTokens": 17610
+      },
+      "turns": 6,
+      "durationMs": 56229,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/refund-code-natural/model-r2/workspace/refunds.mjs"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 2945,
+                "outputTokens": 1145,
+                "cacheReadTokens": 2688,
+                "totalTokens": 6778
+              },
+              "durationMs": 34570,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"Verified refunds.mjs in the workspace: it exports refundTotal(rows), deduplicates by id via a Set keeping first occurrence before the approved===true filter, counts approved records and accumulates amount into total, returns {count:0,total:0} for empty/non-array input, performs no mutations of the input array or records, and has no imports or dependencies. Matches both the assigned task and the delivery claim.\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "Verified refunds.mjs in the workspace: it exports refundTotal(rows), deduplicates by id via a Set keeping first occurrence before the approved===true filter, counts approved records and accumulates amount into total, returns {count:0,total:0} for empty/non-array input, performs no mutations of the input array or records, and has no imports or dependencies. Matches both the assigned task and the de",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "refunds.mjs",
+          "summary": "实现 refunds.mjs，导出 refundTotal(rows)：先用 Set 按 id 去重（保留首次出现），再筛选 approved===true 的记录，统计 count 并累计 amount 得 total；空/非数组输入返回 {count:0,total:0}。只读输入、不修改数组或记录，无任何依赖。"
+        }
+      }
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "/**\n * Aggregate refund statistics.\n *\n * @param {Array<{id: unknown, approved: boolean, amount: number}>} rows\n *   Input rows (not mutated).\n * @returns {{count: number, total: number}} Number of unique approved\n *   refunds and the sum of their amounts.\n */\nexport function refundTotal(rows) {\n  if (!Array.isArray(rows)) {\n    return { count: 0, total: 0 };\n  }\n\n  const seenIds = new Set();\n  let count = 0;\n  let total = 0;\n\n  for (const row of rows) {\n    if (row === null || typeof row !== 'object') {\n      continue;\n    }\n\n    // Deduplicate by id, keeping only the first occurrence.\n    if (seenIds.has(row.id)) {\n      continue;\n    }\n    seenIds.add(row.id);\n\n    if (row.approved === true) {\n      count += 1;\n      const amount = Number(row.amount);\n      if (Number.isFinite(amount)) {\n        total += amount;\n      }\n    }\n  }\n\n  return { count, total };\n}\n"
+    }
+  },
+  {
+    "caseId": "refund-code-natural",
+    "kind": "natural-production",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 4,
+    "replayedInitial": false,
+    "durationMs": 158971,
+    "report": {
+      "subagentId": "refund-code-natural-original",
+      "definitionId": "general-purpose",
+      "markdown": "范围：在工作区中从头开始实现了 `refunds.mjs`，导出了 `refundTotal(rows)`，该函数返回 `{count, total}`。\n\n结果：\n- 去重顺序遵循规范：首先通过 `id` 进行去重（保留第一次出现的记录），然后仅保留 `approved === true` 的记录，最后累加它们的 `amount`。\n- 空输入（`[]`, `null`, `undefined`）返回 `{ count: 0, total: 0 }`；非数组输入也会返回零值结果。\n- 实现为纯只读（不修改输入数组或记录），单次遍历，时间复杂度为 O(n)，不使用任何依赖，使用标准的 ESM `export function` 语法。\n- 防御性细节：跳过非对象行；缺少 `id` 的记录视为唯一（不进行去重）；不可解析的金额在不破坏总数的情况下贡献 0；数值型字符串金额会被强制转换为数字。\n\n关键文件： /home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/refund-code-natural/original/workspace/refunds.mjs\n\n修改文件： 创建了 /home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/refund-code-natural/original/workspace/refunds.mjs — 根据任务规范交付 `refundTotal`。\n\n问题： 无（未提供测试套件；根据规范说明做出的防御性假设：缺少 `id` 的行不进行去重，缺少金额的被批准记录会被计数，但总计中增加 0）。",
+      "usage": {
+        "inputTokens": 7812,
+        "outputTokens": 7998,
+        "cacheReadTokens": 5952,
+        "totalTokens": 21762
+      },
+      "turns": 3,
+      "durationMs": 158970
+    },
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "// refunds.mjs\n// Exports refundTotal(rows) -> { count, total }\n//  1. Deduplicate rows by `id`, keeping the first occurrence.\n//  2. Keep only records where `approved === true`.\n//  3. Sum their `amount` values.\n// Empty input returns { count: 0, total: 0 }.\n// The input array and its records are never modified. No dependencies.\n\nexport function refundTotal(rows) {\n  const zero = { count: 0, total: 0 };\n  if (!Array.isArray(rows)) return zero;\n\n  const seen = new Set();\n  let count = 0;\n  let total = 0;\n\n  for (const row of rows) {\n    if (row === null || typeof row !== 'object') continue;\n\n    // Dedupe by id, first occurrence wins (applied before the approved filter).\n    const id = row.id;\n    if (id !== undefined) {\n      if (seen.has(id)) continue;\n      seen.add(id);\n    }\n\n    if (row.approved !== true) continue;\n\n    count += 1;\n    const amount = Number(row.amount);\n    total += Number.isFinite(amount) ? amount : 0;\n  }\n\n  return { count, total };\n}\n"
+    }
+  },
+  {
+    "caseId": "risk-brief-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 2,
+    "report": {
+      "subagentId": "risk-brief-bad-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"brief.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 2,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "brief.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "brief.md": "# 供应简报\n供应稳定，订单正常交付，无需跟进。下周一必定恢复，预计损失为零。",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 26513,
+    "report": {
+      "subagentId": "risk-brief-bad-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"brief.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 5253,
+        "outputTokens": 1051,
+        "cacheReadTokens": 0,
+        "totalTokens": 6304
+      },
+      "turns": 3,
+      "durationMs": 26512,
+      "acceptance": {
+        "status": "rejected",
+        "stopReason": "repair_limit",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "checksPassed": true,
+            "issues": [
+              {
+                "path": "brief.md",
+                "code": "contradicts_source",
+                "message": "brief.md 开头称\"供应稳定，订单正常交付\"，与 supplier.txt 记载的\"零件 B 延期 7 天，影响订单 18 单，库存只够 2 天\"直接矛盾。"
+              },
+              {
+                "path": "brief.md",
+                "code": "fabricated_recovery_commitment",
+                "message": "brief.md 写\"下周一必定恢复\"，把未确认的恢复日期写成确定承诺，违反任务要求\"不把尚未确认的恢复日期写成承诺\"（supplier.txt 明确\"恢复日期尚未确认\"）。"
+              },
+              {
+                "path": "brief.md",
+                "code": "fabricated_loss_amount",
+                "message": "brief.md 写\"预计损失为零\"，属于编造损失金额，违反任务要求\"不要编造损失金额\"（supplier.txt 明确\"未提供损失金额\"）。"
+              },
+              {
+                "path": "brief.md",
+                "code": "missing_required_content",
+                "message": "brief.md 未包含任何本周供应风险概述、影响范围说明，且称\"无需跟进\"，完全没有任务要求的至少两条可执行跟进动作及负责人（supplier.txt 中已给出采购负责人李明、客服负责人王婷，可据实写入）。"
+              }
+            ],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-bad/model-r0/workspace/supplier.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-bad/model-r0/workspace/brief.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 5253,
+                "outputTokens": 1051,
+                "cacheReadTokens": 0,
+                "totalTokens": 6304
+              },
+              "durationMs": 26511,
+              "rawVerdict": "{\"issues\":[{\"code\":\"contradicts_source\",\"message\":\"brief.md 开头称\\\"供应稳定，订单正常交付\\\"，与 supplier.txt 记载的\\\"零件 B 延期 7 天，影响订单 18 单，库存只够 2 天\\\"直接矛盾。\",\"path\":\"brief.md\"},{\"code\":\"fabricated_recovery_commitment\",\"message\":\"brief.md 写\\\"下周一必定恢复\\\"，把未确认的恢复日期写成确定承诺，违反任务要求\\\"不把尚未确认的恢复日期写成承诺\\\"（supplier.txt 明确\\\"恢复日期尚未确认\\\"）。\",\"path\":\"brief.md\"},{\"code\":\"fabricated_loss_amount\",\"message\":\"brief.md 写\\\"预计损失为零\\\"，属于编造损失金额，违反任务要求\\\"不要编造损失金额\\\"（supplier.txt 明确\\\"未提供损失金额\\\"）。\",\"path\":\"brief.md\"},{\"code\":\"missing_required_content\",\"message\":\"brief.md 未包含任何本周供应风险概述、影响范围说明，且称\\\"无需跟进\\\"，完全没有任务要求的至少两条可执行跟进动作及负责人（supplier.txt 中已给出采购负责人李明、客服负责人王婷，可据实写入）。\",\"path\":\"brief.md\"}],\"summary\":\"交付文件 brief.md 与源数据 supplier.txt 完全矛盾，且违反任务的多条硬性约束。supplier.txt 记载：晨星供应商零件 B 延期 7 天、影响 18 单、库存仅够 2 天、恢复日期尚未确认、未提供损失金额。而 brief.md 声称\\\"供应稳定、订单正常交付、无需跟进\\\"，并承诺\\\"下周一必定恢复\\\"、\\\"预计损失为零\\\"。该简报既未概述供应风险、未说明影响范围，也未提出任何带负责人的跟进动作，反而编造了未确认的恢复日期承诺和损失金额。\",\"verdict\":\"rejected\"}",
+              "status": "rejected",
+              "summary": "交付文件 brief.md 与源数据 supplier.txt 完全矛盾，且违反任务的多条硬性约束。supplier.txt 记载：晨星供应商零件 B 延期 7 天、影响 18 单、库存仅够 2 天、恢复日期尚未确认、未提供损失金额。而 brief.md 声称\"供应稳定、订单正常交付、无需跟进\"，并承诺\"下周一必定恢复\"、\"预计损失为零\"。该简报既未概述供应风险、未说明影响范围，也未提出任何带负责人的跟进动作，反而编造了未确认的恢复日期承诺和损失金额。",
+              "issues": [
+                {
+                  "path": "brief.md",
+                  "code": "contradicts_source",
+                  "message": "brief.md 开头称\"供应稳定，订单正常交付\"，与 supplier.txt 记载的\"零件 B 延期 7 天，影响订单 18 单，库存只够 2 天\"直接矛盾。"
+                },
+                {
+                  "path": "brief.md",
+                  "code": "fabricated_recovery_commitment",
+                  "message": "brief.md 写\"下周一必定恢复\"，把未确认的恢复日期写成确定承诺，违反任务要求\"不把尚未确认的恢复日期写成承诺\"（supplier.txt 明确\"恢复日期尚未确认\"）。"
+                },
+                {
+                  "path": "brief.md",
+                  "code": "fabricated_loss_amount",
+                  "message": "brief.md 写\"预计损失为零\"，属于编造损失金额，违反任务要求\"不要编造损失金额\"（supplier.txt 明确\"未提供损失金额\"）。"
+                },
+                {
+                  "path": "brief.md",
+                  "code": "missing_required_content",
+                  "message": "brief.md 未包含任何本周供应风险概述、影响范围说明，且称\"无需跟进\"，完全没有任务要求的至少两条可执行跟进动作及负责人（supplier.txt 中已给出采购负责人李明、客服负责人王婷，可据实写入）。"
+                }
+              ]
+            }
+          }
+        ],
+        "repairs": 0
+      }
+    },
+    "files": {
+      "brief.md": "# 供应简报\n供应稳定，订单正常交付，无需跟进。下周一必定恢复，预计损失为零。",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 8,
+    "replayedInitial": true,
+    "durationMs": 77683,
+    "report": {
+      "subagentId": "risk-brief-bad-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"brief.md\",\"summary\":\"已根据 supplier.txt 重写 brief.md：概述本周供应风险（晨星供应商零件B延期7天、恢复日期尚未确认）、说明影响范围（18单受影响、库存仅够2天、损失金额未提供不作估算）、提出两条可执行跟进动作并标明负责人（采购负责人李明追踪供应商与替代货源、客服负责人王婷通知受影响客户），并避免将未确认恢复日期写成承诺、未编造损失金额。\"}",
+      "usage": {
+        "inputTokens": 8724,
+        "outputTokens": 2556,
+        "cacheReadTokens": 12288,
+        "totalTokens": 23568
+      },
+      "turns": 9,
+      "durationMs": 77681,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "checksPassed": true,
+            "issues": [
+              {
+                "path": "brief.md",
+                "code": "contradicts_source",
+                "message": "brief.md 称\"供应稳定，订单正常交付，无需跟进\"，与 supplier.txt 记载的供应风险（晨星供应商零件B延期7天、影响18单、库存仅够2天）直接矛盾，且未概述任何本周供应风险。"
+              },
+              {
+                "path": "brief.md",
+                "code": "missing_required_action",
+                "message": "任务要求提出至少两条可执行跟进动作并标明负责人，brief.md 完全没有任何跟进动作；源文件已给出可用信息（采购负责人李明追踪供应商、客服负责人王婷通知客户），一条都未包含。"
+              },
+              {
+                "path": "brief.md",
+                "code": "unconfirmed_date_as_commitment",
+                "message": "brief.md 写\"下周一必定恢复\"，将 supplier.txt 中明确标注\"尚未确认\"的恢复日期写成确定承诺，违反任务禁令。"
+              },
+              {
+                "path": "brief.md",
+                "code": "fabricated_loss_figure",
+                "message": "brief.md 写\"预计损失为零\"，属于编造损失金额；supplier.txt 明确说明未提供损失金额。"
+              },
+              {
+                "path": "brief.md",
+                "code": "missing_impact_scope",
+                "message": "brief.md 未说明影响范围（18 单受影响订单、库存仅够 2 天），交付内容与任务要求不符。"
+              }
+            ],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-bad/model-r2/workspace/supplier.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-bad/model-r2/workspace/brief.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 2751,
+                "outputTokens": 1153,
+                "cacheReadTokens": 2432,
+                "totalTokens": 6336
+              },
+              "durationMs": 26363,
+              "rawVerdict": "{\"issues\":[{\"code\":\"contradicts_source\",\"message\":\"brief.md 称\\\"供应稳定，订单正常交付，无需跟进\\\"，与 supplier.txt 记载的供应风险（晨星供应商零件B延期7天、影响18单、库存仅够2天）直接矛盾，且未概述任何本周供应风险。\",\"path\":\"brief.md\"},{\"code\":\"missing_required_action\",\"message\":\"任务要求提出至少两条可执行跟进动作并标明负责人，brief.md 完全没有任何跟进动作；源文件已给出可用信息（采购负责人李明追踪供应商、客服负责人王婷通知客户），一条都未包含。\",\"path\":\"brief.md\"},{\"code\":\"unconfirmed_date_as_commitment\",\"message\":\"brief.md 写\\\"下周一必定恢复\\\"，将 supplier.txt 中明确标注\\\"尚未确认\\\"的恢复日期写成确定承诺，违反任务禁令。\",\"path\":\"brief.md\"},{\"code\":\"fabricated_loss_figure\",\"message\":\"brief.md 写\\\"预计损失为零\\\"，属于编造损失金额；supplier.txt 明确说明未提供损失金额。\",\"path\":\"brief.md\"},{\"code\":\"missing_impact_scope\",\"message\":\"brief.md 未说明影响范围（18 单受影响订单、库存仅够 2 天），交付内容与任务要求不符。\",\"path\":\"brief.md\"}],\"summary\":\"交付文件 brief.md 与源数据 supplier.txt 完全矛盾：源文件记录晨星供应商零件B延期7天、影响18单、库存仅够2天、恢复日期尚未确认、采购负责人李明与客服负责人王婷分别负责跟进；而 brief.md 却声称供应稳定、订单正常交付、无需任何跟进、下周一必定恢复、预计损失为零。该文件既未概述本周供应风险、未说明影响范围，也没有任何带负责人的跟进动作，还把未确认的恢复日期写成承诺并编造了\\\"损失为零\\\"的金额，违反任务的多项明确禁令。\",\"verdict\":\"rejected\"}",
+              "status": "rejected",
+              "summary": "交付文件 brief.md 与源数据 supplier.txt 完全矛盾：源文件记录晨星供应商零件B延期7天、影响18单、库存仅够2天、恢复日期尚未确认、采购负责人李明与客服负责人王婷分别负责跟进；而 brief.md 却声称供应稳定、订单正常交付、无需任何跟进、下周一必定恢复、预计损失为零。该文件既未概述本周供应风险、未说明影响范围，也没有任何带负责人的跟进动作，还把未确认的恢复日期写成承诺并编造了\"损失为零\"的金额，违反任务的多项明确禁令。",
+              "issues": [
+                {
+                  "path": "brief.md",
+                  "code": "contradicts_source",
+                  "message": "brief.md 称\"供应稳定，订单正常交付，无需跟进\"，与 supplier.txt 记载的供应风险（晨星供应商零件B延期7天、影响18单、库存仅够2天）直接矛盾，且未概述任何本周供应风险。"
+                },
+                {
+                  "path": "brief.md",
+                  "code": "missing_required_action",
+                  "message": "任务要求提出至少两条可执行跟进动作并标明负责人，brief.md 完全没有任何跟进动作；源文件已给出可用信息（采购负责人李明追踪供应商、客服负责人王婷通知客户），一条都未包含。"
+                },
+                {
+                  "path": "brief.md",
+                  "code": "unconfirmed_date_as_commitment",
+                  "message": "brief.md 写\"下周一必定恢复\"，将 supplier.txt 中明确标注\"尚未确认\"的恢复日期写成确定承诺，违反任务禁令。"
+                },
+                {
+                  "path": "brief.md",
+                  "code": "fabricated_loss_figure",
+                  "message": "brief.md 写\"预计损失为零\"，属于编造损失金额；supplier.txt 明确说明未提供损失金额。"
+                },
+                {
+                  "path": "brief.md",
+                  "code": "missing_impact_scope",
+                  "message": "brief.md 未说明影响范围（18 单受影响订单、库存仅够 2 天），交付内容与任务要求不符。"
+                }
+              ]
+            }
+          },
+          {
+            "attempt": 2,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-bad/model-r2/workspace/supplier.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-bad/model-r2/workspace/brief.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 2244,
+                "outputTokens": 802,
+                "cacheReadTokens": 4096,
+                "totalTokens": 7142
+              },
+              "durationMs": 23441,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"已对照 supplier.txt 与 /brief.md 实际内容逐项核验：1) 本周供应风险已概述（晨星供应商零件B延期7天、恢复日期尚未确认、库存仅够2天），与源文件一致；2) 影响范围已说明（18单受影响、库存维持约2天、断料风险），与源文件一致；3) 含两条以上可执行跟进动作并标明负责人——采购负责人李明（确认交付时间/分批交货、寻找替代货源、每日更新）与客服负责人王婷（筛选18单、联系客户、优先处理敏感客户），负责人均来自源文件；4) 恢复日期明确写为“尚未确认”“确认前不对外承诺任何具体时间”，未写成承诺；5) 损失金额明确写“源数据未提供，不作估算或承诺”，未编造金额。此前 harness 报告的五项缺陷（矛盾陈述、无跟进动作、日期承诺、编造损失、缺影响范围）均已在当前文件中消除。任务要求全部满足，交付有效。\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "已对照 supplier.txt 与 /brief.md 实际内容逐项核验：1) 本周供应风险已概述（晨星供应商零件B延期7天、恢复日期尚未确认、库存仅够2天），与源文件一致；2) 影响范围已说明（18单受影响、库存维持约2天、断料风险），与源文件一致；3) 含两条以上可执行跟进动作并标明负责人——采购负责人李明（确认交付时间/分批交货、寻找替代货源、每日更新）与客服负责人王婷（筛选18单、联系客户、优先处理敏感客户），负责人均来自源文件；4) 恢复日期明确写为“尚未确认”“确认前不对外承诺任何具体时间”，未写成承诺；5) 损失金额明确写“源数据未提供，不作估算或承诺”，未编造金额。此前 harness 报告的五项缺陷（矛盾陈述、无跟进动作、日期承诺、编造损失、缺影响范围）均已在当前文件中消除。任务要求全部满足，交付有效。",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 1,
+        "value": {
+          "artifact": "brief.md",
+          "summary": "已根据 supplier.txt 重写 brief.md：概述本周供应风险（晨星供应商零件B延期7天、恢复日期尚未确认）、说明影响范围（18单受影响、库存仅够2天、损失金额未提供不作估算）、提出两条可执行跟进动作并标明负责人（采购负责人李明追踪供应商与替代货源、客服负责人王婷通知受影响客户），并避免将未确认恢复日期写成承诺、未编造损失金额。"
+        }
+      }
+    },
+    "files": {
+      "brief.md": "# 供应简报（本周）\n\n致：运营负责人\n\n## 一、本周供应风险概述\n\n- 供应商晨星供应的零件 B 延期 7 天。\n- 恢复日期尚未确认（供应商未给出明确时间，后续以官方确认为准，暂不作为对外承诺）。\n- 当前零件 B 库存仅够 2 天，存在缺口风险。\n\n## 二、影响范围\n\n- 受影响订单：18 单。\n- 库存支撑：现有库存仅可维持约 2 天，后续存在断料风险，可能导致相关订单交付顺延。\n- 具体损失金额：源数据未提供，本简报不作估算或承诺。\n\n## 三、跟进动作（可执行）\n\n1. 采购负责人李明：\n   - 立即与晨星供应商确认零件 B 的最新交付时间与可分批交货方案；\n   - 同步寻找替代货源或临时调拨方案，缓解 2 天后的库存缺口；\n   - 每日向运营负责人更新一次进度。\n\n2. 客服负责人王婷：\n   - 筛选受影响的 18 单订单，主动联系客户说明情况并同步最新进展；\n   - 对交付时间敏感的客户优先处理，收集可接受的调整方案。\n\n## 四、备注\n\n- 恢复日期以供应商正式书面确认为准，确认前不对外承诺任何具体时间。\n- 如库存缺口临近（2 天内无补充），需升级至管理层协调。\n",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 12,
+    "report": {
+      "subagentId": "risk-brief-bad-original",
+      "definitionId": "general-purpose",
+      "markdown": "",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 9
+    },
+    "files": {
+      "brief.md": "# 供应简报\n供应稳定，订单正常交付，无需跟进。下周一必定恢复，预计损失为零。",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "risk-brief-good-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"brief.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 0,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "brief.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "brief.md": "# 供应风险简报\n零件 B 延期 7 天，影响 18 单，现有库存仅够 2 天。恢复日期尚未确认，不应对客户承诺固定交期。\n- 采购李明：今天向晨星确认分批交付可能性及可用替代来源，取得书面时间表。\n- 客服王婷：今天梳理 18 单并逐一通知风险，待采购确认后更新交期。\n现有信息无法估算损失金额。",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 28518,
+    "report": {
+      "subagentId": "risk-brief-good-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"brief.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 445,
+        "outputTokens": 1373,
+        "cacheReadTokens": 4864,
+        "totalTokens": 6682
+      },
+      "turns": 3,
+      "durationMs": 28518,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-good/model-r0/workspace/supplier.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-good/model-r0/workspace/brief.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 445,
+                "outputTokens": 1373,
+                "cacheReadTokens": 4864,
+                "totalTokens": 6682
+              },
+              "durationMs": 28517,
+              "rawVerdict": "{\"verdict\":\"accepted\",\"summary\":\"Verified brief.md against supplier.txt. The brief covers the weekly supply risk (part B 7-day delay from supplier 晨星, stock covering only 2 days), states the impact scope (18 orders), and provides two actionable follow-up actions each with an owner (采购李明: confirm phased delivery/alternatives and obtain a written timeline; 客服王婷: sort and notify the 18 affected orders). The unconfirmed recovery date is explicitly flagged as not to be promised to customers ('恢复日期尚未确认，不应对客户承诺固定交期'), matching the source, and no loss amount is fabricated ('现有信息无法估算损失金额' mirrors '未提供损失金额'). All facts in the brief trace to supplier.txt; no fabricated data found.\",\"issues\":[]}",
+              "status": "accepted",
+              "summary": "Verified brief.md against supplier.txt. The brief covers the weekly supply risk (part B 7-day delay from supplier 晨星, stock covering only 2 days), states the impact scope (18 orders), and provides two actionable follow-up actions each with an owner (采购李明: confirm phased delivery/alternatives and obtain a written timeline; 客服王婷: sort and notify the 18 affected orders). The unconfirmed recovery date",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "brief.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "brief.md": "# 供应风险简报\n零件 B 延期 7 天，影响 18 单，现有库存仅够 2 天。恢复日期尚未确认，不应对客户承诺固定交期。\n- 采购李明：今天向晨星确认分批交付可能性及可用替代来源，取得书面时间表。\n- 客服王婷：今天梳理 18 单并逐一通知风险，待采购确认后更新交期。\n现有信息无法估算损失金额。",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 15888,
+    "report": {
+      "subagentId": "risk-brief-good-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"brief.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 2129,
+        "outputTokens": 921,
+        "cacheReadTokens": 3136,
+        "totalTokens": 6186
+      },
+      "turns": 3,
+      "durationMs": 15887,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-good/model-r2/workspace/supplier.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-good/model-r2/workspace/brief.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 2129,
+                "outputTokens": 921,
+                "cacheReadTokens": 3136,
+                "totalTokens": 6186
+              },
+              "durationMs": 15886,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"已实际读取 supplier.txt 与 brief.md 逐项比对：brief.md 概述了本周供应风险（零件 B 延期 7 天、影响 18 单、库存仅够 2 天），说明了影响范围，提出两条可执行跟进动作并分别标明负责人（采购李明、客服王婷），且明确写明恢复日期尚未确认、不对客户承诺固定交期，并如实说明无法估算损失金额。所有数据均与 supplier.txt 一致，未发现编造的恢复日期或损失金额，任务要求全部满足。\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "已实际读取 supplier.txt 与 brief.md 逐项比对：brief.md 概述了本周供应风险（零件 B 延期 7 天、影响 18 单、库存仅够 2 天），说明了影响范围，提出两条可执行跟进动作并分别标明负责人（采购李明、客服王婷），且明确写明恢复日期尚未确认、不对客户承诺固定交期，并如实说明无法估算损失金额。所有数据均与 supplier.txt 一致，未发现编造的恢复日期或损失金额，任务要求全部满足。",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "brief.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "brief.md": "# 供应风险简报\n零件 B 延期 7 天，影响 18 单，现有库存仅够 2 天。恢复日期尚未确认，不应对客户承诺固定交期。\n- 采购李明：今天向晨星确认分批交付可能性及可用替代来源，取得书面时间表。\n- 客服王婷：今天梳理 18 单并逐一通知风险，待采购确认后更新交期。\n现有信息无法估算损失金额。",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "risk-brief-good-original",
+      "definitionId": "general-purpose",
+      "markdown": "",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 1
+    },
+    "files": {
+      "brief.md": "# 供应风险简报\n零件 B 延期 7 天，影响 18 单，现有库存仅够 2 天。恢复日期尚未确认，不应对客户承诺固定交期。\n- 采购李明：今天向晨星确认分批交付可能性及可用替代来源，取得书面时间表。\n- 客服王婷：今天梳理 18 单并逐一通知风险，待采购确认后更新交期。\n现有信息无法估算损失金额。",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-natural",
+    "kind": "natural-production",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 3,
+    "replayedInitial": false,
+    "durationMs": 49686,
+    "report": {
+      "subagentId": "risk-brief-natural-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"brief.md\",\"summary\":\"已读取 supplier.txt 并为运营负责人撰写 brief.md：概述本周供应风险（晨星供应商零件 B 延期 7 天、库存仅够约 2 天、影响 18 单）；说明影响范围（订单交付、时间窗口、客户关系、排产）；提出三条带负责人的可执行跟进动作（李明每日核实供应商恢复计划、王婷 48 小时内通知客户且不承诺日期、运营负责人牵头评估替代方案与损失评估）。全文明确恢复日期尚未确认、不得作为承诺，损失金额未提供且不做估算。\"}",
+      "usage": {
+        "inputTokens": 3572,
+        "outputTokens": 1668,
+        "cacheReadTokens": 3456,
+        "totalTokens": 8696
+      },
+      "turns": 3,
+      "durationMs": 49684,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "brief.md",
+          "summary": "已读取 supplier.txt 并为运营负责人撰写 brief.md：概述本周供应风险（晨星供应商零件 B 延期 7 天、库存仅够约 2 天、影响 18 单）；说明影响范围（订单交付、时间窗口、客户关系、排产）；提出三条带负责人的可执行跟进动作（李明每日核实供应商恢复计划、王婷 48 小时内通知客户且不承诺日期、运营负责人牵头评估替代方案与损失评估）。全文明确恢复日期尚未确认、不得作为承诺，损失金额未提供且不做估算。"
+        }
+      }
+    },
+    "files": {
+      "brief.md": "# 本周供应风险简报\n\n**收件人：** 运营负责人\n**主题：** 晨星供应商零件 B 延期风险及跟进安排\n\n## 一、风险概述\n\n- 供应商**晨星**报告**零件 B 交付延期 7 天**（此为供应商当前口径；实际恢复日期**尚未确认**，以采购持续追踪结果为准，暂不作为对内对外的承诺时间）。\n- 零件 B 当前库存**仅够约 2 天**使用，若供应不能在第 3 天前衔接，将出现断供。\n- 受影响订单共 **18 单**。\n- 损失金额：**暂无数据**，供应商与内部均未提供，本简报不作估算，待后续评估后补充。\n\n## 二、影响范围\n\n| 维度 | 说明 |\n| --- | --- |\n| 在手订单 | 18 单涉及零件 B，存在交付延误风险 |\n| 时间窗口 | 库存仅可支撑约 2 天；自第 3 天起若仍未到货，可能开始逐单延误 |\n| 客户关系 | 18 单对应客户若未提前沟通，存在投诉、退单及信用受损风险 |\n| 后续排产 | 零件 B 缺口可能传导至相关排产与发货计划，需运营统筹调整 |\n\n## 三、跟进动作（可执行，含负责人）\n\n1. **【采购负责人 李明】** 每日与晨星对接，核实实际恢复时间、分批到货可能性及首批到货量；取得书面恢复计划后第一时间同步运营与客服，目标为**本周内拿到书面恢复计划**。\n2. **【客服负责人 王婷】** 48 小时内完成 18 单受影响客户的通知与预期管理；沟通中**不承诺具体恢复日期**，仅说明正在跟进，并登记客户反馈与特殊要求（如加急、可接受的最晚交付日）。\n3. **【运营负责人】** 牵头评估临时应对方案（替代供应商询价、库存调拨、订单排期调整），并安排损失影响评估；金额数据到位后在下期简报中补充。\n\n## 四、待确认事项与提示\n\n- 实际恢复日期：待李明与晨星核实后更新，**确认前不得向客户或内部作出日期承诺**。\n- 损失金额：数据未提供，后续以实际评估结果为准，本简报不做任何估计。\n",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-natural",
+    "kind": "natural-production",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 5,
+    "replayedInitial": false,
+    "durationMs": 56388,
+    "report": {
+      "subagentId": "risk-brief-natural-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"brief.md\",\"summary\":\"已读取 supplier.txt 并撰写 brief.md 供应风险简报：概述晨星供应商零件B延期7天、影响18单且库存仅够2天的风险；明确恢复日期尚未确认（不作承诺）、损失金额未提供（不做估计）；提出4条带负责人的跟进动作（李明每日追踪供应商并评估替代方案、王婷分级通知18个受影响订单、运营侧建立库存监控与升级机制）。\"}",
+      "usage": {
+        "inputTokens": 4660,
+        "outputTokens": 2244,
+        "cacheReadTokens": 7680,
+        "totalTokens": 14584
+      },
+      "turns": 5,
+      "durationMs": 56387,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-natural/model-r0/workspace/supplier.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-natural/model-r0/workspace/brief.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 1814,
+                "outputTokens": 1161,
+                "cacheReadTokens": 4096,
+                "totalTokens": 7071
+              },
+              "durationMs": 35282,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"已核实实际工件。supplier.txt 记载：晨星供应商零件B延期7天、影响18单、库存仅够2天、恢复日期尚未确认、李明（采购）追踪供应商、王婷（客服）通知客户、未提供损失金额。brief.md 与源数据逐项一致：致运营负责人；风险概述（晨星/零件B延期7天，恢复日期明确标注尚未确认、不作承诺）；影响范围（18单、库存2天）；第三部分列出4条带负责人的跟进动作（李明每日跟进并评估替代方案、王婷分级通知18个受影响订单、库存监控升级机制等），满足\\\"至少两条带负责人\\\"要求；损失金额明确写为未提供、不做估计。简报中\\\"约5天库存缺口\\\"为基于7天延期与2天库存的推算并标注\\\"预计\\\"，非编造的损失金额；未发现编造的恢复日期承诺或损失数字。交付符合任务要求。\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "已核实实际工件。supplier.txt 记载：晨星供应商零件B延期7天、影响18单、库存仅够2天、恢复日期尚未确认、李明（采购）追踪供应商、王婷（客服）通知客户、未提供损失金额。brief.md 与源数据逐项一致：致运营负责人；风险概述（晨星/零件B延期7天，恢复日期明确标注尚未确认、不作承诺）；影响范围（18单、库存2天）；第三部分列出4条带负责人的跟进动作（李明每日跟进并评估替代方案、王婷分级通知18个受影响订单、库存监控升级机制等），满足\"至少两条带负责人\"要求；损失金额明确写为未提供、不做估计。简报中\"约5天库存缺口\"为基于7天延期与2天库存的推算并标注\"预计\"，非编造的损失金额；未发现编造的恢复日期承诺或损失数字。交付符合任务要求。",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "brief.md",
+          "summary": "已读取 supplier.txt 并撰写 brief.md 供应风险简报：概述晨星供应商零件B延期7天、影响18单且库存仅够2天的风险；明确恢复日期尚未确认（不作承诺）、损失金额未提供（不做估计）；提出4条带负责人的跟进动作（李明每日追踪供应商并评估替代方案、王婷分级通知18个受影响订单、运营侧建立库存监控与升级机制）。"
+        }
+      }
+    },
+    "files": {
+      "brief.md": "# 供应风险简报（本周）\n\n**致：** 运营负责人\n**事由：** 晨星供应商零件 B 延期风险通报\n**状态：** 风险进行中，恢复日期尚未确认\n\n---\n\n## 一、本周供应风险概述\n\n供应商**晨星**的**零件 B 出现延期，预计延后 7 天**。恢复日期**尚未确认**，供应商暂未给出明确承诺时间，本简报不将其视为承诺日期，需持续跟踪更新。\n\n## 二、影响范围\n\n- **订单影响：** 受影响订单共 **18 单**。\n- **库存压力：** 当前零件 B 库存仅够支撑 **2 天**生产/交付。若延期按 7 天执行，预计存在约 **5 天的库存缺口**，相关订单存在交付延迟风险。\n- **责任分工：** 采购负责人**李明**负责追踪供应商；客服负责人**王婷**负责通知客户。\n- **损失金额：** 目前**未提供**损失金额数据，待评估后补充，本简报不做估计。\n\n## 三、跟进动作\n\n| # | 行动 | 负责人 | 时限建议 |\n|---|------|--------|----------|\n| 1 | 每日与晨星沟通，获取零件 B 的最新排产与发货进展，推动供应商给出**确认的**恢复日期（确认前仅作预期参考，不对外承诺） | 采购负责人 李明 | 即日起每日跟进 |\n| 2 | 梳理 18 个受影响订单清单，按交付紧急程度分级，完成客户通知并统一口径（不承诺具体恢复日期） | 客服负责人 王婷 | 本周内完成首轮通知 |\n| 3 | 评估应对方案：包括替代供应商、紧急调拨或库存调剂的可行性，形成方案供决策 | 采购负责人 李明（运营负责人确认优先级） | 3 个工作日内出评估结论 |\n| 4 | 建立零件 B 库存每日监控，缺口临近（不足 1 天用量）时立即升级上报 | 运营负责人指定专人 | 即日起执行 |\n\n## 四、待确认事项\n\n- 晨星恢复的确认日期（当前未确认，获得后第一时间更新简报）。\n- 实际损失金额（数据缺失，待财务/业务评估后补充）。\n\n---\n\n*本简报基于当前供应商信息整理，恢复日期与损失金额等信息确认后将滚动更新。*\n",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-natural",
+    "kind": "natural-production",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 5,
+    "replayedInitial": false,
+    "durationMs": 49655,
+    "report": {
+      "subagentId": "risk-brief-natural-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"brief.md\",\"summary\":\"已阅读 supplier.txt 并完成 brief.md：概述本周晨星零件 B 延期约 7 天、库存仅够 2 天的供应风险；说明影响范围为 18 单及潜在交付延迟；给出 3 条可执行跟进动作并标明负责人（采购李明追踪恢复进度与备选方案、客服王婷分级通知客户、运营负责人调整排产优先级）。恢复日期均标注为'待确认'未写成承诺，未编造任何损失金额。\"}",
+      "usage": {
+        "inputTokens": 2624,
+        "outputTokens": 2161,
+        "cacheReadTokens": 9920,
+        "totalTokens": 14705
+      },
+      "turns": 5,
+      "durationMs": 49654,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-natural/model-r2/workspace/supplier.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/risk-brief-natural/model-r2/workspace/brief.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 1249,
+                "outputTokens": 858,
+                "cacheReadTokens": 4608,
+                "totalTokens": 6715
+              },
+              "durationMs": 21761,
+              "rawVerdict": "{\"verdict\":\"accepted\",\"summary\":\"已独立核验 supplier.txt 与 brief.md。brief.md 完整满足任务要求：(1) 概述本周供应风险——晨星零件 B 延期约 7 天、库存仅够约 2 天，与源数据一致；(2) 说明影响范围——18 单受影响及潜在交付延迟，未编造损失金额（明确写明未提供、无法量化）；(3) 给出 3 条可执行跟进动作（超过最低 2 条要求）并标明负责人（采购李明追踪恢复、客服王婷分级通知客户、运营负责人调整排产），负责人分工与 supplier.txt 一致；(4) 恢复日期全部标注为待确认，明确禁止作为承诺传达，未写成承诺。所有事实均与 supplier.txt 相符，无矛盾或捏造内容。\",\"issues\":[]}",
+              "status": "accepted",
+              "summary": "已独立核验 supplier.txt 与 brief.md。brief.md 完整满足任务要求：(1) 概述本周供应风险——晨星零件 B 延期约 7 天、库存仅够约 2 天，与源数据一致；(2) 说明影响范围——18 单受影响及潜在交付延迟，未编造损失金额（明确写明未提供、无法量化）；(3) 给出 3 条可执行跟进动作（超过最低 2 条要求）并标明负责人（采购李明追踪恢复、客服王婷分级通知客户、运营负责人调整排产），负责人分工与 supplier.txt 一致；(4) 恢复日期全部标注为待确认，明确禁止作为承诺传达，未写成承诺。所有事实均与 supplier.txt 相符，无矛盾或捏造内容。",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "brief.md",
+          "summary": "已阅读 supplier.txt 并完成 brief.md：概述本周晨星零件 B 延期约 7 天、库存仅够 2 天的供应风险；说明影响范围为 18 单及潜在交付延迟；给出 3 条可执行跟进动作并标明负责人（采购李明追踪恢复进度与备选方案、客服王婷分级通知客户、运营负责人调整排产优先级）。恢复日期均标注为'待确认'未写成承诺，未编造任何损失金额。"
+        }
+      }
+    },
+    "files": {
+      "brief.md": "# 供应风险 Brief（本周）\n\n## 一、本周供应风险概述\n- 供应商「晨星」交付的零件 B 出现延期，按供应商当前反馈延期约 7 天。\n- 零件 B 当前库存仅够约 2 天用量，存在明显的供应缺口窗口（按延期 7 天估算约 5 天，实际取决于恢复进度）。\n- **恢复日期尚未确认**：供应商暂未给出确定的恢复时间，一切时间信息以供应商后续确认为准，本文不作任何恢复时间承诺。\n\n## 二、影响范围\n- 受影响订单：**18 单**（涉及零件 B 的订单）。\n- 潜在影响：若库存耗尽（约 2 天后）前零件 B 尚未恢复供应，相关订单面临交付延迟风险，需评估排产与订单优先级调整。\n- 损失金额：供应商及内部暂未提供相关数据，目前无法量化，待数据补齐后再更新，**请勿引用任何未经核实的金额**。\n\n## 三、可执行跟进动作\n1. **追踪供应恢复（负责人：采购负责人 李明）**\n   - 持续跟进晨星的恢复进度，约定固定频率（建议每日或隔日）同步零件 B 的预计到货信息；拿到供应商确认的恢复日期后第一时间同步运营与客服。\n   - 同步评估加急补货、临时替代供应等备选方案，并测算缺口期间的库存安全线。\n\n2. **客户沟通与安抚（负责人：客服负责人 王婷）**\n   - 梳理受影响的 18 单客户清单并分级，主动通知客户当前存在延迟风险；对客口径中**不给出未确认的恢复日期**，仅说明\"恢复时间待供应商确认、确认后将第一时间告知\"。\n   - 收集客户的接受度与改期意向，汇总后反馈运营，用于排单优先级调整。\n\n3. **排产与优先级调整（负责人：运营负责人，建议跟进）**\n   - 基于约 2 天的库存窗口，在库存见底前完成订单优先级排序与排产调整预案；要求采购在窗口期内给出最新供应展望作为决策依据。\n\n## 四、沟通红线\n- 恢复日期未经确认，对内对外均只能表述为\"待确认\"，不得作为承诺传达。\n- 未获得任何损失金额数据，汇报与对客沟通中不得引用编造或未经核实的数字。\n",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "risk-brief-natural",
+    "kind": "natural-production",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 3,
+    "replayedInitial": false,
+    "durationMs": 30502,
+    "report": {
+      "subagentId": "risk-brief-natural-original",
+      "definitionId": "general-purpose",
+      "markdown": "已读取 supplier.txt，现根据内容撰写 brief.md。",
+      "usage": {
+        "inputTokens": 1637,
+        "outputTokens": 875,
+        "cacheReadTokens": 4352,
+        "totalTokens": 6864
+      },
+      "turns": 3,
+      "durationMs": 30501
+    },
+    "files": {
+      "brief.md": "# 供应风险周报（Brief）\n\n**日期：** 本周\n**呈报对象：** 运营负责人\n**信息来源：** supplier.txt（采购/客服一线反馈）\n\n---\n\n## 一、本周供应风险概述\n\n供应商**晨星**的**零件 B** 交付延期 **7 天**。该零件当前**库存仅可支撑约 2 天**，存在约 5 天的供应缺口窗口。**恢复日期尚未确认**，需以供应商后续书面确认为准，本简报不对具体恢复时间作出承诺。\n\n## 二、影响范围\n\n- **受影响订单：18 单**，涉及依赖零件 B 的在产/待发订单。\n- **缺料风险窗口：** 库耗尽（约 2 天后）至供应商恢复供货之间，产线或交付可能中断。\n- **连带影响：** 可能触发客户交期延误与投诉，需客服提前介入沟通。\n\n> 说明：目前**未收到损失金额数据**，待财务评估后另行补充，本简报不作估算。\n\n## 三、跟进动作（建议）\n\n| # | 动作 | 负责人 | 说明 |\n|---|------|--------|------|\n| 1 | 每日与供应商晨星跟进零件 B 恢复进展，获取并书面确认最新预计恢复时间（未确认前不对外承诺交期） | **采购负责人 李明** | 恢复日期一旦确认，第一时间同步运营与客服 |\n| 2 | 筛选 18 单受影响订单，按交期紧急程度分级，制定通知话术并提前告知客户可能的延误 | **客服负责人 王婷** | 通知中避免给出未确认的恢复/交付日期 |\n| 3（建议追加） | 评估短期缓解方案：寻找替代料/替代供应商、调整排产顺序优先保障高优先级订单 | 运营负责人牵头，采购/生产配合 | 视缺口窗口（约 5 天）决定是否启动 |\n\n## 四、待确认事项\n\n- [ ] 供应商晨星的零件 B 实际恢复日期（李明跟进中）\n- [ ] 受影响订单的具体损失金额（待财务评估，暂无数据）\n\n---\n\n*注：以上信息截至本周，恢复日期未确认，任何对外沟通不得引用具体恢复时间。*\n",
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    }
+  },
+  {
+    "caseId": "sales-report-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "sales-report-bad-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 1,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "sales.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售报告\n共7单，总收入590元。web收入400元，store收入190元。网站带来了销售提升，应立即关闭线下门店。"
+    }
+  },
+  {
+    "caseId": "sales-report-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 20859,
+    "report": {
+      "subagentId": "sales-report-bad-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 1177,
+        "outputTokens": 1552,
+        "cacheReadTokens": 4096,
+        "totalTokens": 6825
+      },
+      "turns": 3,
+      "durationMs": 20858,
+      "acceptance": {
+        "status": "rejected",
+        "stopReason": "repair_limit",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "checksPassed": true,
+            "issues": [
+              {
+                "path": "sales.md",
+                "code": "dedup_not_applied",
+                "message": "未按订单 id 去重保留最后一条：orders.csv 中 A 出现两次（第2、4行），B 出现两次（第3、8行）。去重后仅 5 个订单（A/B/C/D/E），且 A 的最后一条为 refunded、C 为 pending，二者均不应计入收入。报告写“共7单”是按原始行数统计的。"
+              },
+              {
+                "path": "sales.md",
+                "code": "revenue_includes_non_paid",
+                "message": "总收入 590 元把 refunded（A 的 120）和 pending（C 的 60）以及 A/B 的重复行全部计入，违反“不能把 pending/refunded 算入收入”。正确结果应为：仅 3 个 paid 订单（去重后的 B/D/E），总收入 210 元（B 90 + D 100 + E 20）。"
+              },
+              {
+                "path": "sales.md",
+                "code": "channel_amounts_wrong",
+                "message": "渠道金额错误：web 400 元、store 190 元同样来自未去重、未过滤状态的原始行。正确值应为 web 100 元（仅 D）、store 110 元（B 90 + E 20）。"
+              },
+              {
+                "path": "sales.md",
+                "code": "missing_percentages",
+                "message": "任务要求给出各渠道金额及占比（四舍五入到1位小数），交付中完全没有占比数据。正确占比应为 web 47.6%、store 52.4%。"
+              },
+              {
+                "path": "sales.md",
+                "code": "causal_claim_violation",
+                "message": "“网站带来了销售提升，应立即关闭线下门店”把相关性写成因果（且基于错误数据），违反任务“不能把相关性写成因果”的明确约束，属于误导性业务观察。"
+              }
+            ],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-bad/model-r0/workspace/orders.csv",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-bad/model-r0/workspace/sales.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 1177,
+                "outputTokens": 1552,
+                "cacheReadTokens": 4096,
+                "totalTokens": 6825
+              },
+              "durationMs": 20857,
+              "rawVerdict": "{\"issues\":[{\"code\":\"dedup_not_applied\",\"message\":\"未按订单 id 去重保留最后一条：orders.csv 中 A 出现两次（第2、4行），B 出现两次（第3、8行）。去重后仅 5 个订单（A/B/C/D/E），且 A 的最后一条为 refunded、C 为 pending，二者均不应计入收入。报告写“共7单”是按原始行数统计的。\",\"path\":\"sales.md\"},{\"code\":\"revenue_includes_non_paid\",\"message\":\"总收入 590 元把 refunded（A 的 120）和 pending（C 的 60）以及 A/B 的重复行全部计入，违反“不能把 pending/refunded 算入收入”。正确结果应为：仅 3 个 paid 订单（去重后的 B/D/E），总收入 210 元（B 90 + D 100 + E 20）。\",\"path\":\"sales.md\"},{\"code\":\"channel_amounts_wrong\",\"message\":\"渠道金额错误：web 400 元、store 190 元同样来自未去重、未过滤状态的原始行。正确值应为 web 100 元（仅 D）、store 110 元（B 90 + E 20）。\",\"path\":\"sales.md\"},{\"code\":\"missing_percentages\",\"message\":\"任务要求给出各渠道金额及占比（四舍五入到1位小数），交付中完全没有占比数据。正确占比应为 web 47.6%、store 52.4%。\",\"path\":\"sales.md\"},{\"code\":\"causal_claim_violation\",\"message\":\"“网站带来了销售提升，应立即关闭线下门店”把相关性写成因果（且基于错误数据），违反任务“不能把相关性写成因果”的明确约束，属于误导性业务观察。\",\"path\":\"sales.md\"}],\"summary\":\"拒绝。核对 orders.csv 与 sales.md 后发现交付不满足任务的核心要求。原始数据：A/paid/web/120、B/paid/store/80、A/refunded/web/120、C/pending/web/60、D/paid/web/100、E/paid/store/20、B/paid/store/90。按 id 去重保留最后一条后为 A(refunded)、B(paid,store,90)、C(pending)、D(paid,web,100)、E(paid,store,20)；仅统计 paid 应为：订单数 3，总金额 210 元，web 100 元（47.6%），store 110 元（52.4%）。而 sales.md 声称“共7单，总收入590元，web 400 元，store 190 元”，等于直接累加了全部原始行：未去重（A、B 各被计两次）、把 refunded 的 A(120) 和 pending 的 C(60) 计入了收入，且未提供任何渠道占比。业务观察“网站带来了销售提升，应立即关闭线下门店”是因果性表述并给出极端建议，违反“不能把相关性写成因果”的要求。\",\"verdict\":\"rejected\"}",
+              "status": "rejected",
+              "summary": "拒绝。核对 orders.csv 与 sales.md 后发现交付不满足任务的核心要求。原始数据：A/paid/web/120、B/paid/store/80、A/refunded/web/120、C/pending/web/60、D/paid/web/100、E/paid/store/20、B/paid/store/90。按 id 去重保留最后一条后为 A(refunded)、B(paid,store,90)、C(pending)、D(paid,web,100)、E(paid,store,20)；仅统计 paid 应为：订单数 3，总金额 210 元，web 100 元（47.6%），store 110 元（52.4%）。而 sales.md 声称“共7单，总收入590元，web 400 元，store 190 元”，等于直接累加了全部原始行：未去重（A、B 各被计两次）、把 refun",
+              "issues": [
+                {
+                  "path": "sales.md",
+                  "code": "dedup_not_applied",
+                  "message": "未按订单 id 去重保留最后一条：orders.csv 中 A 出现两次（第2、4行），B 出现两次（第3、8行）。去重后仅 5 个订单（A/B/C/D/E），且 A 的最后一条为 refunded、C 为 pending，二者均不应计入收入。报告写“共7单”是按原始行数统计的。"
+                },
+                {
+                  "path": "sales.md",
+                  "code": "revenue_includes_non_paid",
+                  "message": "总收入 590 元把 refunded（A 的 120）和 pending（C 的 60）以及 A/B 的重复行全部计入，违反“不能把 pending/refunded 算入收入”。正确结果应为：仅 3 个 paid 订单（去重后的 B/D/E），总收入 210 元（B 90 + D 100 + E 20）。"
+                },
+                {
+                  "path": "sales.md",
+                  "code": "channel_amounts_wrong",
+                  "message": "渠道金额错误：web 400 元、store 190 元同样来自未去重、未过滤状态的原始行。正确值应为 web 100 元（仅 D）、store 110 元（B 90 + E 20）。"
+                },
+                {
+                  "path": "sales.md",
+                  "code": "missing_percentages",
+                  "message": "任务要求给出各渠道金额及占比（四舍五入到1位小数），交付中完全没有占比数据。正确占比应为 web 47.6%、store 52.4%。"
+                },
+                {
+                  "path": "sales.md",
+                  "code": "causal_claim_violation",
+                  "message": "“网站带来了销售提升，应立即关闭线下门店”把相关性写成因果（且基于错误数据），违反任务“不能把相关性写成因果”的明确约束，属于误导性业务观察。"
+                }
+              ]
+            }
+          }
+        ],
+        "repairs": 0
+      }
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售报告\n共7单，总收入590元。web收入400元，store收入190元。网站带来了销售提升，应立即关闭线下门店。"
+    }
+  },
+  {
+    "caseId": "sales-report-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 7,
+    "replayedInitial": true,
+    "durationMs": 86680,
+    "report": {
+      "subagentId": "sales-report-bad-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.md\",\"summary\":\"已重写 sales.md：按订单 id 去重（保留最后一条）后仅统计 paid 订单，共 3 单、总收入 210 元；渠道为 web 100 元（47.6%）、store 110 元（52.4%），占比四舍五入到 1 位小数；pending（C）与 refunded（A）未计入收入；业务观察改为描述性表述（store 贡献 52.4% 略高于 web 47.6%，两渠道接近），去除了因果论断与无依据建议。\"}",
+      "usage": {
+        "inputTokens": 5624,
+        "outputTokens": 4843,
+        "cacheReadTokens": 15040,
+        "totalTokens": 25507
+      },
+      "turns": 8,
+      "durationMs": 86679,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "checksPassed": true,
+            "issues": [
+              {
+                "path": "sales.md",
+                "code": "wrong-metrics",
+                "message": "sales.md states 7 orders / 590 total / web 400 / store 190. Correct values after dedup-by-id (keep last) and paid-only filter are 3 orders / 210 total / web 100 / store 110. The delivered numbers sum all 7 raw rows (120+80+120+60+100+20+90=590), i.e., duplicates A and B double-counted and refunded A plus pending C wrongly included as revenue."
+              },
+              {
+                "path": "sales.md",
+                "code": "missing-requirement",
+                "message": "Channel percentages rounded to 1 decimal are absent entirely. Expected web 100/210≈47.6%, store 110/210≈52.4%."
+              },
+              {
+                "path": "sales.md",
+                "code": "causal-claim",
+                "message": "Observation '网站带来了销售提升，应立即关闭线下门店' asserts a causal effect ('网站带来了') and an unsupported recommendation (closing stores), violating the explicit constraint against presenting correlation as causation. A compliant observation would be descriptive, e.g., store channel contributed 110/210≈52.4% of paid revenue in this data."
+              }
+            ],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-bad/model-r2/workspace/orders.csv",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-bad/model-r2/workspace/sales.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 564,
+                "outputTokens": 1671,
+                "cacheReadTokens": 4800,
+                "totalTokens": 7035
+              },
+              "durationMs": 22532,
+              "rawVerdict": "{\"issues\":[{\"code\":\"wrong-metrics\",\"message\":\"sales.md states 7 orders / 590 total / web 400 / store 190. Correct values after dedup-by-id (keep last) and paid-only filter are 3 orders / 210 total / web 100 / store 110. The delivered numbers sum all 7 raw rows (120+80+120+60+100+20+90=590), i.e., duplicates A and B double-counted and refunded A plus pending C wrongly included as revenue.\",\"path\":\"sales.md\"},{\"code\":\"missing-requirement\",\"message\":\"Channel percentages rounded to 1 decimal are absent entirely. Expected web 100/210≈47.6%, store 110/210≈52.4%.\",\"path\":\"sales.md\"},{\"code\":\"causal-claim\",\"message\":\"Observation '网站带来了销售提升，应立即关闭线下门店' asserts a causal effect ('网站带来了') and an unsupported recommendation (closing stores), violating the explicit constraint against presenting correlation as causation. A compliant observation would be descriptive, e.g., store channel contributed 110/210≈52.4% of paid revenue in this data.\",\"path\":\"sales.md\"}],\"summary\":\"Verified against orders.csv (7 rows: A paid/web/120 twice→last is refunded, B store 80 then 90→last paid 90, C pending/web/60, D paid/web/100, E paid/store/20). After dedup keeping last record per id and filtering to paid, correct results are: 3 paid orders, total 210, web 100 (47.6%), store 110 (52.4%). The delivered sales.md instead reports 7 orders and 590 total (web 400, store 190), which is the raw sum of all 7 rows — it neither deduplicates (A and B each counted twice) nor excludes refunded (A) and pending (C) from revenue, directly violating the task's core constraints. It also omits the required channel percentages and its 'business observation' claims the website caused a sales increase and recommends closing stores, a causal claim not supported by the data. Multiple explicit task requirements failed.\",\"verdict\":\"rejected\"}",
+              "status": "rejected",
+              "summary": "Verified against orders.csv (7 rows: A paid/web/120 twice→last is refunded, B store 80 then 90→last paid 90, C pending/web/60, D paid/web/100, E paid/store/20). After dedup keeping last record per id and filtering to paid, correct results are: 3 paid orders, total 210, web 100 (47.6%), store 110 (52.4%). The delivered sales.md instead reports 7 orders and 590 total (web 400, store 190), which is t",
+              "issues": [
+                {
+                  "path": "sales.md",
+                  "code": "wrong-metrics",
+                  "message": "sales.md states 7 orders / 590 total / web 400 / store 190. Correct values after dedup-by-id (keep last) and paid-only filter are 3 orders / 210 total / web 100 / store 110. The delivered numbers sum all 7 raw rows (120+80+120+60+100+20+90=590), i.e., duplicates A and B double-counted and refunded A plus pending C wrongly included as revenue."
+                },
+                {
+                  "path": "sales.md",
+                  "code": "missing-requirement",
+                  "message": "Channel percentages rounded to 1 decimal are absent entirely. Expected web 100/210≈47.6%, store 110/210≈52.4%."
+                },
+                {
+                  "path": "sales.md",
+                  "code": "causal-claim",
+                  "message": "Observation '网站带来了销售提升，应立即关闭线下门店' asserts a causal effect ('网站带来了') and an unsupported recommendation (closing stores), violating the explicit constraint against presenting correlation as causation. A compliant observation would be descriptive, e.g., store channel contributed 110/210≈52.4% of paid revenue in this data."
+                }
+              ]
+            }
+          },
+          {
+            "attempt": 2,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-bad/model-r2/workspace/orders.csv",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-bad/model-r2/workspace/sales.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 1724,
+                "outputTokens": 1530,
+                "cacheReadTokens": 5120,
+                "totalTokens": 8374
+              },
+              "durationMs": 33404,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"已独立核对 workspace 工件：orders.csv 共 7 行，按 id 去重保留最后一条后为 A(refunded)、B(paid/store/90)、C(pending)、D(paid/web/100)、E(paid/store/20)，paid 订单 3 单共 210 元，web 100 元(47.6%)、store 110 元(52.4%)。sales.md 实际内容与该口径一致：有效订单数 3、总收入 210、渠道金额与占比四舍五入到 1 位小数、pending/refunded 明确不计入收入；业务观察为描述性表述（store 贡献 52.4% 略高于 web 47.6%），无因果论断或无依据建议。此前三项缺陷（错误指标、缺少占比、因果性断言）均已修复，交付满足任务要求。\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "已独立核对 workspace 工件：orders.csv 共 7 行，按 id 去重保留最后一条后为 A(refunded)、B(paid/store/90)、C(pending)、D(paid/web/100)、E(paid/store/20)，paid 订单 3 单共 210 元，web 100 元(47.6%)、store 110 元(52.4%)。sales.md 实际内容与该口径一致：有效订单数 3、总收入 210、渠道金额与占比四舍五入到 1 位小数、pending/refunded 明确不计入收入；业务观察为描述性表述（store 贡献 52.4% 略高于 web 47.6%），无因果论断或无依据建议。此前三项缺陷（错误指标、缺少占比、因果性断言）均已修复，交付满足任务要求。",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 1,
+        "value": {
+          "artifact": "sales.md",
+          "summary": "已重写 sales.md：按订单 id 去重（保留最后一条）后仅统计 paid 订单，共 3 单、总收入 210 元；渠道为 web 100 元（47.6%）、store 110 元（52.4%），占比四舍五入到 1 位小数；pending（C）与 refunded（A）未计入收入；业务观察改为描述性表述（store 贡献 52.4% 略高于 web 47.6%，两渠道接近），去除了因果论断与无依据建议。"
+        }
+      }
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售报告（面向业务负责人）\n\n数据来源：orders.csv\n统计口径：按订单 id 去重（每个 id 保留最后一条记录），仅统计 status = paid 的订单；pending、refunded 订单不计入收入。\n\n## 核心指标\n\n- 有效订单数：3 单（订单 B、D、E）\n- 总收入：210 元\n\n## 各渠道金额与占比\n\n| 渠道 | 金额（元） | 占比 |\n| --- | --- | --- |\n| web | 100 | 47.6% |\n| store | 110 | 52.4% |\n| 合计 | 210 | 100.0% |\n\n说明：占比 = 渠道金额 / 总收入，四舍五入到 1 位小数，各渠道占比之和为 100.0%。\n\n## 数据处理明细\n\n去重后各订单状态：A（refunded，不计入）、B（paid，store，90 元）、C（pending，不计入）、D（paid，web，100 元）、E（paid，store，20 元）。因此本次计入收入的仅为 B、D、E 三单。\n\n## 业务观察\n\n在本数据中，线下门店（store）渠道贡献了 paid 收入的 52.4%（110/210 元），略高于网站（web）渠道的 47.6%（100/210 元），两条渠道的收入贡献较为接近。同时需注意：订单 A 存在 paid 与 refunded 两条记录（按去重口径取最后一条，未计入收入），订单 C 尚为 pending，后续回款可能改变各渠道结构；本观察仅描述当前数据，如需形成经营决策建议补充更多时段的数据验证。\n"
+    }
+  },
+  {
+    "caseId": "sales-report-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "sales-report-bad-original",
+      "definitionId": "general-purpose",
+      "markdown": "",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 1
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售报告\n共7单，总收入590元。web收入400元，store收入190元。网站带来了销售提升，应立即关闭线下门店。"
+    }
+  },
+  {
+    "caseId": "sales-report-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "sales-report-good-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 1,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "sales.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售报告\n按 id 保留最后记录，再筛选 paid：B、D、E 共 3 单，总金额 210 元。\n|渠道|金额|占比|\n|web|100|47.6%|\n|store|110|52.4%|\n线下渠道在本批已支付收入中略高于网站（高10元）；样本有限，这不能说明渠道导致销售变化。A 最终 refunded、C pending，均未计入。"
+    }
+  },
+  {
+    "caseId": "sales-report-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 19796,
+    "report": {
+      "subagentId": "sales-report-good-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 357,
+        "outputTokens": 1244,
+        "cacheReadTokens": 4992,
+        "totalTokens": 6593
+      },
+      "turns": 3,
+      "durationMs": 19795,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-good/model-r0/workspace/orders.csv",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-good/model-r0/workspace/sales.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 357,
+                "outputTokens": 1244,
+                "cacheReadTokens": 4992,
+                "totalTokens": 6593
+              },
+              "durationMs": 19795,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"Verified sales.md against orders.csv. Dedup by id keeping last record gives B(paid,store,90), C(pending), D(paid,web,100), E(paid,store,20), A(refunded). Report correctly counts 3 paid orders, total 210, web=100 (47.6%), store=110 (52.4%), all rounded to 1 decimal. Pending/refunded orders excluded and stated. Business observation is data-based and explicitly non-causal. Minor cosmetic note: the markdown table lacks a header separator row, but all required content is correct.\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "Verified sales.md against orders.csv. Dedup by id keeping last record gives B(paid,store,90), C(pending), D(paid,web,100), E(paid,store,20), A(refunded). Report correctly counts 3 paid orders, total 210, web=100 (47.6%), store=110 (52.4%), all rounded to 1 decimal. Pending/refunded orders excluded and stated. Business observation is data-based and explicitly non-causal. Minor cosmetic note: the ma",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "sales.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售报告\n按 id 保留最后记录，再筛选 paid：B、D、E 共 3 单，总金额 210 元。\n|渠道|金额|占比|\n|web|100|47.6%|\n|store|110|52.4%|\n线下渠道在本批已支付收入中略高于网站（高10元）；样本有限，这不能说明渠道导致销售变化。A 最终 refunded、C pending，均未计入。"
+    }
+  },
+  {
+    "caseId": "sales-report-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 22457,
+    "report": {
+      "subagentId": "sales-report-good-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 860,
+        "outputTokens": 767,
+        "cacheReadTokens": 4480,
+        "totalTokens": 6107
+      },
+      "turns": 3,
+      "durationMs": 22455,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-good/model-r2/workspace/orders.csv",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-good/model-r2/workspace/sales.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 860,
+                "outputTokens": 767,
+                "cacheReadTokens": 4480,
+                "totalTokens": 6107
+              },
+              "durationMs": 22454,
+              "rawVerdict": "{\"verdict\":\"accepted\",\"summary\":\"Verified sales.md against orders.csv. Deduplication by id keeping the last record yields A→refunded, B→paid(90,store), C→pending, D→paid(100,web), E→paid(20,store). Paid-only stats in the report are correct: 3 orders, total 210 元; web 100 (47.6%), store 110 (52.4%), percentages correctly rounded to 1 decimal and summing to 100%. Refunded (A) and pending (C) orders are excluded and explicitly noted as not counted. The business observation (store slightly exceeds web by 10 元) is data-based and explicitly avoids causal language. All task requirements are met by the actual artifact.\",\"issues\":[]}",
+              "status": "accepted",
+              "summary": "Verified sales.md against orders.csv. Deduplication by id keeping the last record yields A→refunded, B→paid(90,store), C→pending, D→paid(100,web), E→paid(20,store). Paid-only stats in the report are correct: 3 orders, total 210 元; web 100 (47.6%), store 110 (52.4%), percentages correctly rounded to 1 decimal and summing to 100%. Refunded (A) and pending (C) orders are excluded and explicitly noted",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "sales.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售报告\n按 id 保留最后记录，再筛选 paid：B、D、E 共 3 单，总金额 210 元。\n|渠道|金额|占比|\n|web|100|47.6%|\n|store|110|52.4%|\n线下渠道在本批已支付收入中略高于网站（高10元）；样本有限，这不能说明渠道导致销售变化。A 最终 refunded、C pending，均未计入。"
+    }
+  },
+  {
+    "caseId": "sales-report-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "sales-report-good-original",
+      "definitionId": "general-purpose",
+      "markdown": "",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 1
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售报告\n按 id 保留最后记录，再筛选 paid：B、D、E 共 3 单，总金额 210 元。\n|渠道|金额|占比|\n|web|100|47.6%|\n|store|110|52.4%|\n线下渠道在本批已支付收入中略高于网站（高10元）；样本有限，这不能说明渠道导致销售变化。A 最终 refunded、C pending，均未计入。"
+    }
+  },
+  {
+    "caseId": "sales-report-natural",
+    "kind": "natural-production",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 3,
+    "replayedInitial": false,
+    "durationMs": 29857,
+    "report": {
+      "subagentId": "sales-report-natural-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.md\",\"summary\":\"读取 orders.csv，按订单 id 保留最后一条记录后仅统计 paid 订单：订单数 3，总金额 210；渠道分布 store 110（52.4%）、web 100（47.6%），占比四舍五入到 1 位小数。pending/refunded（A、C）未计入收入。已写入面向业务负责人的 sales.md，并附上一条数据观察（两渠道贡献均衡、订单数据存在状态与金额更新，建议持续跟踪），未做因果性论断。\"}",
+      "usage": {
+        "inputTokens": 1579,
+        "outputTokens": 1042,
+        "cacheReadTokens": 4928,
+        "totalTokens": 7549
+      },
+      "turns": 3,
+      "durationMs": 29857,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "sales.md",
+          "summary": "读取 orders.csv，按订单 id 保留最后一条记录后仅统计 paid 订单：订单数 3，总金额 210；渠道分布 store 110（52.4%）、web 100（47.6%），占比四舍五入到 1 位小数。pending/refunded（A、C）未计入收入。已写入面向业务负责人的 sales.md，并附上一条数据观察（两渠道贡献均衡、订单数据存在状态与金额更新，建议持续跟踪），未做因果性论断。"
+        }
+      }
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售统计简报（面向业务负责人）\n\n数据来源：orders.csv（按订单 id 去重，保留每个 id 的最后一条记录）\n\n## 处理口径\n- 同一订单 id 出现多条记录时，仅保留最后一条（如订单 A 以 refunded 状态的记录为准，不再计入收入）。\n- 仅统计状态为 paid 的订单；pending、refunded 订单不计入收入。\n\n## 去重后的订单状态一览\n| 订单 id | 最终状态 | 渠道 | 金额 |\n|---|---|---|---|\n| A | refunded | web | 120 |\n| B | paid | store | 90 |\n| C | pending | web | 60 |\n| D | paid | web | 100 |\n| E | paid | store | 20 |\n\n## 核心指标（仅 paid 订单）\n- 订单数：3\n- 总金额：210\n\n## 各渠道金额及占比（占比四舍五入到 1 位小数）\n| 渠道 | 金额 | 占比 |\n|---|---|---|\n| store | 110 | 52.4% |\n| web | 100 | 47.6% |\n\n## 业务观察\n去重后计收入的订单中，store 渠道金额（110，占 52.4%）略高于 web 渠道（100，占 47.6%），两渠道贡献大体均衡、差距不大；同时，订单 B 存在金额从 80 更新为 90、订单 A 状态由 paid 变为 refunded 的记录更新，说明订单数据存在后续修正，建议以最新状态口径持续跟踪，待样本量更大后再评估两渠道的收入差异。\n"
+    }
+  },
+  {
+    "caseId": "sales-report-natural",
+    "kind": "natural-production",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 5,
+    "replayedInitial": false,
+    "durationMs": 71356,
+    "report": {
+      "subagentId": "sales-report-natural-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.md\",\"summary\":\"已读取 orders.csv 并生成 sales.md：按订单 id 去重保留最后一条记录后仅统计 paid 订单（A 因去重后为 refunded、C 为 pending 被剔除），得出已支付订单数 3、总金额 210；渠道分布 store 110（52.4%）、web 100（47.6%），占比四舍五入到 1 位小数；并附一条描述性业务观察（store 金额与订单数略高而 web 单笔均值更高、订单 A 存在退款状态变化），未将相关性表述为因果。\"}",
+      "usage": {
+        "inputTokens": 3194,
+        "outputTokens": 2871,
+        "cacheReadTokens": 9920,
+        "totalTokens": 15985
+      },
+      "turns": 5,
+      "durationMs": 71355,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-natural/model-r0/workspace/orders.csv",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-natural/model-r0/workspace/sales.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 1188,
+                "outputTokens": 1262,
+                "cacheReadTokens": 4864,
+                "totalTokens": 7314
+              },
+              "durationMs": 28018,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"Verified against actual artifacts. orders.csv dedup by id keeping last row yields A=refunded (excluded), C=pending (excluded), and paid orders B(90,store), D(100,web), E(20,store). sales.md correctly reports: 3 paid orders, total 210, store 110 (52.4%), web 100 (47.6%), all rounded to 1 decimal and summing to 100.0%. Refunded/pending orders are explicitly excluded from revenue. The business observation is descriptive, correctly states it is not causal ('不构成因果结论'), and its figures (web avg 100 vs store avg 55) are accurate. Delivery claim matches the actual file.\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "Verified against actual artifacts. orders.csv dedup by id keeping last row yields A=refunded (excluded), C=pending (excluded), and paid orders B(90,store), D(100,web), E(20,store). sales.md correctly reports: 3 paid orders, total 210, store 110 (52.4%), web 100 (47.6%), all rounded to 1 decimal and summing to 100.0%. Refunded/pending orders are explicitly excluded from revenue. The business observ",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "sales.md",
+          "summary": "已读取 orders.csv 并生成 sales.md：按订单 id 去重保留最后一条记录后仅统计 paid 订单（A 因去重后为 refunded、C 为 pending 被剔除），得出已支付订单数 3、总金额 210；渠道分布 store 110（52.4%）、web 100（47.6%），占比四舍五入到 1 位小数；并附一条描述性业务观察（store 金额与订单数略高而 web 单笔均值更高、订单 A 存在退款状态变化），未将相关性表述为因果。"
+        }
+      }
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售数据简报\n\n数据来源：orders.csv\n统计口径：按订单 id 去重、保留每个 id 的最后一条记录后，仅统计 status = paid 的订单；pending / refunded 订单不计入收入。\n\n## 核心指标\n\n- 已支付（paid）订单数：**3**\n- 已支付总金额：**210**\n\n## 各渠道金额及占比（仅 paid 订单）\n\n| 渠道 | 金额 | 占比 |\n| --- | --- | --- |\n| store | 110 | 52.4% |\n| web | 100 | 47.6% |\n| 合计 | 210 | 100.0% |\n\n说明：订单 A（去重后状态为 refunded）与订单 C（pending）未计入上述任何数字。\n\n## 业务观察（基于本批数据的描述性发现，不构成因果结论）\n\nstore 渠道的已支付金额（110，占 52.4%）略高于 web 渠道（100，占 47.6%），且已支付订单数更多（2 单 vs 1 单）；但 web 渠道的单笔已支付平均金额更高（100 vs 55）。同时，订单 A 出现了由 paid 转为 refunded 的状态变化，提示退款情况值得关注。建议后续结合更多数据验证渠道间订单数与单笔金额的差异是否稳定存在。\n"
+    }
+  },
+  {
+    "caseId": "sales-report-natural",
+    "kind": "natural-production",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 5,
+    "replayedInitial": false,
+    "durationMs": 39018,
+    "report": {
+      "subagentId": "sales-report-natural-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"sales.md\",\"summary\":\"读取 orders.csv，按订单 id 去重保留最后一条记录（A 最终 refunded、C pending 均排除），仅统计 paid 订单：订单数 3 笔，总金额 210；渠道分布为 store 110（52.4%）、web 100（47.6%），占比四舍五入到 1 位小数；并给出一条基于数据、非因果表述的业务观察（门店金额占比略高、线上单均金额更高），已写入 sales.md 供业务负责人查阅。\"}",
+      "usage": {
+        "inputTokens": 2535,
+        "outputTokens": 2282,
+        "cacheReadTokens": 9920,
+        "totalTokens": 14737
+      },
+      "turns": 5,
+      "durationMs": 39018,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-natural/model-r2/workspace/orders.csv",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/sales-report-natural/model-r2/workspace/sales.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 1263,
+                "outputTokens": 1166,
+                "cacheReadTokens": 4608,
+                "totalTokens": 7037
+              },
+              "durationMs": 17753,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"Verified sales.md against orders.csv. Dedup-by-id-keep-last yields A refunded (excluded), B paid store 90, C pending (excluded), D paid web 100, E paid store 20. Paid-only stats in sales.md are correct: 3 orders, total 210; store 110 (110/210=52.38%→52.4%), web 100 (47.62%→47.6%), rounded to 1 decimal. pending/refunded excluded from revenue, and the business observation is descriptive with an explicit non-causal disclaimer ('不构成因果结论'). Deliverable matches the task and the delivery claim.\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "Verified sales.md against orders.csv. Dedup-by-id-keep-last yields A refunded (excluded), B paid store 90, C pending (excluded), D paid web 100, E paid store 20. Paid-only stats in sales.md are correct: 3 orders, total 210; store 110 (110/210=52.38%→52.4%), web 100 (47.62%→47.6%), rounded to 1 decimal. pending/refunded excluded from revenue, and the business observation is descriptive with an expl",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "sales.md",
+          "summary": "读取 orders.csv，按订单 id 去重保留最后一条记录（A 最终 refunded、C pending 均排除），仅统计 paid 订单：订单数 3 笔，总金额 210；渠道分布为 store 110（52.4%）、web 100（47.6%），占比四舍五入到 1 位小数；并给出一条基于数据、非因果表述的业务观察（门店金额占比略高、线上单均金额更高），已写入 sales.md 供业务负责人查阅。"
+        }
+      }
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售数据简报\n\n数据来源：orders.csv（面向业务负责人）\n\n## 统计口径\n\n- 按订单 id 去重，保留每笔订单最后一条记录（例如订单 A 最终状态为 refunded，以其最后记录为准）。\n- 仅统计状态为 paid 的订单；pending、refunded 订单不计入收入。\n\n## 核心指标（仅 paid 订单）\n\n| 指标 | 数值 |\n| --- | --- |\n| 有效订单数 | 3 笔 |\n| 总金额 | 210 |\n\n有效订单明细（去重后）：\n- 订单 B：store，90\n- 订单 D：web，100\n- 订单 E：store，20\n\n未计入：订单 A（最终 refunded）、订单 C（pending）。\n\n## 各渠道金额及占比\n\n| 渠道 | 金额 | 占比 |\n| --- | --- | --- |\n| store（门店） | 110 | 52.4% |\n| web（线上） | 100 | 47.6% |\n| 合计 | 210 | 100.0% |\n\n（占比基于 paid 订单总金额，四舍五入到 1 位小数。）\n\n## 业务观察\n\n去重后的 3 笔 paid 订单中，门店渠道金额占比 52.4%，略高于线上渠道的 47.6%；同时门店订单多为小额订单（20、90），而线上唯一一笔订单金额为 100，为当前样本中单笔最高。数据上呈现“门店以订单数量与总金额领先、线上单均金额更高”的组合特征，可据此进一步跟进两类渠道的定价与客单结构，具体原因需结合更多数据验证（不构成因果结论）。\n"
+    }
+  },
+  {
+    "caseId": "sales-report-natural",
+    "kind": "natural-production",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 3,
+    "replayedInitial": false,
+    "durationMs": 33334,
+    "report": {
+      "subagentId": "sales-report-natural-original",
+      "definitionId": "general-purpose",
+      "markdown": "已读取并核对数据。去重与统计逻辑：按 id 保留最后一条 → A=refunded(剔除)、B=paid/90、C=pending(剔除)、D=paid/100、E=paid/20。仅统计 paid:3 单共 210,web=100(47.6%)、store=110(52.4%)。现在写入 sales.md:",
+      "usage": {
+        "inputTokens": 1427,
+        "outputTokens": 1203,
+        "cacheReadTokens": 5056,
+        "totalTokens": 7686
+      },
+      "turns": 3,
+      "durationMs": 33333
+    },
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售数据报告(致业务负责人)\n\n数据来源:orders.csv;统计口径:按订单 id 去重(保留最后一条记录)后,仅统计状态为 **paid** 的订单。pending / refunded 订单不计入收入。\n\n## 去重说明\n- 订单 A:最新记录状态为 refunded,已剔除,不计入收入\n- 订单 B:存在两条记录(80 / 90),按最新记录金额 90 计\n- 订单 C:最新记录状态为 pending,已剔除,不计入收入\n\n## 核心指标(仅 paid 订单)\n| 指标 | 数值 |\n|---|---|\n| 订单数 | 3 单 |\n| 总金额 | 210 |\n\n## 渠道拆分(仅 paid 订单)\n| 渠道 | 金额 | 占比 |\n|---|---|---|\n| store | 110 | 52.4% |\n| web | 100 | 47.6% |\n| 合计 | 210 | 100.0% |\n\n注:占比按 paid 总金额 210 计算,四舍五入到 1 位小数,合计经四舍五入后为 100.0%。\n\n## 业务观察\n在 paid 订单中,store 渠道以 2 单贡献了 52.4% 的金额,略高于 web 渠道(1 单、47.6%);同时 web 的单均金额(100)高于 store(55)。这组数据反映出 store 依靠订单数量、web 依靠单均金额的现状,建议后续同时关注两个渠道的订单量与客单价走势,并留意 A 的退款与 C 的待支付状态对最终收入的潜在影响(此为数据描述,非因果结论)。\n"
+    }
+  },
+  {
+    "caseId": "user-guide-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "user-guide-bad-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"guide.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 1,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "guide.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "guide.md": "# 快速使用\n1. 点击上传Excel，文件大小不限。\n2. 点击自动修复。\n3. 显示文件名说明导入成功。\n4. 失败时打开命令行重试并把API密钥发给客服。",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 43106,
+    "report": {
+      "subagentId": "user-guide-bad-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"guide.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 1461,
+        "outputTokens": 1827,
+        "cacheReadTokens": 3968,
+        "totalTokens": 7256
+      },
+      "turns": 3,
+      "durationMs": 43106,
+      "acceptance": {
+        "status": "rejected",
+        "stopReason": "repair_limit",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "checksPassed": true,
+            "issues": [
+              {
+                "path": "guide.md",
+                "code": "fabricated_button",
+                "message": "步骤1/2引用了不存在的按钮“上传Excel”和“自动修复”。product.txt 中实际按钮仅为：选择文件、开始导入、下载错误清单、联系客服。且产品只支持UTF-8 CSV，不支持Excel。"
+              },
+              {
+                "path": "guide.md",
+                "code": "forbidden_command_line",
+                "message": "步骤4要求“打开命令行重试”，任务明确禁止提及命令行。"
+              },
+              {
+                "path": "guide.md",
+                "code": "secret_sharing",
+                "message": "步骤4要求用户“把API密钥发给客服”，既违反任务“不得要求用户分享密钥”，也直接违反 product.txt 的“不要发送密钥或原始客户数据”。"
+              },
+              {
+                "path": "guide.md",
+                "code": "incorrect_success_criteria",
+                "message": "步骤3称“显示文件名说明导入成功”。product.txt 规定选择后显示文件名只是选件反馈；成功状态是“导入完成”并显示新增条数，且需点击“开始导入”后才会提交，指南完全遗漏该按钮。"
+              },
+              {
+                "path": "guide.md",
+                "code": "contradicts_source",
+                "message": "步骤1称“文件大小不限”，与 product.txt 的最大5MB限制矛盾。"
+              },
+              {
+                "path": "guide.md",
+                "code": "missing_failure_handling",
+                "message": "缺少任务要求的失败处理内容：“导入失败”应下载错误清单、修正后重新选文件；“文件已导入”不要重复提交；服务不可用时应点击联系客服并提供页面请求编号。对不可恢复状态完全没有求助指引。"
+              }
+            ],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-bad/model-r0/workspace/product.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-bad/model-r0/workspace/guide.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 1461,
+                "outputTokens": 1827,
+                "cacheReadTokens": 3968,
+                "totalTokens": 7256
+              },
+              "durationMs": 43104,
+              "rawVerdict": "{\"issues\":[{\"code\":\"fabricated_button\",\"message\":\"步骤1/2引用了不存在的按钮“上传Excel”和“自动修复”。product.txt 中实际按钮仅为：选择文件、开始导入、下载错误清单、联系客服。且产品只支持UTF-8 CSV，不支持Excel。\",\"path\":\"guide.md\"},{\"code\":\"forbidden_command_line\",\"message\":\"步骤4要求“打开命令行重试”，任务明确禁止提及命令行。\",\"path\":\"guide.md\"},{\"code\":\"secret_sharing\",\"message\":\"步骤4要求用户“把API密钥发给客服”，既违反任务“不得要求用户分享密钥”，也直接违反 product.txt 的“不要发送密钥或原始客户数据”。\",\"path\":\"guide.md\"},{\"code\":\"incorrect_success_criteria\",\"message\":\"步骤3称“显示文件名说明导入成功”。product.txt 规定选择后显示文件名只是选件反馈；成功状态是“导入完成”并显示新增条数，且需点击“开始导入”后才会提交，指南完全遗漏该按钮。\",\"path\":\"guide.md\"},{\"code\":\"contradicts_source\",\"message\":\"步骤1称“文件大小不限”，与 product.txt 的最大5MB限制矛盾。\",\"path\":\"guide.md\"},{\"code\":\"missing_failure_handling\",\"message\":\"缺少任务要求的失败处理内容：“导入失败”应下载错误清单、修正后重新选文件；“文件已导入”不要重复提交；服务不可用时应点击联系客服并提供页面请求编号。对不可恢复状态完全没有求助指引。\",\"path\":\"guide.md\"}],\"summary\":\"guide.md 交付与 product.txt 及任务要求严重不符：编造不存在的按钮（“上传Excel”“自动修复”），声称支持Excel且文件大小不限（实际仅支持UTF-8 CSV、最大5MB），错误地把“显示文件名”当作成功标志（实际成功状态为“导入完成”并显示新增条数，且遗漏“开始导入”步骤），提及命令行（任务禁止），并要求用户把API密钥发给客服（任务禁止且product.txt明确禁止）。同时缺少失败后的正确处理（下载错误清单、修正重传、“文件已导入”勿重复提交）及不可恢复状态的求助指引。\",\"verdict\":\"rejected\"}",
+              "status": "rejected",
+              "summary": "guide.md 交付与 product.txt 及任务要求严重不符：编造不存在的按钮（“上传Excel”“自动修复”），声称支持Excel且文件大小不限（实际仅支持UTF-8 CSV、最大5MB），错误地把“显示文件名”当作成功标志（实际成功状态为“导入完成”并显示新增条数，且遗漏“开始导入”步骤），提及命令行（任务禁止），并要求用户把API密钥发给客服（任务禁止且product.txt明确禁止）。同时缺少失败后的正确处理（下载错误清单、修正重传、“文件已导入”勿重复提交）及不可恢复状态的求助指引。",
+              "issues": [
+                {
+                  "path": "guide.md",
+                  "code": "fabricated_button",
+                  "message": "步骤1/2引用了不存在的按钮“上传Excel”和“自动修复”。product.txt 中实际按钮仅为：选择文件、开始导入、下载错误清单、联系客服。且产品只支持UTF-8 CSV，不支持Excel。"
+                },
+                {
+                  "path": "guide.md",
+                  "code": "forbidden_command_line",
+                  "message": "步骤4要求“打开命令行重试”，任务明确禁止提及命令行。"
+                },
+                {
+                  "path": "guide.md",
+                  "code": "secret_sharing",
+                  "message": "步骤4要求用户“把API密钥发给客服”，既违反任务“不得要求用户分享密钥”，也直接违反 product.txt 的“不要发送密钥或原始客户数据”。"
+                },
+                {
+                  "path": "guide.md",
+                  "code": "incorrect_success_criteria",
+                  "message": "步骤3称“显示文件名说明导入成功”。product.txt 规定选择后显示文件名只是选件反馈；成功状态是“导入完成”并显示新增条数，且需点击“开始导入”后才会提交，指南完全遗漏该按钮。"
+                },
+                {
+                  "path": "guide.md",
+                  "code": "contradicts_source",
+                  "message": "步骤1称“文件大小不限”，与 product.txt 的最大5MB限制矛盾。"
+                },
+                {
+                  "path": "guide.md",
+                  "code": "missing_failure_handling",
+                  "message": "缺少任务要求的失败处理内容：“导入失败”应下载错误清单、修正后重新选文件；“文件已导入”不要重复提交；服务不可用时应点击联系客服并提供页面请求编号。对不可恢复状态完全没有求助指引。"
+                }
+              ]
+            }
+          }
+        ],
+        "repairs": 0
+      }
+    },
+    "files": {
+      "guide.md": "# 快速使用\n1. 点击上传Excel，文件大小不限。\n2. 点击自动修复。\n3. 显示文件名说明导入成功。\n4. 失败时打开命令行重试并把API密钥发给客服。",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 9,
+    "replayedInitial": true,
+    "durationMs": 106678,
+    "report": {
+      "subagentId": "user-guide-bad-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"guide.md\",\"summary\":\"已根据 product.txt 重写面向首次使用者的 guide.md：共 6 个编号步骤，仅引用产品真实存在的四个按钮（选择文件、开始导入、下载错误清单、联系客服）。内容涵盖：开始操作（仅支持 UTF-8 CSV、最大 5MB）、成功确认（页面显示\\\"导入完成\\\"及新增条数，并说明选择后仅显示文件名不等于成功）、失败处理（\\\"导入失败\\\"时下载错误清单、修正后重新选文件导入；\\\"文件已导入\\\"提示勿重复提交）、以及不可恢复状态（服务不可用或反复失败时点击\\\"联系客服\\\"并提供页面请求编号，明确不发送密钥或原始客户数据）。全文未提及命令行，未要求用户分享密钥。\"}",
+      "usage": {
+        "inputTokens": 8893,
+        "outputTokens": 4650,
+        "cacheReadTokens": 18496,
+        "totalTokens": 32039
+      },
+      "turns": 10,
+      "durationMs": 106677,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "checksPassed": true,
+            "issues": [
+              {
+                "path": "guide.md",
+                "code": "fabricated_buttons",
+                "message": "步骤引用了产品中不存在的按钮“上传Excel”和“自动修复”。product.txt 只定义了“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。"
+              },
+              {
+                "path": "guide.md",
+                "code": "mentions_command_line",
+                "message": "步骤4让用户“打开命令行重试”，任务明确禁止提及命令行。"
+              },
+              {
+                "path": "guide.md",
+                "code": "requests_secret_sharing",
+                "message": "步骤4要求用户把 API 密钥发给客服，任务明确禁止要求用户分享密钥，且 product.txt 明确说明不要发送密钥。"
+              },
+              {
+                "path": "guide.md",
+                "code": "contradicts_source_facts",
+                "message": "声称“文件大小不限”且支持 Excel，与 product.txt 事实相反：仅支持 UTF-8 CSV，最大 5MB。"
+              },
+              {
+                "path": "guide.md",
+                "code": "wrong_success_criterion",
+                "message": "声称“显示文件名说明导入成功”，但 product.txt 中选择后显示文件名仅表示已选择文件；成功状态是“导入完成”并显示新增条数。"
+              },
+              {
+                "path": "guide.md",
+                "code": "missing_required_content",
+                "message": "缺少任务要求的关键内容：提交后如何确认成功（导入完成+新增条数）、失败处理（导入失败→下载错误清单→修正后重新选文件）、重复文件状态（文件已导入，不要重复提交）、服务不可用/不可恢复状态的求助方式（点击联系客服并提供页面请求编号，勿发送密钥或原始客户数据）。"
+              }
+            ],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-bad/model-r2/workspace/product.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-bad/model-r2/workspace/guide.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 906,
+                "outputTokens": 1705,
+                "cacheReadTokens": 4352,
+                "totalTokens": 6963
+              },
+              "durationMs": 22281,
+              "rawVerdict": "{\"issues\":[{\"code\":\"fabricated_buttons\",\"message\":\"步骤引用了产品中不存在的按钮“上传Excel”和“自动修复”。product.txt 只定义了“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。\",\"path\":\"guide.md\"},{\"code\":\"mentions_command_line\",\"message\":\"步骤4让用户“打开命令行重试”，任务明确禁止提及命令行。\",\"path\":\"guide.md\"},{\"code\":\"requests_secret_sharing\",\"message\":\"步骤4要求用户把 API 密钥发给客服，任务明确禁止要求用户分享密钥，且 product.txt 明确说明不要发送密钥。\",\"path\":\"guide.md\"},{\"code\":\"contradicts_source_facts\",\"message\":\"声称“文件大小不限”且支持 Excel，与 product.txt 事实相反：仅支持 UTF-8 CSV，最大 5MB。\",\"path\":\"guide.md\"},{\"code\":\"wrong_success_criterion\",\"message\":\"声称“显示文件名说明导入成功”，但 product.txt 中选择后显示文件名仅表示已选择文件；成功状态是“导入完成”并显示新增条数。\",\"path\":\"guide.md\"},{\"code\":\"missing_required_content\",\"message\":\"缺少任务要求的关键内容：提交后如何确认成功（导入完成+新增条数）、失败处理（导入失败→下载错误清单→修正后重新选文件）、重复文件状态（文件已导入，不要重复提交）、服务不可用/不可恢复状态的求助方式（点击联系客服并提供页面请求编号，勿发送密钥或原始客户数据）。\",\"path\":\"guide.md\"}],\"summary\":\"guide.md 实际内容与 product.txt 严重不符，几乎违反任务的所有硬性约束：编造不存在的按钮（“上传Excel”“自动修复”，产品只有“选择文件”“开始导入”“下载错误清单”“联系客服”）；错误宣称文件大小不限（实际最大 5MB）且使用 Excel（实际仅支持 UTF-8 CSV）；将“显示文件名”误标为导入成功（实际显示文件名仅表示已选择，成功状态是“导入完成”并显示新增条数）；提及命令行（任务明确禁止）；要求用户把 API 密钥发给客服（任务禁止分享密钥，product.txt 也明确禁止）。同时缺失必需内容：提交后确认成功的方法、失败后的正确处理（下载错误清单、修正后重新选文件）、重复文件状态（“文件已导入”不要重复提交）以及不可恢复状态的求助指引（联系客服并提供请求编号）。交付声明不成立。\",\"verdict\":\"rejected\"}",
+              "status": "rejected",
+              "summary": "guide.md 实际内容与 product.txt 严重不符，几乎违反任务的所有硬性约束：编造不存在的按钮（“上传Excel”“自动修复”，产品只有“选择文件”“开始导入”“下载错误清单”“联系客服”）；错误宣称文件大小不限（实际最大 5MB）且使用 Excel（实际仅支持 UTF-8 CSV）；将“显示文件名”误标为导入成功（实际显示文件名仅表示已选择，成功状态是“导入完成”并显示新增条数）；提及命令行（任务明确禁止）；要求用户把 API 密钥发给客服（任务禁止分享密钥，product.txt 也明确禁止）。同时缺失必需内容：提交后确认成功的方法、失败后的正确处理（下载错误清单、修正后重新选文件）、重复文件状态（“文件已导入”不要重复提交）以及不可恢复状态的求助指引（联系客服并提供请求编号）。交付声明不成立。",
+              "issues": [
+                {
+                  "path": "guide.md",
+                  "code": "fabricated_buttons",
+                  "message": "步骤引用了产品中不存在的按钮“上传Excel”和“自动修复”。product.txt 只定义了“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。"
+                },
+                {
+                  "path": "guide.md",
+                  "code": "mentions_command_line",
+                  "message": "步骤4让用户“打开命令行重试”，任务明确禁止提及命令行。"
+                },
+                {
+                  "path": "guide.md",
+                  "code": "requests_secret_sharing",
+                  "message": "步骤4要求用户把 API 密钥发给客服，任务明确禁止要求用户分享密钥，且 product.txt 明确说明不要发送密钥。"
+                },
+                {
+                  "path": "guide.md",
+                  "code": "contradicts_source_facts",
+                  "message": "声称“文件大小不限”且支持 Excel，与 product.txt 事实相反：仅支持 UTF-8 CSV，最大 5MB。"
+                },
+                {
+                  "path": "guide.md",
+                  "code": "wrong_success_criterion",
+                  "message": "声称“显示文件名说明导入成功”，但 product.txt 中选择后显示文件名仅表示已选择文件；成功状态是“导入完成”并显示新增条数。"
+                },
+                {
+                  "path": "guide.md",
+                  "code": "missing_required_content",
+                  "message": "缺少任务要求的关键内容：提交后如何确认成功（导入完成+新增条数）、失败处理（导入失败→下载错误清单→修正后重新选文件）、重复文件状态（文件已导入，不要重复提交）、服务不可用/不可恢复状态的求助方式（点击联系客服并提供页面请求编号，勿发送密钥或原始客户数据）。"
+                }
+              ]
+            }
+          },
+          {
+            "attempt": 2,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-bad/model-r2/workspace/guide.md",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-bad/model-r2/workspace/product.txt"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 2656,
+                "outputTokens": 1427,
+                "cacheReadTokens": 4096,
+                "totalTokens": 8179
+              },
+              "durationMs": 38728,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"已核实 guide.md 实际内容与 product.txt 及任务要求一致：共 6 个编号步骤，仅引用产品真实存在的四个按钮（选择文件、开始导入、下载错误清单、联系客服）；仅支持 UTF-8 CSV 且最大 5MB（步骤1）与源事实相符；成功标准正确（显示文件名仅表示已选择，成功为\\\"导入完成\\\"并显示新增条数，步骤4）；失败处理完整（\\\"导入失败\\\"→下载错误清单→修正后重新选文件，步骤5），并包含重复文件状态\\\"文件已导入\\\"勿重复提交；不可恢复状态（服务不可用或反复失败）明确指引点击\\\"联系客服\\\"并提供页面请求编号，且明确要求勿发送密钥或原始客户数据（步骤6）。全文未提及命令行，未要求用户分享密钥，先前六个缺陷均已修复。\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "已核实 guide.md 实际内容与 product.txt 及任务要求一致：共 6 个编号步骤，仅引用产品真实存在的四个按钮（选择文件、开始导入、下载错误清单、联系客服）；仅支持 UTF-8 CSV 且最大 5MB（步骤1）与源事实相符；成功标准正确（显示文件名仅表示已选择，成功为\"导入完成\"并显示新增条数，步骤4）；失败处理完整（\"导入失败\"→下载错误清单→修正后重新选文件，步骤5），并包含重复文件状态\"文件已导入\"勿重复提交；不可恢复状态（服务不可用或反复失败）明确指引点击\"联系客服\"并提供页面请求编号，且明确要求勿发送密钥或原始客户数据（步骤6）。全文未提及命令行，未要求用户分享密钥，先前六个缺陷均已修复。",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 1,
+        "value": {
+          "artifact": "guide.md",
+          "summary": "已根据 product.txt 重写面向首次使用者的 guide.md：共 6 个编号步骤，仅引用产品真实存在的四个按钮（选择文件、开始导入、下载错误清单、联系客服）。内容涵盖：开始操作（仅支持 UTF-8 CSV、最大 5MB）、成功确认（页面显示\"导入完成\"及新增条数，并说明选择后仅显示文件名不等于成功）、失败处理（\"导入失败\"时下载错误清单、修正后重新选文件导入；\"文件已导入\"提示勿重复提交）、以及不可恢复状态（服务不可用或反复失败时点击\"联系客服\"并提供页面请求编号，明确不发送密钥或原始客户数据）。全文未提及命令行，未要求用户分享密钥。"
+        }
+      }
+    },
+    "files": {
+      "guide.md": "# 首次使用指南\n\n本指南面向第一次使用数据导入页的用户，介绍如何开始、如何确认导入成功，以及失败后该怎么处理。\n\n## 操作步骤\n\n1. **准备文件**：确认你的数据文件是 UTF-8 编码的 CSV 格式，且大小不超过 5MB。页面目前仅支持这一种格式和大小上限，其他格式或超过 5MB 的文件无法导入。\n\n2. **选择文件**：点击“选择文件”按钮，在弹出的窗口中选中你的 CSV 文件。页面随后显示文件名，这只表示文件已被选中，尚未开始导入。\n\n3. **提交导入**：确认页面显示的文件名无误后，点击“开始导入”按钮，然后等待页面返回结果。\n\n4. **确认成功**：如果页面显示“导入完成”，并显示新增条数，说明导入成功。新增条数就是本次成功写入的数据条数，请记下该数字以便核对。\n\n5. **处理失败**：如果页面显示“导入失败”，说明文件中存在格式错误。点击“下载错误清单”查看具体问题，按清单修正文件后，回到第 2 步重新点击“选择文件”选择修正后的文件，再点击“开始导入”重试。如果页面显示“文件已导入”，说明这个文件之前已经提交过，请勿重复提交，检查是否应导入其他文件。\n\n6. **无法继续时求助**：如果页面显示服务不可用，或者按错误清单修正后仍反复失败、操作无法继续，请点击“联系客服”按钮，并向客服提供页面上的请求编号，客服会据此协助处理。请勿向客服发送密钥或任何原始客户数据。\n",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-bad",
+    "kind": "seeded-delivery",
+    "initialQuality": "bad",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 2,
+    "report": {
+      "subagentId": "user-guide-bad-original",
+      "definitionId": "general-purpose",
+      "markdown": "",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 1
+    },
+    "files": {
+      "guide.md": "# 快速使用\n1. 点击上传Excel，文件大小不限。\n2. 点击自动修复。\n3. 显示文件名说明导入成功。\n4. 失败时打开命令行重试并把API密钥发给客服。",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 1,
+    "report": {
+      "subagentId": "user-guide-good-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"guide.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 1,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "guide.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "guide.md": "# 数据导入指南\n1. 准备 UTF-8 编码的 CSV 文件，大小不超过 5MB。\n2. 点击“选择文件”，确认显示的文件名正确，再点击“开始导入”。\n3. 等待“导入完成”，查看新增条数；只显示文件名不表示已导入。\n4. 若显示“导入失败”，点击“下载错误清单”，按提示修正后重新选择文件并导入。\n5. 若显示“文件已导入”，无需再次提交。\n6. 服务不可用时点击“联系客服”，提供页面请求编号；不要发送密钥或原始客户数据。",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 17560,
+    "report": {
+      "subagentId": "user-guide-good-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"guide.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 658,
+        "outputTokens": 1223,
+        "cacheReadTokens": 4800,
+        "totalTokens": 6681
+      },
+      "turns": 3,
+      "durationMs": 17559,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-good/model-r0/workspace/product.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-good/model-r0/workspace/guide.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 658,
+                "outputTokens": 1223,
+                "cacheReadTokens": 4800,
+                "totalTokens": 6681
+              },
+              "durationMs": 17559,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"guide.md 存在且满足全部任务要求：内容与 product.txt 一致，涵盖开始操作（步骤1-2）、提交后成功确认（步骤3：出现「导入完成」并查看新增条数）、失败处理（步骤4-5：导入失败下载错误清单后重试、文件已导入不重复提交）；共6个编号步骤，未超过上限；未提及命令行；未要求用户分享密钥（反而明确提示不要发送密钥或原始客户数据）；所引用的四个按钮（选择文件、开始导入、下载错误清单、联系客服）和三种状态（导入完成、导入失败、文件已导入）均真实存在于 product.txt，无编造；对服务不可用的不可恢复状态明确指引点击「联系客服」并提供页面请求编号。\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "guide.md 存在且满足全部任务要求：内容与 product.txt 一致，涵盖开始操作（步骤1-2）、提交后成功确认（步骤3：出现「导入完成」并查看新增条数）、失败处理（步骤4-5：导入失败下载错误清单后重试、文件已导入不重复提交）；共6个编号步骤，未超过上限；未提及命令行；未要求用户分享密钥（反而明确提示不要发送密钥或原始客户数据）；所引用的四个按钮（选择文件、开始导入、下载错误清单、联系客服）和三种状态（导入完成、导入失败、文件已导入）均真实存在于 product.txt，无编造；对服务不可用的不可恢复状态明确指引点击「联系客服」并提供页面请求编号。",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "guide.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "guide.md": "# 数据导入指南\n1. 准备 UTF-8 编码的 CSV 文件，大小不超过 5MB。\n2. 点击“选择文件”，确认显示的文件名正确，再点击“开始导入”。\n3. 等待“导入完成”，查看新增条数；只显示文件名不表示已导入。\n4. 若显示“导入失败”，点击“下载错误清单”，按提示修正后重新选择文件并导入。\n5. 若显示“文件已导入”，无需再次提交。\n6. 服务不可用时点击“联系客服”，提供页面请求编号；不要发送密钥或原始客户数据。",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 2,
+    "replayedInitial": true,
+    "durationMs": 31415,
+    "report": {
+      "subagentId": "user-guide-good-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"guide.md\",\"summary\":\"已完成任务，请查收交付文件。\"}",
+      "usage": {
+        "inputTokens": 702,
+        "outputTokens": 1426,
+        "cacheReadTokens": 4800,
+        "totalTokens": 6928
+      },
+      "turns": 3,
+      "durationMs": 31414,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-good/model-r2/workspace/product.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-good/model-r2/workspace/guide.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 702,
+                "outputTokens": 1426,
+                "cacheReadTokens": 4800,
+                "totalTokens": 6928
+              },
+              "durationMs": 31413,
+              "rawVerdict": "{\"verdict\":\"accepted\",\"summary\":\"guide.md exists and satisfies all task requirements. It contains exactly 6 numbered steps for first-time users: preparation (UTF-8 CSV ≤5MB), start (select file, confirm filename, start import), success confirmation ('导入完成' with new-entry count), failure handling (download error list and re-upload; duplicate file — no re-submission), and the unrecoverable state (service unavailable → click 联系客服 with the page request number). All four buttons referenced (选择文件/开始导入/下载错误清单/联系客服) exist in product.txt, so none are fabricated. No command line is mentioned, and the guide explicitly instructs users NOT to send keys or raw customer data rather than requiring sharing them. All product states are covered and consistent with product.txt.\",\"issues\":[]}",
+              "status": "accepted",
+              "summary": "guide.md exists and satisfies all task requirements. It contains exactly 6 numbered steps for first-time users: preparation (UTF-8 CSV ≤5MB), start (select file, confirm filename, start import), success confirmation ('导入完成' with new-entry count), failure handling (download error list and re-upload; duplicate file — no re-submission), and the unrecoverable state (service unavailable → click 联系客服 wi",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "guide.md",
+          "summary": "已完成任务，请查收交付文件。"
+        }
+      }
+    },
+    "files": {
+      "guide.md": "# 数据导入指南\n1. 准备 UTF-8 编码的 CSV 文件，大小不超过 5MB。\n2. 点击“选择文件”，确认显示的文件名正确，再点击“开始导入”。\n3. 等待“导入完成”，查看新增条数；只显示文件名不表示已导入。\n4. 若显示“导入失败”，点击“下载错误清单”，按提示修正后重新选择文件并导入。\n5. 若显示“文件已导入”，无需再次提交。\n6. 服务不可用时点击“联系客服”，提供页面请求编号；不要发送密钥或原始客户数据。",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-good",
+    "kind": "seeded-delivery",
+    "initialQuality": "good",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 0,
+    "replayedInitial": true,
+    "durationMs": 2,
+    "report": {
+      "subagentId": "user-guide-good-original",
+      "definitionId": "general-purpose",
+      "markdown": "",
+      "usage": {},
+      "turns": 1,
+      "durationMs": 0
+    },
+    "files": {
+      "guide.md": "# 数据导入指南\n1. 准备 UTF-8 编码的 CSV 文件，大小不超过 5MB。\n2. 点击“选择文件”，确认显示的文件名正确，再点击“开始导入”。\n3. 等待“导入完成”，查看新增条数；只显示文件名不表示已导入。\n4. 若显示“导入失败”，点击“下载错误清单”，按提示修正后重新选择文件并导入。\n5. 若显示“文件已导入”，无需再次提交。\n6. 服务不可用时点击“联系客服”，提供页面请求编号；不要发送密钥或原始客户数据。",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-natural",
+    "kind": "natural-production",
+    "arm": "l1-only",
+    "model": "glm-5.3",
+    "physicalRequests": 3,
+    "replayedInitial": false,
+    "durationMs": 19687,
+    "report": {
+      "subagentId": "user-guide-natural-l1-only",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"guide.md\",\"summary\":\"已根据 product.txt 编写面向首次使用者的 guide.md：6 个编号步骤覆盖准备文件（UTF-8 CSV、≤5MB）、点击“选择文件”并核对显示的文件名、点击“开始导入”、以“导入完成+新增条数”确认成功、以“下载错误清单→修正→重新选文件”处理“导入失败”，并明确“文件已导入”不要重复提交、服务不可用时点击“联系客服”并提供页面请求编号求助且不发送密钥或原始客户数据。全文未提及命令行，仅引用产品实际存在的四个按钮。\"}",
+      "usage": {
+        "inputTokens": 1829,
+        "outputTokens": 1148,
+        "cacheReadTokens": 4800,
+        "totalTokens": 7777
+      },
+      "turns": 3,
+      "durationMs": 19686,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": []
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "guide.md",
+          "summary": "已根据 product.txt 编写面向首次使用者的 guide.md：6 个编号步骤覆盖准备文件（UTF-8 CSV、≤5MB）、点击“选择文件”并核对显示的文件名、点击“开始导入”、以“导入完成+新增条数”确认成功、以“下载错误清单→修正→重新选文件”处理“导入失败”，并明确“文件已导入”不要重复提交、服务不可用时点击“联系客服”并提供页面请求编号求助且不发送密钥或原始客户数据。全文未提及命令行，仅引用产品实际存在的四个按钮。"
+        }
+      }
+    },
+    "files": {
+      "guide.md": "# 首次使用指南：数据导入页\n\n本页用于在浏览器中把 CSV 文件里的数据导入系统。整个过程都在页面内完成，请按以下 6 个步骤操作。\n\n## 操作步骤\n\n1. **准备文件**：确认你要导入的文件是 UTF-8 编码的 CSV 文件，并且大小不超过 5MB。不满足这两个条件的文件无法导入。\n\n2. **选择文件**：点击页面上的“选择文件”按钮，选中你的 CSV 文件。选择成功后，页面会显示该文件的文件名，请核对显示的文件名与你想导入的文件一致。\n\n3. **开始导入**：确认无误后，点击“开始导入”按钮，然后等待页面显示结果。请不要在页面显示结果前反复点击。\n\n4. **确认是否成功**：\n   - 如果页面显示“导入完成”，并显示新增条数，说明本次导入已成功。记住或记录页面显示的新增条数即可，本次操作到此结束。\n   - 如果页面显示“文件已导入”，说明这个文件之前已经成功导入过，数据已在系统中，请不要重复提交。\n\n5. **导入失败时的处理**：如果页面显示“导入失败”，说明文件内容存在格式错误。点击“下载错误清单”按钮，把错误清单保存下来；按照清单逐项修正文件内容后，回到第 2 步，重新选择修正后的文件，再次点击“开始导入”。\n\n6. **无法自行解决时如何求助**：如果页面提示服务不可用，你无法通过本页完成导入，此时请点击“联系客服”按钮，并把页面上显示的请求编号告诉客服，以便对方定位问题。\n   - 重要：联系客服时，只需要提供页面上显示的请求编号。请勿向客服或任何人发送密码、密钥等敏感信息，也请勿发送原始客户数据。\n\n## 小结\n\n| 页面显示 | 含义 | 你要做的 |\n| --- | --- | --- |\n| 导入完成（含新增条数） | 导入成功 | 结束操作 |\n| 文件已导入 | 该文件已成功导入过 | 不要重复提交 |\n| 导入失败 | 文件格式有错误 | 下载错误清单 → 修正 → 重新选择文件导入 |\n| 服务不可用 | 无法自行完成 | 点击“联系客服”并提供页面上的请求编号 |\n",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-natural",
+    "kind": "natural-production",
+    "arm": "model-r0",
+    "model": "glm-5.3",
+    "physicalRequests": 5,
+    "replayedInitial": false,
+    "durationMs": 50908,
+    "report": {
+      "subagentId": "user-guide-natural-model-r0",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"guide.md\",\"summary\":\"基于 product.txt 为浏览器数据导入页撰写了首用指南 guide.md，共六个编号步骤：1）选择文件并核对文件名；2）点击开始导入；3）以“导入完成”及新增条数确认成功；4）“导入失败”时下载错误清单、修正后重新选择文件再导入；5）“文件已导入”时勿重复提交；6）服务不可用等无法恢复状态时点击“联系客服”并提供页面请求编号。全文仅引用真实存在的四个按钮，未提及命令行，并明确提示用户不要向客服发送密钥或原始客户数据。\"}",
+      "usage": {
+        "inputTokens": 4229,
+        "outputTokens": 3358,
+        "cacheReadTokens": 9472,
+        "totalTokens": 17059
+      },
+      "turns": 5,
+      "durationMs": 50907,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-natural/model-r0/workspace/product.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-natural/model-r0/workspace/guide.md"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 2214,
+                "outputTokens": 1423,
+                "cacheReadTokens": 4096,
+                "totalTokens": 7733
+              },
+              "durationMs": 24189,
+              "rawVerdict": "{\"issues\":[],\"summary\":\"已读取 product.txt 与 guide.md 并逐项核对：guide.md 存在且内容忠实基于 product.txt。包含恰好六个编号步骤，覆盖开始操作（步骤1-2：选择文件、开始导入）、提交后确认成功（步骤3：以\\\"导入完成\\\"及新增条数确认）、失败处理（步骤4：导入失败时下载错误清单、修正后重新提交；步骤5：文件已导入时勿重复提交）。不可恢复状态（服务不可用）在步骤6中明确指引点击\\\"联系客服\\\"并提供页面请求编号。全文仅引用 product.txt 中真实存在的四个按钮（选择文件、开始导入、下载错误清单、联系客服），无任何编造按钮；未提及命令行；非但不要求分享密钥，还明确警告用户不要向客服发送密钥或原始客户数据。交付声明与实际文件内容完全一致，所有任务约束均满足。\",\"verdict\":\"accepted\"}",
+              "status": "accepted",
+              "summary": "已读取 product.txt 与 guide.md 并逐项核对：guide.md 存在且内容忠实基于 product.txt。包含恰好六个编号步骤，覆盖开始操作（步骤1-2：选择文件、开始导入）、提交后确认成功（步骤3：以\"导入完成\"及新增条数确认）、失败处理（步骤4：导入失败时下载错误清单、修正后重新提交；步骤5：文件已导入时勿重复提交）。不可恢复状态（服务不可用）在步骤6中明确指引点击\"联系客服\"并提供页面请求编号。全文仅引用 product.txt 中真实存在的四个按钮（选择文件、开始导入、下载错误清单、联系客服），无任何编造按钮；未提及命令行；非但不要求分享密钥，还明确警告用户不要向客服发送密钥或原始客户数据。交付声明与实际文件内容完全一致，所有任务约束均满足。",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 0,
+        "value": {
+          "artifact": "guide.md",
+          "summary": "基于 product.txt 为浏览器数据导入页撰写了首用指南 guide.md，共六个编号步骤：1）选择文件并核对文件名；2）点击开始导入；3）以“导入完成”及新增条数确认成功；4）“导入失败”时下载错误清单、修正后重新选择文件再导入；5）“文件已导入”时勿重复提交；6）服务不可用等无法恢复状态时点击“联系客服”并提供页面请求编号。全文仅引用真实存在的四个按钮，未提及命令行，并明确提示用户不要向客服发送密钥或原始客户数据。"
+        }
+      }
+    },
+    "files": {
+      "guide.md": "# 首次使用指南：数据导入页\n\n本指南面向第一次使用浏览器数据导入页的用户，帮助您完成导入、确认结果并处理常见问题。\n\n## 开始之前\n\n- 确认您的文件是 **UTF-8 编码的 CSV 文件**，且大小**不超过 5MB**，否则无法导入。\n- 页面上共有四个按钮：**选择文件**、**开始导入**、**下载错误清单**、**联系客服**。\n\n## 操作步骤\n\n1. **选择文件**：点击“选择文件”按钮，选中准备好的 CSV 文件。选中后页面会显示该文件的文件名，请核对是否为您要导入的文件。\n\n2. **开始导入**：确认文件名无误后，点击“开始导入”按钮提交，然后等待页面返回结果。\n\n3. **确认成功**：如果页面显示 **“导入完成”** 并显示新增条数，说明本次导入已成功，无需任何后续操作。\n\n4. **处理“导入失败”（格式错误）**：如果页面显示 **“导入失败”**，点击“下载错误清单”按钮获取问题明细；按清单修正文件后，重新点击“选择文件”选中修正后的文件，再点击“开始导入”重新提交。\n\n5. **处理“文件已导入”（重复文件）**：如果页面显示 **“文件已导入”**，说明该文件此前已提交过，请不要重复提交；如需导入其他数据，请准备新文件后从第 1 步重新开始。\n\n6. **求助（无法自行恢复时）**：如果页面提示**服务不可用**，或按上述步骤操作后仍无法完成导入，请点击“联系客服”按钮，并向客服提供页面上显示的**请求编号**，以便快速定位问题。\n\n> ⚠️ 安全提示：联系客服时，请勿发送您的密钥或任何原始客户数据。\n",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-natural",
+    "kind": "natural-production",
+    "arm": "model-r2",
+    "model": "glm-5.3",
+    "physicalRequests": 11,
+    "replayedInitial": false,
+    "durationMs": 203486,
+    "report": {
+      "subagentId": "user-guide-natural-model-r2",
+      "definitionId": "general-purpose",
+      "markdown": "{\"artifact\":\"guide.md\",\"summary\":\"已修复 guide.md：删除第 3 行中“命令行”字样，改为“本页面全程在浏览器中操作，无需任何技术背景”，全文件不再出现该词。指南保留 6 个编号步骤，涵盖准备文件、选择文件并核对显示的文件名、开始导入、以“导入完成”状态及新增条数确认成功、“导入失败”时下载错误清单修正后重选文件，以及“文件已导入”勿重复提交；服务不可用时明确告知点击“联系客服”并提供页面请求编号求助，且提示不要发送密钥或原始客户数据。仅引用 product.txt 中实际存在的四个按钮。\"}",
+      "usage": {
+        "inputTokens": 13435,
+        "outputTokens": 7920,
+        "cacheReadTokens": 21184,
+        "totalTokens": 42539
+      },
+      "turns": 11,
+      "durationMs": 203486,
+      "acceptance": {
+        "status": "accepted",
+        "stopReason": "accepted",
+        "attempts": [
+          {
+            "attempt": 1,
+            "accepted": false,
+            "checksPassed": true,
+            "issues": [
+              {
+                "path": "guide.md",
+                "code": "forbidden-mention-cli",
+                "message": "guide.md 第 3 行“本页面在浏览器中操作，全程无需任何命令行或技术背景”中出现了“命令行”字样。任务明确要求“不得提及命令行”，因此即使是“无需命令行”的否定式表述也构成违规；且交付声明声称“未提及命令行”，与实际文件不符。修复方式：删除该词，例如改为“本页面全程在浏览器中操作，无需任何技术背景，按以下步骤即可完成一次数据导入。”"
+              }
+            ],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-natural/model-r2/workspace/product.txt",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-natural/model-r2/workspace/guide.md"
+              ],
+              "turns": 3,
+              "usage": {
+                "inputTokens": 6520,
+                "outputTokens": 4510,
+                "cacheReadTokens": 6016,
+                "totalTokens": 17046
+              },
+              "durationMs": 131032,
+              "rawVerdict": "{\"issues\":[{\"code\":\"forbidden-mention-cli\",\"message\":\"guide.md 第 3 行“本页面在浏览器中操作，全程无需任何命令行或技术背景”中出现了“命令行”字样。任务明确要求“不得提及命令行”，因此即使是“无需命令行”的否定式表述也构成违规；且交付声明声称“未提及命令行”，与实际文件不符。修复方式：删除该词，例如改为“本页面全程在浏览器中操作，无需任何技术背景，按以下步骤即可完成一次数据导入。”\",\"path\":\"guide.md\"}],\"summary\":\"guide.md 整体覆盖了任务要求：恰好 6 个编号步骤（不超过上限），包含开始操作（第1–3步）、成功确认（第4步“导入完成”并显示新增条数）、失败处理（第5步“导入失败”→下载错误清单→修正后重选文件）、重复文件与服务不可用的处理（第6步点击“联系客服”并提供请求编号，明确不发送密钥或原始客户数据）；仅引用 product.txt 中实际存在的四个按钮（选择文件、开始导入、下载错误清单、联系客服），无虚构按钮，也未要求用户分享密钥。但第 3 行出现“全程无需任何命令行”的表述，实际提及了“命令行”，违反任务“不得提及命令行”的硬性约束，且与交付声明中“未提及命令行”的说法相矛盾。删除该措辞即可修复，其余内容均符合要求。\",\"verdict\":\"rejected\"}",
+              "status": "rejected",
+              "summary": "guide.md 整体覆盖了任务要求：恰好 6 个编号步骤（不超过上限），包含开始操作（第1–3步）、成功确认（第4步“导入完成”并显示新增条数）、失败处理（第5步“导入失败”→下载错误清单→修正后重选文件）、重复文件与服务不可用的处理（第6步点击“联系客服”并提供请求编号，明确不发送密钥或原始客户数据）；仅引用 product.txt 中实际存在的四个按钮（选择文件、开始导入、下载错误清单、联系客服），无虚构按钮，也未要求用户分享密钥。但第 3 行出现“全程无需任何命令行”的表述，实际提及了“命令行”，违反任务“不得提及命令行”的硬性约束，且与交付声明中“未提及命令行”的说法相矛盾。删除该措辞即可修复，其余内容均符合要求。",
+              "issues": [
+                {
+                  "path": "guide.md",
+                  "code": "forbidden-mention-cli",
+                  "message": "guide.md 第 3 行“本页面在浏览器中操作，全程无需任何命令行或技术背景”中出现了“命令行”字样。任务明确要求“不得提及命令行”，因此即使是“无需命令行”的否定式表述也构成违规；且交付声明声称“未提及命令行”，与实际文件不符。修复方式：删除该词，例如改为“本页面全程在浏览器中操作，无需任何技术背景，按以下步骤即可完成一次数据导入。”"
+                }
+              ]
+            }
+          },
+          {
+            "attempt": 2,
+            "accepted": true,
+            "checksPassed": true,
+            "issues": [],
+            "review": {
+              "model": {
+                "provider": "competition",
+                "model": "glm-5.3"
+              },
+              "evidence": [
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-natural/model-r2/workspace/guide.md",
+                "/home/cuizhixing/Projects/pilotdeck-hackathon/verified-subtasks/model-review-20260912/runs/user-guide-natural/model-r2/workspace/product.txt"
+              ],
+              "turns": 2,
+              "usage": {
+                "inputTokens": 2212,
+                "outputTokens": 1761,
+                "cacheReadTokens": 4096,
+                "totalTokens": 8069
+              },
+              "durationMs": 32932,
+              "rawVerdict": "{\"verdict\":\"accepted\",\"summary\":\"已核对 guide.md 与 product.txt 及任务要求。修复缺陷已验证：第 3 行为“本页面全程在浏览器中操作，无需任何技术背景……”，全文件不再出现“命令行”。文件含恰好 6 个编号步骤，覆盖准备文件、选择文件并核对文件名、开始导入、以“导入完成”状态及新增条数确认成功、“导入失败”时下载错误清单修正后重选文件、以及“文件已导入”勿重复提交。仅引用 product.txt 中实际存在的四个按钮（选择文件、开始导入、下载错误清单、联系客服），无虚构按钮。不可恢复状态（服务不可用）明确告知点击“联系客服”并提供页面请求编号求助，且提示不要发送密钥或原始客户数据，未要求用户分享密钥。交付声明与实际文件内容一致。\",\"issues\":[]}",
+              "status": "accepted",
+              "summary": "已核对 guide.md 与 product.txt 及任务要求。修复缺陷已验证：第 3 行为“本页面全程在浏览器中操作，无需任何技术背景……”，全文件不再出现“命令行”。文件含恰好 6 个编号步骤，覆盖准备文件、选择文件并核对文件名、开始导入、以“导入完成”状态及新增条数确认成功、“导入失败”时下载错误清单修正后重选文件、以及“文件已导入”勿重复提交。仅引用 product.txt 中实际存在的四个按钮（选择文件、开始导入、下载错误清单、联系客服），无虚构按钮。不可恢复状态（服务不可用）明确告知点击“联系客服”并提供页面请求编号求助，且提示不要发送密钥或原始客户数据，未要求用户分享密钥。交付声明与实际文件内容一致。",
+              "issues": []
+            }
+          }
+        ],
+        "repairs": 1,
+        "value": {
+          "artifact": "guide.md",
+          "summary": "已修复 guide.md：删除第 3 行中“命令行”字样，改为“本页面全程在浏览器中操作，无需任何技术背景”，全文件不再出现该词。指南保留 6 个编号步骤，涵盖准备文件、选择文件并核对显示的文件名、开始导入、以“导入完成”状态及新增条数确认成功、“导入失败”时下载错误清单修正后重选文件，以及“文件已导入”勿重复提交；服务不可用时明确告知点击“联系客服”并提供页面请求编号求助，且提示不要发送密钥或原始客户数据。仅引用 product.txt 中实际存在的四个按钮。"
+        }
+      }
+    },
+    "files": {
+      "guide.md": "# 数据导入页：首次使用指南\n\n本页面全程在浏览器中操作，无需任何技术背景，按以下步骤即可完成一次数据导入。\n\n1. **准备文件**：确认要导入的文件是 UTF-8 编码的 CSV 格式，且大小不超过 5MB。\n\n2. **选择文件**：在导入页点击\"选择文件\"按钮，从电脑中选中要导入的文件。选择后页面会显示文件名，请核对显示的文件名是否正确。\n\n3. **开始导入**：确认文件名无误后，点击\"开始导入\"按钮，等待页面返回结果，不要重复点击。\n\n4. **确认导入成功**：如果页面显示\"导入完成\"状态，并显示本次新增条数，即表示导入成功。记下新增条数即可，无需再次提交。\n\n5. **处理导入失败**：如果页面显示\"导入失败\"，说明文件存在格式错误。点击\"下载错误清单\"按钮，根据清单中的问题修正文件，然后回到第 2 步重新选择文件并再次导入。\n\n6. **其他状态与求助方式**：\n   - 如果页面显示\"文件已导入\"，说明该文件此前已成功提交，请勿重复提交。\n   - 如果页面提示服务不可用（无法自行恢复），请点击\"联系客服\"按钮，并提供页面上显示的请求编号，由客服协助处理。为保障安全，请不要向客服发送密钥或原始客户数据。\n",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  },
+  {
+    "caseId": "user-guide-natural",
+    "kind": "natural-production",
+    "arm": "original",
+    "model": "glm-5.3",
+    "physicalRequests": 3,
+    "replayedInitial": false,
+    "durationMs": 37056,
+    "report": {
+      "subagentId": "user-guide-natural-original",
+      "definitionId": "general-purpose",
+      "markdown": "已读取产品说明，产品为浏览器数据导入页，界面仅有四个按钮（选择文件、开始导入、下载错误清单、联系客服），状态包括导入完成、导入失败、文件已导入、服务不可用。现在撰写面向首次使用者的 guide.md。",
+      "usage": {
+        "inputTokens": 1971,
+        "outputTokens": 1447,
+        "cacheReadTokens": 4800,
+        "totalTokens": 8218
+      },
+      "turns": 3,
+      "durationMs": 37054
+    },
+    "files": {
+      "guide.md": "# 数据导入首次使用指南\n\n本指南面向第一次使用数据导入页面的用户，全程在浏览器中完成，共六步。\n\n## 使用步骤\n\n1. **准备文件**：确认要导入的文件为 UTF-8 编码的 CSV 格式，且大小不超过 5MB。超出限制的文件无法导入。\n\n2. **选择文件**：在页面上点击「选择文件」按钮，选中您的 CSV 文件。选择成功后，页面会显示该文件的文件名，请核对是否为想要导入的文件。\n\n3. **开始导入**：核对文件名无误后，点击「开始导入」按钮提交导入。\n\n4. **确认导入成功**：提交后，如果页面显示「导入完成」状态并显示新增条数，说明本次导入已成功，新增条数即本次写入的数据量，无需其他操作。\n\n5. **处理导入失败**：\n   - 若页面显示「导入失败」，说明文件存在格式错误。点击「下载错误清单」按钮获取具体错误内容，按清单修正文件后，重新点击「选择文件」上传修正后的文件，再点击「开始导入」。\n   - 若页面显示「文件已导入」，说明该文件此前已成功导入过，请勿重复提交。\n\n6. **遇到无法恢复的情况时求助**：如果页面提示服务不可用，这属于您无法自行恢复的状态，请点击「联系客服」按钮，并向客服提供页面显示的请求编号以便排查。请注意：无论任何情况，都不要向任何人（包括客服）发送您的密钥或原始客户数据。\n",
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    }
+  }
+]

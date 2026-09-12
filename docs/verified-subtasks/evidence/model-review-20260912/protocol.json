@@ -1,0 +1,38 @@
+{
+  "model": "glm-5.3",
+  "arms": [
+    {
+      "id": "original",
+      "review": false,
+      "repairs": 0,
+      "contract": false
+    },
+    {
+      "id": "l1-only",
+      "review": false,
+      "repairs": 2,
+      "contract": true
+    },
+    {
+      "id": "model-r0",
+      "review": true,
+      "repairs": 0,
+      "contract": true
+    },
+    {
+      "id": "model-r2",
+      "review": true,
+      "repairs": 2,
+      "contract": true
+    }
+  ],
+  "caseCount": 12,
+  "createdAt": "2026-09-12T04:45:22.740Z",
+  "runtime": "actual SubAgentSession + createModelSubtaskReviewer; existing legacy path when acceptance omitted",
+  "notes": [
+    "L1 schema checks delivery envelope only; no answer key or semantic host validator.",
+    "Seeded delivery first turn is injected identically across arms; subsequent review and repair use live model.",
+    "Natural production uses independent live generation per arm; not matched initial replay.",
+    "Independent final audit is separate from runtime reviewer; this is a small engineering evaluation."
+  ]
+}

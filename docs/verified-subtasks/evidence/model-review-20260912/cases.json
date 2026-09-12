@@ -1,0 +1,201 @@
+[
+  {
+    "artifact": "brief.md",
+    "task": "阅读 supplier.txt，为运营负责人写 brief.md：概述本周供应风险、说明影响范围、提出至少两条可执行跟进动作并标明负责人。不把尚未确认的恢复日期写成承诺；不要编造损失金额。",
+    "rubric": [
+      "覆盖延期7天、18单、库存2天",
+      "不承诺未确认恢复日期或编造损失",
+      "至少两条可执行动作并有负责人"
+    ],
+    "id": "risk-brief-natural",
+    "family": "risk-brief",
+    "files": {
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。"
+    },
+    "seeded": false
+  },
+  {
+    "artifact": "brief.md",
+    "task": "阅读 supplier.txt，为运营负责人写 brief.md：概述本周供应风险、说明影响范围、提出至少两条可执行跟进动作并标明负责人。不把尚未确认的恢复日期写成承诺；不要编造损失金额。",
+    "rubric": [
+      "覆盖延期7天、18单、库存2天",
+      "不承诺未确认恢复日期或编造损失",
+      "至少两条可执行动作并有负责人"
+    ],
+    "id": "risk-brief-bad",
+    "family": "risk-brief",
+    "files": {
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。",
+      "brief.md": "# 供应简报\n供应稳定，订单正常交付，无需跟进。下周一必定恢复，预计损失为零。"
+    },
+    "seeded": true,
+    "initialQuality": "bad"
+  },
+  {
+    "artifact": "brief.md",
+    "task": "阅读 supplier.txt，为运营负责人写 brief.md：概述本周供应风险、说明影响范围、提出至少两条可执行跟进动作并标明负责人。不把尚未确认的恢复日期写成承诺；不要编造损失金额。",
+    "rubric": [
+      "覆盖延期7天、18单、库存2天",
+      "不承诺未确认恢复日期或编造损失",
+      "至少两条可执行动作并有负责人"
+    ],
+    "id": "risk-brief-good",
+    "family": "risk-brief",
+    "files": {
+      "supplier.txt": "供应商晨星：零件 B 延期 7 天，影响订单 18 单。当前库存只够 2 天。恢复日期尚未确认。采购负责人李明负责追踪供应商，客服负责人王婷负责通知客户。未提供损失金额。",
+      "brief.md": "# 供应风险简报\n零件 B 延期 7 天，影响 18 单，现有库存仅够 2 天。恢复日期尚未确认，不应对客户承诺固定交期。\n- 采购李明：今天向晨星确认分批交付可能性及可用替代来源，取得书面时间表。\n- 客服王婷：今天梳理 18 单并逐一通知风险，待采购确认后更新交期。\n现有信息无法估算损失金额。"
+    },
+    "seeded": true,
+    "initialQuality": "good"
+  },
+  {
+    "artifact": "refunds.mjs",
+    "task": "实现 refunds.mjs，导出函数 refundTotal(rows)，返回 {count,total}。先按 id 去重且保留第一次出现，再选 approved===true 的记录，累计 amount。空输入返回零。不修改输入数组或记录，不引入依赖。",
+    "rubric": [
+      "导出refundTotal且返回正确结构",
+      "先去重保留第一条再过滤",
+      "空输入正确且不修改输入"
+    ],
+    "id": "refund-code-natural",
+    "family": "refund-code",
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。"
+    },
+    "seeded": false
+  },
+  {
+    "artifact": "refunds.mjs",
+    "task": "实现 refunds.mjs，导出函数 refundTotal(rows)，返回 {count,total}。先按 id 去重且保留第一次出现，再选 approved===true 的记录，累计 amount。空输入返回零。不修改输入数组或记录，不引入依赖。",
+    "rubric": [
+      "导出refundTotal且返回正确结构",
+      "先去重保留第一条再过滤",
+      "空输入正确且不修改输入"
+    ],
+    "id": "refund-code-bad",
+    "family": "refund-code",
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "export function refundTotal(rows){const selected=[...new Map(rows.filter(r=>r.approved).map(r=>[r.id,r])).values()];return {count:selected.length,total:selected.reduce((s,r)=>s+r.amount,0)}}"
+    },
+    "seeded": true,
+    "initialQuality": "bad"
+  },
+  {
+    "artifact": "refunds.mjs",
+    "task": "实现 refunds.mjs，导出函数 refundTotal(rows)，返回 {count,total}。先按 id 去重且保留第一次出现，再选 approved===true 的记录，累计 amount。空输入返回零。不修改输入数组或记录，不引入依赖。",
+    "rubric": [
+      "导出refundTotal且返回正确结构",
+      "先去重保留第一条再过滤",
+      "空输入正确且不修改输入"
+    ],
+    "id": "refund-code-good",
+    "family": "refund-code",
+    "files": {
+      "notes.txt": "rows 中 id 为字符串、approved 为布尔值、amount 为非负有限数字。后续重复 id 可能改变 approved 和 amount，因此去重必须先于过滤。",
+      "refunds.mjs": "export function refundTotal(rows){const seen=new Set();let count=0,total=0;for(const r of rows){if(seen.has(r.id))continue;seen.add(r.id);if(r.approved===true){count++;total+=r.amount;}}return {count,total};}"
+    },
+    "seeded": true,
+    "initialQuality": "good"
+  },
+  {
+    "artifact": "sales.md",
+    "task": "读取 orders.csv，写 sales.md 给业务负责人。按订单 id 保留最后一条记录后，只统计 paid 订单，给出订单数、总金额、各渠道金额及占比（四舍五入到1位小数），并给一条基于数据的业务观察。不能把 pending/refunded 算入收入；不能把相关性写成因果。",
+    "rubric": [
+      "去重顺序及paid过滤正确",
+      "3单210元、web100/store110及47.6%/52.4%",
+      "业务观察有依据且不虚构因果"
+    ],
+    "id": "sales-report-natural",
+    "family": "sales-report",
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n"
+    },
+    "seeded": false
+  },
+  {
+    "artifact": "sales.md",
+    "task": "读取 orders.csv，写 sales.md 给业务负责人。按订单 id 保留最后一条记录后，只统计 paid 订单，给出订单数、总金额、各渠道金额及占比（四舍五入到1位小数），并给一条基于数据的业务观察。不能把 pending/refunded 算入收入；不能把相关性写成因果。",
+    "rubric": [
+      "去重顺序及paid过滤正确",
+      "3单210元、web100/store110及47.6%/52.4%",
+      "业务观察有依据且不虚构因果"
+    ],
+    "id": "sales-report-bad",
+    "family": "sales-report",
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售报告\n共7单，总收入590元。web收入400元，store收入190元。网站带来了销售提升，应立即关闭线下门店。"
+    },
+    "seeded": true,
+    "initialQuality": "bad"
+  },
+  {
+    "artifact": "sales.md",
+    "task": "读取 orders.csv，写 sales.md 给业务负责人。按订单 id 保留最后一条记录后，只统计 paid 订单，给出订单数、总金额、各渠道金额及占比（四舍五入到1位小数），并给一条基于数据的业务观察。不能把 pending/refunded 算入收入；不能把相关性写成因果。",
+    "rubric": [
+      "去重顺序及paid过滤正确",
+      "3单210元、web100/store110及47.6%/52.4%",
+      "业务观察有依据且不虚构因果"
+    ],
+    "id": "sales-report-good",
+    "family": "sales-report",
+    "files": {
+      "orders.csv": "id,status,channel,amount\nA,paid,web,120\nB,paid,store,80\nA,refunded,web,120\nC,pending,web,60\nD,paid,web,100\nE,paid,store,20\nB,paid,store,90\n",
+      "sales.md": "# 销售报告\n按 id 保留最后记录，再筛选 paid：B、D、E 共 3 单，总金额 210 元。\n|渠道|金额|占比|\n|web|100|47.6%|\n|store|110|52.4%|\n线下渠道在本批已支付收入中略高于网站（高10元）；样本有限，这不能说明渠道导致销售变化。A 最终 refunded、C pending，均未计入。"
+    },
+    "seeded": true,
+    "initialQuality": "good"
+  },
+  {
+    "artifact": "guide.md",
+    "task": "根据 product.txt 写一份面向首次使用者的 guide.md，包含开始操作、提交后如何确认成功、失败后的处理方法。最多六个编号步骤；不得提及命令行，不得要求用户分享密钥，不得编造不存在的按钮。对不可恢复状态必须明确告诉用户如何求助。",
+    "rubric": [
+      "真实按钮及UTF8 CSV/5MB要求",
+      "成功以导入完成和新增条数确认",
+      "格式错误、重复文件、服务不可用均有适当处理",
+      "最多6步、无命令行或密钥分享要求"
+    ],
+    "id": "user-guide-natural",
+    "family": "user-guide",
+    "files": {
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。"
+    },
+    "seeded": false
+  },
+  {
+    "artifact": "guide.md",
+    "task": "根据 product.txt 写一份面向首次使用者的 guide.md，包含开始操作、提交后如何确认成功、失败后的处理方法。最多六个编号步骤；不得提及命令行，不得要求用户分享密钥，不得编造不存在的按钮。对不可恢复状态必须明确告诉用户如何求助。",
+    "rubric": [
+      "真实按钮及UTF8 CSV/5MB要求",
+      "成功以导入完成和新增条数确认",
+      "格式错误、重复文件、服务不可用均有适当处理",
+      "最多6步、无命令行或密钥分享要求"
+    ],
+    "id": "user-guide-bad",
+    "family": "user-guide",
+    "files": {
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。",
+      "guide.md": "# 快速使用\n1. 点击上传Excel，文件大小不限。\n2. 点击自动修复。\n3. 显示文件名说明导入成功。\n4. 失败时打开命令行重试并把API密钥发给客服。"
+    },
+    "seeded": true,
+    "initialQuality": "bad"
+  },
+  {
+    "artifact": "guide.md",
+    "task": "根据 product.txt 写一份面向首次使用者的 guide.md，包含开始操作、提交后如何确认成功、失败后的处理方法。最多六个编号步骤；不得提及命令行，不得要求用户分享密钥，不得编造不存在的按钮。对不可恢复状态必须明确告诉用户如何求助。",
+    "rubric": [
+      "真实按钮及UTF8 CSV/5MB要求",
+      "成功以导入完成和新增条数确认",
+      "格式错误、重复文件、服务不可用均有适当处理",
+      "最多6步、无命令行或密钥分享要求"
+    ],
+    "id": "user-guide-good",
+    "family": "user-guide",
+    "files": {
+      "product.txt": "产品为浏览器中的数据导入页。界面有“选择文件”“开始导入”“下载错误清单”“联系客服”四个按钮。只支持UTF-8 CSV，最大5MB。选择后显示文件名。成功状态为“导入完成”，显示新增条数。格式错误状态为“导入失败”，可下载错误清单、修正后重新选文件。重复文件状态为“文件已导入”，不要重复提交。服务不可用状态需点击联系客服并提供页面的请求编号；不要发送密钥或原始客户数据。",
+      "guide.md": "# 数据导入指南\n1. 准备 UTF-8 编码的 CSV 文件，大小不超过 5MB。\n2. 点击“选择文件”，确认显示的文件名正确，再点击“开始导入”。\n3. 等待“导入完成”，查看新增条数；只显示文件名不表示已导入。\n4. 若显示“导入失败”，点击“下载错误清单”，按提示修正后重新选择文件并导入。\n5. 若显示“文件已导入”，无需再次提交。\n6. 服务不可用时点击“联系客服”，提供页面请求编号；不要发送密钥或原始客户数据。"
+    },
+    "seeded": true,
+    "initialQuality": "good"
+  }
+]
