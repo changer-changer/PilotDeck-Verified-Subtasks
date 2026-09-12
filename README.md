@@ -1,6 +1,6 @@
 # PilotDeck · 子任务验收与局部修复
 
-**给子任务的“完成”加上结构检查与独立模型复核。失败在原子任务内修复，已通过的兄弟任务继续保留。**
+**让每次交付，都有验收依据。** 为启用契约的子任务加入结构检查与独立模型复核；可修问题在原子任务内有界修复，已通过的兄弟任务继续保留。
 
 方向三参赛项目，基于 [OpenBMB/PilotDeck](https://github.com/OpenBMB/PilotDeck) 的底层改进。保留原生界面、模型接入和工具执行链，通过 `agent.acceptance` 启用交付契约。上游基线：`8ba2eb04cefec52fd9068d46a1a0d18b47689bea`。原说明见 [README.upstream.md](README.upstream.md)，许可证见 [LICENSE](LICENSE)。
 
@@ -16,6 +16,12 @@
 轨迹回放页用于讲解或备用，现场主线是原生软件中的真实执行。
 
 [8 步现场操作](docs/verified-subtasks/QUICKSTART.zh-CN.md) · [原生演示录像（1 分 58 秒 / 9 分 47 秒）](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/demo-recording-20260911) · [本次录像的验收报告](docs/verified-subtasks/evidence/ui-recording-20260911/README.md)
+
+[现场答辩 Q&A：32 题、图表、搜索与大字投屏](https://changer-changer.github.io/PilotDeck-Verified-Subtasks/verified-subtasks/defense-qa.html) · [Q&A 离线文件](docs/verified-subtasks/defense-qa.html) · [四模型统计报告](docs/verified-subtasks/STATISTICS.zh-CN.md) · [原始数据与实验脚本](https://github.com/changer-changer/PilotDeck-Verified-Subtasks/releases/tag/statistics-20260912)
+
+已有 L1 实验中，Llama 3.2 3B 在 450 组配对合成任务上从 17/450 提升至 161/450（3.8% → 35.8%，增加 32 个百分点）；四模型 A/B 合计 1,450 对。收益依赖模型与任务，MiniCPM 1B、Qwen 1.5B 未显著提升。统计未启用 L2，不作为双层评审整体收益或竞品性能排名。
+
+Claude Code、Codex 与 OpenCode 都已有审查或扩展能力。本项目的差异是把验收契约、同会话局部修复、共享预算、原生状态和白盒观察接入 PilotDeck 的交付流程。详见 [竞品问答与官方依据](docs/verified-subtasks/DEFENSE-QA.zh-CN.md)；[数据复核与复跑说明](docs/verified-subtasks/STATISTICS-REPRO.zh-CN.md) 提供可解析版本与文件指纹映射。
 
 ## 安装与启动
 
